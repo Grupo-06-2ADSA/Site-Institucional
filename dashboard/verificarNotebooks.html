@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style-responsivo.css">
+</head>
+<body onload="note()">
+    <div class="left-sidebar">
+        <img class="imgLogo" src="img/logo-MindCore.png" alt="logo">
+       
+        <div class="menu">
+            <div class="bloco 1 aqui">
+                <img class="imgBloco" src="img/computador.png">
+                <p>Verificar Notebooks</p>
+            </div>
+            <div class="bloco 2">
+                <img class="imgBloco" src="img/adicionar-usuario.png">
+                <p>Adicionar Usuário</p>
+            </div>
+            <div class="bloco 3">
+                <img class="imgBloco" src="img/recomendacao.png">
+                <p>Ações Recomendadas</p>
+            </div>
+            <div class="bloco 4">
+                <img class="imgBloco" src="img/estoque.png">
+                <p>Estoque</p>
+            </div>
+        </div>
+
+        <div class="logout">
+            <img src="img/sair.png">
+        </div>
+    </div>
+    <div class="dados">
+        <div class="perfil">
+            <div class="turmas">
+                <p>Turmas</p>
+                <select name="turmas" id="turma">
+                    <option value="adsA">ADS A</option>
+                    <option value="adsB">ADS B</option>
+                    <option value="adsC">ADS C</option>
+                    <option value="sis">SIS</option>
+                    <option value="CCO">CCO</option>
+                </select>
+            </div>
+    
+            <div class="usuario">
+                <div class="texto">
+                    <p class="nome">Olá, Heloisa</p>
+                    <p>Administrador</p>
+                </div>
+                <img src="img/usuario.png">
+            </div>
+        </div>
+
+        <div id="notebooks">
+            <div class="pesquisar">
+                <p>ID</p>
+                <input id="Pesquisar" type="number">
+                <button onclick="pesquisarNote()">Pesquisar</button>
+            </div>
+            <div id="repeticao">
+            </div>
+            <div id="myModal" class="modal">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <span class="close">&times;</span>
+                    <div class="header">
+                        <h2 id="header-title"></h2>
+                        <button class="alerta"></button>
+                    </div>
+                  </div>
+                  <div class="modal-body">
+                    
+                  </div>
+                </div>
+              
+            </div>
+        </div>
+    
+    </div>
+    
+</body>
+</html>
+<script>
+    
+    function note() {
+        for(let i = 1; i <= 36; i++){
+            repeticao.innerHTML += `<img class="note ${i}" onclick="graficos(${i})" src="img/notebook.png">
+            <p> ID: ${i}</p>
+            <div id="bolinha"></div>`;
+            if (i >= 27) {
+                repeticao.style.overflowY = "scroll";
+                notebooks.style.overflow = "hidden";
+            }
+        }
+    }
+
+    let modal = document.getElementById("myModal");
+    let span = document.getElementsByClassName("close")[0];
+
+    function graficos(id) {
+        let tituloHeader = document.getElementById("header-title");
+        modal.style.display = "block";
+        tituloHeader.innerHTML = `ID: ${id}`;
+    }
+
+    span.onclick = function(){
+        modal.style.display = "none";
+    }
+
+    window.onclick = function(event){
+        if(event.target == modal){
+            modal.style.display = "none";
+        }
+    }
+
+    function pesquisarNote(){
+        let idPesquisa = Number(Pesquisar.value);
+
+        for (let i = 1; i <= 36; i++){
+            if (i == idPesquisa) {
+                graficos(idPesquisa);
+            }
+        }
+
+        if (idPesquisa > 36) {
+            alert("Não foi possível localizar um notebook com esse ID")
+        }
+    }
+
+</script>

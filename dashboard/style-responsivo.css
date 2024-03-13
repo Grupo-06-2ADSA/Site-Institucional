@@ -1,0 +1,161 @@
+@media only screen and (max-width: 1380px) {
+    #repeticao{
+        grid-template-columns: 100px 50px 50px 100px 50px 50px 100px 50px 50px;
+    }
+
+    .pesquisar{
+        width: 32%;
+    }
+
+}
+
+@media only screen and (max-width: 940px) {
+    #repeticao{
+        grid-template-columns: 100px 50px 50px 100px 50px 50px;
+    }
+
+    .pesquisar{
+        width: 50%;
+    }
+
+}
+
+@media only screen and (max-width: 768px) {
+    body {
+        flex-direction: column;
+    }
+
+    .left-sidebar{
+        width: 100%;
+        height: 70px;
+        display: flex;
+        justify-content: space-around;
+        flex-direction: row;
+    }
+
+    .imgLogo{
+        width: 80px;
+        height: 30px;
+    } 
+
+    .menu{
+        width: 50%;
+        justify-content: space-between;
+        flex-direction: row;
+        align-items: center;
+        height: 100%;
+    }
+
+    .logout{
+        width: 5%;
+        font-size: 10px;
+        height: 100%;
+    }
+
+    .logout img {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .bloco{
+        width: 18%;
+        padding: 0;
+        justify-content: center;
+    }
+    
+    .imgBloco{
+        width: 25px;
+        height: 25px;
+        padding: 6px;
+    }
+    
+    .menu p{
+        display: none;
+    }
+
+    .perfil{
+        width: 100%;
+        height: 70px;
+    }
+
+    .turmas p {
+        color: var(--cor0);
+        font-size: 15px;
+        font-weight: bold;
+    }
+    
+    .usuario img {
+        width: 30px;
+        height: 30px;
+    }
+
+    .texto p {
+        font-size: 10px;
+    }
+    
+    .texto .nome{
+        font-weight: bold;
+        font-size: 15px;
+        color: var(--cor0);
+    }
+
+    #repeticao {
+        grid-template-columns: 80px 60px 30px 80px 60px 30px;
+        gap: 5px;
+    }
+    
+    #bolinha {
+        width: 20px;
+        height: 20px;
+        border-radius: 100px;
+        background-color: green;
+    }
+    
+    .note {
+        width: 80px;
+        height: 80px;
+    }
+
+    #header-title{
+        font-size: 15px;
+    }
+
+    .header {
+        width: 50%;
+    }
+
+    .alerta{
+        width: 90px;
+        height: 20px;
+    }
+
+    .modal-header{
+        height: 8%;
+    }
+
+    .close{
+        font-size: 30px;
+    }
+
+    .pesquisar button {
+        font-size: 12px
+    }
+}
+
+::-webkit-scrollbar {
+    width: 9px;
+}
+
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 4px grey;
+    border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--cor0);
+    border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--cor0);
+}

@@ -1,0 +1,324 @@
+@font-face {
+    font-family: "Open Sauce";
+    src: url(font/Fonts/OpenSauceTwo-Regular.ttf);
+}
+
+:root{
+    --cor0: #281549;
+    --cor1: #9340FF;
+    --cor2: #023971;
+    --cor3: #20244F;
+    --cor4: #F2F2F2;
+    --cor5: #E1E1E1;
+
+    --fonte-padrao: "Open Sauce";
+}
+
+*{
+    font-family: var(--fonte-padrao);
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+body{
+    display: flex;
+}
+
+.left-sidebar{
+    width: 20%;
+    background-color: var(--cor0);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.imgLogo{
+    width: 160px;
+    height: 50px;
+    padding: 7px;
+} 
+
+.menu{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    color: var(--cor5);
+    height: 50%;
+}
+
+.logout{
+    width: 40%;
+    display: flex;
+    justify-content: space-evenly;
+    font-size: 15px;
+    color: var(--cor5);
+    height: 40px;
+    align-items: center;
+}
+
+.logout img {
+    width: 30px;
+    height: 30px;
+}
+
+.bloco{
+    width: 80%;
+    display: flex;
+    justify-content: start;
+    font-size: 12px;
+    height: 50px;
+    align-items: center;
+    border-radius: 35px;
+    text-align: left;
+    padding: 10px;
+}
+
+.bloco:hover {
+    background-color: #9340ff11;
+}
+
+.aqui{
+    background-color: #9340ff4f;
+}
+
+.imgBloco{
+    width: 30px;
+    height: 30px;
+    padding: 5px;
+}
+
+p{
+    width: fit-content;
+    height: fit-content;
+    padding: 5px;
+}
+
+.perfil{
+    width: 100%;
+    height: 70px;
+    background-color: var(--cor4);
+    box-shadow: 3px 3px 7px 0px #727272;
+    display: flex;
+    justify-content: space-between;
+}
+
+.turmas {
+    width: 300px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--cor0);
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.usuario{
+    width: 300px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    font-size: 12px;
+}
+
+.usuario img {
+    width: 40px;
+    height: 40px;
+}
+
+.texto {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: end;
+    font-size: 12px;
+    color: var(--cor0);
+}
+
+.texto .nome{
+    font-weight: bold;
+    font-size: 20px;
+    color: var(--cor0);
+}
+
+#turma{
+    width: 150px;
+    height: 50%;
+    border-radius: 15px;
+    border: #727272;
+    padding: 7px;
+}
+
+.dados {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+#notebooks{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+
+
+#repeticao {
+    width: 80%;
+    height: 80%;
+    overflow: hidden;
+    display: grid;
+    align-items: center;
+    grid-template-columns: 100px 80px 50px 100px 80px 50px 100px 80px 50px 100px 80px 50px;
+    justify-content: center;
+    align-content: start;
+    border-radius: 15px;
+    padding: 5px;
+}
+
+#bolinha {
+    width: 20px;
+    height: 20px;
+    border-radius: 100px;
+    background-color: green;
+}
+
+.note {
+    width: 100px;
+    height: 100px;
+    cursor: pointer;
+}
+
+.modal {
+    display: none;
+    position: fixed; 
+    z-index: 1;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
+  
+.modal-content {
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 0;
+    width: 80%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s;
+    border-radius: 20px;
+}
+  
+@-webkit-keyframes animatetop {
+    from {top:-300px; opacity:0} 
+    to {top:0; opacity:1}
+}
+  
+@keyframes animatetop {
+    from {top:-300px; opacity:0}
+    to {top:0; opacity:1}
+}
+  
+.close {
+    color: var(--cor3);
+    font-size: 50px;
+}
+  
+.close:hover,
+.close:focus {
+    color: var(--cor2);
+    text-decoration: none;
+    cursor: pointer;
+}
+  
+.modal-header {
+    padding: 2px 16px;
+    background-color: var(--cor5);
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    height: 10%;
+    color: var(--cor3);
+    align-items: center;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+}
+  
+.modal-body {
+    padding: 2px 16px;
+    background-color: var(--cor4);
+}
+
+#header-title {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    margin-right: 15px;
+    height: 20%;
+}
+
+.alerta {
+    width: 100px;
+    height: 25px;
+    background-color: green;
+    border-radius: 40px;
+    border: none;
+}
+
+.header {
+    width: 30%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.pesquisar{
+    width: 20%;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    font-size: 15px;
+    font-weight: bold;
+    align-self: self-start;
+    margin-left: 25px;
+}
+
+.pesquisar input{
+    height: 20px;
+    width: 70px;
+    border-radius: 15px;
+    border-color: #281549;  
+    padding: 5px;
+    border-width: 0.5px;
+}
+
+.pesquisar button{
+    height: 30px;
+    text-align: center;
+    width: 100px;
+    background-color: #281549;
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: bold;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+}
