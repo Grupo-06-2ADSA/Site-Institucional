@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto:wght@100;300;500&display=swap');
+* {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.list{
+    display: inline;
+    background-color: #e1e1e1;
+    width: 100%;
+    height: 100%;
+}
+.list .container{
+    display: flex;
+    flex-direction: column;
+    margin-left: 3%;
+    margin-right: 3%;
+    margin-top: 100px;
+    height: 80%;
+}
+.list-header {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #EAE8ED;
+    border-radius: 10px;
+    width: 100%;
+    height: 50px;
+    font-size: 25px;
+
+}
+.list-header #nome-users{
+    width: 250px;
+}
+.list-header span{
+    display: flex;
+    justify-content: baseline;
+    align-items: center;
+}
+.list-header img{
+    width: 30px;
+    height: auto;
+    margin-right: 30px;
+}
+
+.list-users{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    background-color: #f2f2f2;
+    font-size: 20px;
+    overflow-y: scroll;
+    border-radius: 10px;
+
+}
+.user{
+    display: flex;
+    width: 100%;
+    height: 50px;
+    align-items: center;
+    justify-content: space-around;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: solid 2px #281549;
+
+}
+.email{
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+}
+.papel{
+    position: relative;
+    width: 100px;
+
+}
+.status span{
+    display: flex;
+    justify-content: center ;
+    align-items: center;
+    width: 80px;
+    background-color: chartreuse;
+    border-radius: 25px;
+}
+
+.edit{
+display: flex;
+justify-content: center;
+align-items: center;
+width: 110px;
+
+font-weight: 600;
+}
+.edit a{
+    text-decoration: none;
+    text-transform: none;
+    color: #023971;
+}
