@@ -62,13 +62,17 @@ body{
 }
 
 .logout{
-    width: 40%;
+    width: 60px;
     display: flex;
     justify-content: space-evenly;
     font-size: 15px;
     color: var(--cor5);
-    height: 40px;
+    height: 60px;
     align-items: center;
+    border-radius: 100px;
+}
+.logout:hover{
+    background-color: #9340ff4f;
 }
 
 .logout img {
@@ -150,7 +154,7 @@ p{
     flex-direction: column;
     justify-content: center;
     align-items: end;
-    font-size: 12px;
+    font-size: 20px;
     color: var(--cor0);
 }
 

@@ -63,6 +63,10 @@
     border-bottom: solid 2px #281549;
 
 }
+.user span{
+    display: flex;
+    align-items: center;
+}
 .email{
     display: flex;
     flex-direction: column;
