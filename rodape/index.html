@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title></title>
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0" />
+  <link rel="stylesheet" href="style.css" />
+  <script src="script.js" defer></script>
+</head>
+
+<body>
+  <div class="container">
+    <div class="lista-slide">
+      <button id="slide-anterior" class="slide-button material-symbols-rounded">
+        chevron_left
+      </button>
+      <ul class="lista-texto">
+        <div class="item-texto"></div>
+        <div class="item-texto"></div>
+        <div class="item-texto"></div>
+        <div class="item-texto"></div>
+      </ul>
+      <button id="proximo-slide" class="slide-button material-symbols-rounded">
+        chevron_right
+      </button>
+    </div>
+    <div class="slider-scrollbar">
+      <div class="scrollbar-track">
+        <div class="scrollbar-thumb"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="rodape">
+    <div class="boxes">
+      <div class="box">
+        <h1 class="texto-nome">MindCore</h1>
+        <p class="paragrafo-rede">Acesse nossas redes:</p>
+        <img src="img/facebook.png" alt="" class="icone">
+        <img src="img/twitter.png" alt="" class="icone">
+        <img src="img/instagram.png" alt="" class="icone">
+      </div>
+
+
+      <div class="box">
+        <h1 class="texto-endereco">
+          Endereços
+        </h1>
+        <div class="imagens">
+          <div class="logos"><img class="icone-end" src="img/localizacao.png" alt=""><span>Rua Haddock Lobo, 595</span></div>
+          <div class="logos" id="segunda-logo"><img class="icone-end" src="img/telefone.png" alt=""><span>+55 (11) 12345-6789</span></div>
+          <div class="logos" id="terceira-logo"><img class="icone-end" src="img/e-mail.png" alt=""><span>Mind.Save@gmail.com</span></div>
+        </div>
+      </div>
+
+
+
+      <div class="box">
+        <h1>Contato</h1>
+        <div class="input-contato">
+          Email:
+          <input class="input" type="text" placeholder="Mind.Save@gmail.com">
+          Mensagem:
+          <input class="input" type="text">
+        </div>
+      </div>
+
+
+    </div>
+
+  </div>
+</body>
+
+</html>
