@@ -123,14 +123,6 @@ svg {
     position: absolute;
     transform: rotate(90deg);
     margin-top: 201px;
-    height: 144px;
-    margin-left: 390px;
+    height: 149px;
+    margin-left: 380px;
 }
-
-/* #casa {
-    display: flex;
-    justify-content: end;
-    height: 20px;
-    align-items: end;
-    background-color: red;
-} */
