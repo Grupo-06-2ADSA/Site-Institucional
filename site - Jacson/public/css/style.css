@@ -1,0 +1,486 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Questrial&display=swap');
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    border: none;
+}
+
+/* BARRA DE ROLAGEM PERSONALIZADA ----------------------------------------------------------------------------------------------------- */
+
+body::-webkit-scrollbar {
+    width: 10px; /* Largura da barra de rolagem */
+  }
+  
+  body::-webkit-scrollbar-thumb {
+    background: #572876; /* Cor da parte móvel da barra de rolagem */
+    border-radius: 6px; /* Borda arredondada */
+  }
+  
+  body::-webkit-scrollbar-track {
+    background-color: transparent; /* Cor de fundo da faixa da barra de rolagem */
+  }
+
+
+/* FUNDO -----------------------------------------------------------------------------------------------------  */
+.bannerGif {
+    position: relative;
+    background-image: url('assets/img/HomeGif.gif'); /* Ajuste o caminho para o seu arquivo GIF */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100%;
+}
+
+/* NAVBAR -----------------------------------------------------------------------------------------------------*/
+
+.navbar {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    width: 100%;
+    height: 75px;
+    border-bottom: 1.7px solid rgba(255, 255, 255, 0.596);
+}
+
+.logo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.logo img {
+    height: 50px;
+    margin-left: 30px;
+    margin-right: 37px;
+}
+
+.links {
+    width: 80%;
+    height: 100%;
+    display: flex;
+}
+
+.links ul {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    align-items: center;
+    list-style-type: none;
+
+}
+
+.links a#principal  {
+    background-color: #452876;
+    padding:  5px 30px;
+    border-radius: 40px;
+    cursor: pointer;
+    border-bottom: none;
+}
+
+.links a {
+    font-family: 'Open Sans', sans-serif;
+    text-decoration: none;
+    color: white;
+    cursor: pointer;
+    font-weight: 500;
+    margin-right: 85px;
+}
+
+.links a#contatenos {
+    margin-right: 0px;
+ }
+ 
+.links a:hover {
+    border-bottom: 1.5px solid lightblue;
+    cursor: pointer;
+}
+
+/* HOME ----------------------------------------------------------------------------------------------------- */
+
+.home {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+.text {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    margin-left: 100px;
+    margin-bottom: 30px;
+    height: 50%;
+}
+
+.text h1 {
+    color: white;
+    font-family: 'Questrial', sans-serif;
+    width: 630px;
+    font-weight: 100;
+    font-size: 65px;
+}
+
+.text .btn button {
+    background-color: transparent;
+    border: 2px solid #452876;
+    color: white;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 700;
+    width: 160px;
+    height: 35px;
+    border-radius: 20px;
+    transition: 0.5s;
+    margin-top: 80px;
+    margin-bottom: 50px;
+}
+
+#botao1 {
+    margin-right: 30px;
+}
+
+.text .btn button:hover {
+    background-color: #452876;
+}
+
+/* SOBRE NOS ----------------------------------------------------------------------------------------------------- */
+
+.sobreNos {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+    width: 100%;
+    background-color: white;
+}
+
+.containerSobreNos {
+    height: 100%;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.tituloSobreNos{
+    display: flex;
+    flex-direction: row;
+    font-family: 'Open Sans', sans-serif;
+    align-items: center;
+    width: 100%;
+    height: 20%;
+    margin-bottom: 50px;
+}
+
+.tituloSobreNos h1 {
+    color: #023971;
+    font-weight: 100;
+}
+.tituloSobreNos img {
+    height: 70px;
+    margin-left: 30px;
+    margin-right: 15px;
+}
+
+.textSobreNos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: justify;
+    font-family: 'Open Sans', sans-serif;
+    color: #281549;
+    border-image: linear-gradient(to bottom, #01396f, #8635b4) 1;
+    background-clip: padding-box; 
+    border-left: 4px solid; 
+    margin-left: 25px;
+    padding-left: 30px;
+    font-size: 25px;
+    width: 90%;
+    height: 50%;
+    transition: 0.5s;
+}
+
+.textSobreNos:hover {
+    color: #af8de9;
+}
+
+.containerImgSobreNos {
+    height: 100%;
+    width: 50%;
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    position: relative; 
+}
+
+.fundoRedondo {
+    background-color: #281549;
+    border-radius: 50%; 
+    width: 70%; 
+    height: 70%; 
+}
+
+.imgSobreNos {
+    position: absolute; 
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%); 
+    z-index: 2; 
+}
+
+.imgSobreNos img {
+    height: 550px;
+    transition: 0.4s;
+}
+
+.imgSobreNos img:hover {
+    height: 600px;
+}
+
+/* MISSÃO, VISÃO, VALORES -----------------------------------------------------------------------------------------------------*/
+.mvv {
+    height: 100vh;
+    width: 100%;
+}
+
+.tituloMVV{
+    display: flex;
+    flex-direction: row;
+    font-family: 'Questrial', sans-serif;
+    align-items: center;
+    width: 100%;
+    height: 15%;
+    margin-bottom: 50px;
+}
+
+.tituloMVV h1 {
+    color: #023971;
+    font-weight: 100;
+}
+.tituloMVV img {
+    height: 70px;
+    margin-left: 30px;
+    margin-right: 15px;
+}
+
+.containerMVV {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    height: 85%;
+}
+
+.missao, .visao, .valores {
+    height: 70%;
+    width: 20%;
+    margin-bottom: 100px;
+    transition: 0.5s;
+    background-color: #281549;
+}
+
+.missao:hover, .visao:hover, .valores:hover {
+    height: 80%;
+    width: 24%;
+    margin-bottom: 100px;
+    background-color: #281549;
+}
+
+.missao .tituloMVV, .visao .tituloMVV, .valores .tituloMVV {
+    height: 30%;
+    width: 100%;
+    margin: 0;
+}
+
+.missao .tituloMVV h1, .visao .tituloMVV h1, .valores .tituloMVV h1 {
+    color: white;
+    font-size: 'Questrial', sans-serif;
+    border-image: linear-gradient(to bottom, #01396f, #8635b4) 1;
+    background-clip: padding-box; 
+    transition: 0.5s;
+    padding-left: 16px;
+    border-bottom: 3px solid; 
+}
+
+.missao .tituloMVV img {
+    padding-left: 25px;
+    margin-bottom: 25px;
+}
+
+.visao .tituloMVV img {
+    padding-left: 40px;
+    margin-bottom: 25px;
+}
+
+.valores .tituloMVV img {
+    padding-left: 2px;
+    margin-bottom: 25px;
+}
+
+
+.missao .textMVV, .visao .textMVV, .valores .textMVV {
+    height: 70%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: justify;
+    font-family: 'Open Sans', sans-serif;
+    color: white;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-left: 14px;
+    font-size: 15px;
+    width: 90%;
+    height: 50%;
+    transition: 0.5s;
+}
+
+/* TIME -----------------------------------------------------------------------------------------------------*/
+
+.time {
+    height: 130vh; /* Altura igual à altura da janela de visualização */
+    width: 100%;
+    background-image: url(assets/img/MindCore\ \(2\).png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+}
+
+.container h1 {
+    font-size: 25px;
+    color: #9340FF;
+    font-family: 'Open Sans', sans-serif;
+    transition: 0.5s;
+}
+
+.container h1:hover {
+    color: #be8dff;
+}
+
+.container p {
+    color: white;
+    font-family: 'Questrial', sans-serif;
+    margin-bottom: 1px;
+}
+
+.caixaTime {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: end;
+    height: 70%;
+    width: 100%;
+}
+
+.imagemTime {
+    padding-top: 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 41%;
+    width: 20%;
+}
+
+.foto {
+    height: 64%;
+    width: 53%;
+    border-radius: 210px;
+    background-color: white;
+}
+
+.caixaTime01 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 30%;
+    width: 100%;
+}
+
+.imagemTime01 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    width: 21%;
+}
+
+
+
+.imagemTime01 .foto {
+    height: 58%;
+    width: 52%;
+    border-radius: 210px;
+    background-color: white;
+}
+
+.icone {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
+    height: 20%;
+}
+
+.icon {
+    display: flex;
+    justify-content: center;
+    height: 70%;
+    width: 15%;
+    transition: 0.5s;
+}
+
+.icon a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%; 
+    width: 100%; 
+}
+
+.icon img {
+    height: 60%;
+    width: 45%;
+}
+
+.imagemTime01 .icon img {
+    height: 56%;
+    width: 45%;
+}
+
+.imagemTime01 .icon:hover img {
+    height: 60%;
+    width: 48%;
+    border-bottom: 2px solid #9340FF;
+    cursor: pointer;
+}
+
+
+.imagemTime .icon:hover img {
+    height: 64%;
+    width: 50%;
+    border-bottom: 2px solid #9340FF;
+    cursor: pointer;
+}
+
+/* ------------------------------------------------------------------------------------------------------------*/
