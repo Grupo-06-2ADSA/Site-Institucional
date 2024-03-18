@@ -1,3 +1,4 @@
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -9,7 +10,7 @@ public class Main {
         System.out.println("""
                 **      **  **  **   **  *******         ********  **********  *********    *********
                 ** **** **  **  ***  **  **     **      **         **      **  **      **   **
-                **  **  **  **  ** * **  **      **    **          **      **  *********    *****  
+                **  **  **  **  ** * **  **      **    **          **      **  *********    *****
                 **      **  **  **  ***  **     **      **         **      **  **   **      **
                 **      **  **  **   **  *******         ********  **********  **     **    *********
                 
@@ -17,25 +18,31 @@ public class Main {
                 1 - Login
                 2 - Cadastro
                 """);
-        Integer escolha = leitor.nextInt();
+        int escolha = leitor.nextInt();
 
         AutenticacaoUsuario autenticacaoUsuario = new AutenticacaoUsuario();
 
-        List<String> listaUsuarios = new ArrayList<>();
-        List<Integer> listaSenhas = new ArrayList<>();
+        List<String> listaDadosUsuario = new ArrayList<>();
 
-        listaUsuarios.add("André");
-        listaSenhas.add(12345);
 
-        listaUsuarios.add("Sofia");
-        listaSenhas.add(54321);
+        listaDadosUsuario.add("andre.silva@sptech.school");
+        listaDadosUsuario.add("14789523610024");
+        listaDadosUsuario.add("SPTech School");
+        listaDadosUsuario.add("11914257111");
+        listaDadosUsuario.add("12345");
+
+        listaDadosUsuario.add("sofia.machado@sptech.school");
+        listaDadosUsuario.add("74729523740015");
+        listaDadosUsuario.add("SPTech School");
+        listaDadosUsuario.add("11978962477");
+        listaDadosUsuario.add("54321");
 
         switch (escolha) {
             case 1 -> {
-                autenticacaoUsuario.FazerLogin(listaUsuarios,listaSenhas);
+                autenticacaoUsuario.FazerLogin(listaDadosUsuario);
             }
             case 2 -> {
-                autenticacaoUsuario.FazerCadastro(listaUsuarios, listaSenhas);
+                autenticacaoUsuario.FazerCadastro(listaDadosUsuario);
             }
         }
 

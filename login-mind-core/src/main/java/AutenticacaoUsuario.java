@@ -3,11 +3,14 @@ import java.util.Scanner;
 
 public class AutenticacaoUsuario {
     Scanner leitor = new Scanner(System.in);
-    void RealizarLogin(String usuario, Integer senha, List<String> listaUsuarios, List<Integer> listaSenhas){
-        Boolean hasCadastro = false;
+    Scanner leitorNome = new Scanner(System.in);
 
-        for (int i = 0; i < listaUsuarios.size(); i++){
-            if (usuario.equals(listaUsuarios.get(i)) && senha.equals(listaSenhas.get(i))) {
+    // Realiza a verificação na lista de dados
+    void RealizarLogin(String email, String senha, List<String> listaDadosUsuario){
+        boolean hasCadastro = false;
+
+        for (int i = 0; i < listaDadosUsuario.size(); i++){
+            if (listaDadosUsuario.get(i).equals(email) && listaDadosUsuario.get(i + 4).equals(senha)) {
                 hasCadastro = true;
                 break;
             }
@@ -24,76 +27,109 @@ public class AutenticacaoUsuario {
             String respostaConta = leitor.next();
 
             if (respostaConta.equalsIgnoreCase("s")){
-                FazerCadastro(listaUsuarios,listaSenhas);
+                FazerCadastro(listaDadosUsuario);
             }
         } else {
             System.out.println("Acesso negado!");
         }
     }
 
-    void CadastrarUsuario(String usuario, Integer senha, Integer confirmacaoSenha, List<String> listaUsuarios, List<Integer> listaSenhas){
-        listaUsuarios.add(usuario);
+    // Cadastra os dados na lista
+    void CadastrarUsuario(String email, String cnpj, String nomeEmpresa, String telefone, String senha,  List<String> listaDadosUsuario){
+        listaDadosUsuario.add(email);
+        listaDadosUsuario.add(cnpj);
+        listaDadosUsuario.add(nomeEmpresa);
+        listaDadosUsuario.add(telefone);
+        listaDadosUsuario.add(senha);
 
-        if (confirmacaoSenha.equals(senha)){
-            listaSenhas.add(senha);
-            System.out.println("Cadastrado com sucesso!");
+        System.out.println("Cadastrado com sucesso!");
+    }
 
-            System.out.println("""
-                    Deseja entrar na sua conta?
-                    s - sim
-                    n - não
-                    """);
-            String respostaConta = leitor.next();
+    // Monta a estrutura do login
+    void FazerLogin(List<String> listaDadosUsuario){
+        System.out.println();
+        System.out.println("****** Entre na sua conta ******");
+        System.out.print("Email: ");
+        String email = leitor.next();
 
-            if (respostaConta.equalsIgnoreCase("s")) {
-                FazerLogin(listaUsuarios, listaSenhas);
+        System.out.print("Senha: ");
+        String senha = leitor.next();
+
+        RealizarLogin(email, senha, listaDadosUsuario);
+    }
+
+    // Monta a estrutura do cadastro
+    void FazerCadastro(List<String> listaDadosUsuario){
+        System.out.println();
+        System.out.println("****** Cadastro ******");
+        System.out.print("Email: ");
+        String email;
+
+        do {
+            email = leitor.next();
+
+            if (email.contains("@") && email.contains(".")){
+                break;
             }
-        } else {
-            do {
-                System.out.println();
-                System.out.print("""
-                        A confirmação está incorreta
-                        Por favor, confirme sua senha:
-                        """);
-                confirmacaoSenha = leitor.nextInt();
 
-            } while (!confirmacaoSenha.equals(senha));
+            System.out.println("Email deve conter '@' e '.'");
+        } while (true);
 
-            listaSenhas.add(senha);
+        System.out.print("CNPJ - apenas números: ");
+        String cnpj;
 
-            System.out.println("Cadastrado com sucesso!");
-        }
-    }
+        do {
+            cnpj = leitor.next();
 
-    void FazerLogin(List<String> listaUsuarios, List<Integer> listaSenhas){
-        System.out.println();
-        System.out.print("""
-                ****** Entre na sua conta ******
-                Usuário: 
-                """);
-        String usuario = leitor.next();
+            if (cnpj.length() == 14){
+                break;
+            }
+
+            System.out.println("CNPJ deve conter 14 dígitos");
+        } while (true);
+
+
+        System.out.print("Nome da empresa: ");
+        String nomeEmpresa;
+
+        do {
+            nomeEmpresa = leitorNome.nextLine();
+
+            if (!nomeEmpresa.isEmpty()){
+                break;
+            }
+
+            System.out.println("Nome inválido");
+        } while (true);
+
+        System.out.print("Telefone - apenas números: ");
+        String telefone;
+
+        do {
+            telefone = leitor.next();
+
+            if (telefone.length() == 11) {
+                break;
+            }
+
+            System.out.println("Telefone deve conter 11 dígitos");
+
+        } while (true);
 
         System.out.print("Senha: ");
-        Integer senha = leitor.nextInt();
+        String senha;
 
-        RealizarLogin(usuario, senha, listaUsuarios, listaSenhas);
-    }
+        do {
+            senha = leitor.next();
 
-    void FazerCadastro(List<String> listaUsuarios, List<Integer> listaSenhas){
-        System.out.println();
-        System.out.print("""
-                ****** Cadastre-se ******
-                Usuário: 
-                """);
-        String usuario = leitor.next();
+            if (senha.length() >= 6){
+                break;
+            }
 
-        System.out.print("Senha: ");
-        Integer senha = leitor.nextInt();
+            System.out.println("Senha deve conter 6 dígitos ou mais");
+        } while (true);
 
-        System.out.print("Confirmação de senha: ");
-        Integer confirmacaoSenha = leitor.nextInt();
-
-        CadastrarUsuario(usuario, senha, confirmacaoSenha, listaUsuarios, listaSenhas);
+        CadastrarUsuario(email, cnpj, nomeEmpresa, telefone, senha, listaDadosUsuario);
     }
 
 }
