@@ -29,13 +29,13 @@ public class Main {
         listaDadosUsuario.add("14789523610024");
         listaDadosUsuario.add("SPTech School");
         listaDadosUsuario.add("11914257111");
-        listaDadosUsuario.add("12345");
+        listaDadosUsuario.add("123456");
 
         listaDadosUsuario.add("sofia.machado@sptech.school");
         listaDadosUsuario.add("74729523740015");
         listaDadosUsuario.add("SPTech School");
         listaDadosUsuario.add("11978962477");
-        listaDadosUsuario.add("54321");
+        listaDadosUsuario.add("654321");
 
         switch (escolha) {
             case 1 -> {
