@@ -96,6 +96,7 @@
     align-items: center;
     justify-content: center;
     font-family: 'Open Sans', sans-serif;
+    font-weight: 100;
     margin-top: 40px;
     color: #ffffff;
   }
@@ -163,6 +164,7 @@
   .boxes{
     width: 100%;
     display: flex;
+    margin-bottom: 30px;
     justify-content: space-around;
   }
 
@@ -177,6 +179,10 @@
     width: 100%;
     display: flex;
     justify-content: start;
+  }
+
+  .box h1 {
+    font-weight: 500;
   }
 
   .box .icone{
@@ -207,6 +213,7 @@
   .input{
     border-radius: 3px;
     height: 20px;
+    width: 200px;
   }
 
   .input-contato{
