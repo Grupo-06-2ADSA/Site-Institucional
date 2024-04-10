@@ -1,11 +1,21 @@
+import com.github.britooo.looca.api.core.Looca;
+import com.github.britooo.looca.api.group.discos.Disco;
+import com.github.britooo.looca.api.group.discos.DiscoGrupo;
+import com.github.britooo.looca.api.group.memoria.Memoria;
+import com.github.britooo.looca.api.group.processador.Processador;
+import com.github.britooo.looca.api.group.processos.ProcessoGrupo;
+import com.github.britooo.looca.api.group.servicos.ServicoGrupo;
+import com.github.britooo.looca.api.group.sistema.Sistema;
+import com.github.britooo.looca.api.group.temperatura.Temperatura;
+
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class Main {
+
     public static void main(String[] args) {
-        Scanner leitor = new Scanner(System.in);
 
         System.out.println("""
                 **      **  **  **   **  *******         ********  **********  *********    *********
@@ -14,37 +24,38 @@ public class Main {
                 **      **  **  **  ***  **     **      **         **      **  **   **      **
                 **      **  **  **   **  *******         ********  **********  **     **    *********
                 
-                Escolha uma forma de acesso!
-                1 - Login
-                2 - Cadastro
                 """);
-        int escolha = leitor.nextInt();
 
-        AutenticacaoUsuario autenticacaoUsuario = new AutenticacaoUsuario();
+        Looca looca = new Looca();
+
+        Sistema sistema = looca.getSistema();
+        Memoria memoria = looca.getMemoria();
+        Processador processador = looca.getProcessador();
+        Temperatura temperatura = looca.getTemperatura();
+        DiscoGrupo grupodeDiscos = looca.getGrupoDeDiscos();
+        List<Disco> discos = grupodeDiscos.getDiscos();
+
+        for (Disco disco : discos) {
+            System.out.println(disco);
+        }
+
+        AutenticacaoUsuario autenticacaoUsuario = new AutenticacaoUsuario(sistema, memoria, processador, temperatura, grupodeDiscos);
 
         List<String> listaDadosUsuario = new ArrayList<>();
 
-
         listaDadosUsuario.add("andre.silva@sptech.school");
-        listaDadosUsuario.add("14789523610024");
-        listaDadosUsuario.add("SPTech School");
-        listaDadosUsuario.add("11914257111");
         listaDadosUsuario.add("123456");
 
         listaDadosUsuario.add("sofia.machado@sptech.school");
-        listaDadosUsuario.add("74729523740015");
-        listaDadosUsuario.add("SPTech School");
-        listaDadosUsuario.add("11978962477");
         listaDadosUsuario.add("654321");
 
-        switch (escolha) {
-            case 1 -> {
-                autenticacaoUsuario.FazerLogin(listaDadosUsuario);
-            }
-            case 2 -> {
-                autenticacaoUsuario.FazerCadastro(listaDadosUsuario);
-            }
-        }
+        autenticacaoUsuario.teste();
+
+        autenticacaoUsuario.FazerLogin(listaDadosUsuario);
+
+
+
+
 
     }
 }
