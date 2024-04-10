@@ -1,23 +1,25 @@
 @media only screen and (max-width: 1380px) {
-    #repeticao{
-        grid-template-columns: 100px 50px 50px 100px 50px 50px 100px 50px 50px;
-    }
 
     .pesquisar{
         width: 32%;
     }
 
+    .header-tabela img {
+        width: 30px;
+        height: 30px;
+    }
+
 }
 
 @media only screen and (max-width: 940px) {
-    #repeticao{
-        grid-template-columns: 100px 50px 50px 100px 50px 50px;
-    }
 
     .pesquisar{
         width: 50%;
     }
 
+    .bloco {
+        font-size: 15px;
+    }
 }
 
 @media only screen and (max-width: 768px) {
@@ -99,9 +101,9 @@
         color: var(--cor0);
     }
 
-    #repeticao {
-        grid-template-columns: 80px 60px 30px 80px 60px 30px;
-        gap: 5px;
+    .header-tabela img{
+        width: 20px;
+        height: 20px;
     }
     
     #bolinha {
