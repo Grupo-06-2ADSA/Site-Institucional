@@ -6,8 +6,6 @@ import Entidades.Computador;
 import java.sql.PreparedStatement;
 
 public class ComputadorDAO {
-    Computador computador = new Computador();
-
     public static boolean cadastrarComputador(Computador computador){
         String sql = "INSERT INTO infoPc (sistemaOperacional, memoriaUso, discoUso) VALUES (?, ?, ?)";
         PreparedStatement ps = null;
