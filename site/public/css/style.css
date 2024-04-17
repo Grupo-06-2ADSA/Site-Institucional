@@ -90,6 +90,10 @@ body::-webkit-scrollbar {
     margin-right: 85px;
 }
 
+.links a#cadastro1 {
+  margin-right: 75px;
+}
+
 .links a#contatenos {
     margin-right: 0px;
  }
@@ -749,7 +753,7 @@ body::-webkit-scrollbar {
     }
   } */
 
-  @media screen and (max-width: 1020px) {
+  @media only screen and (max-width: 940px) {
     body{
       width: 100%;
       overflow-x: hidden;
@@ -759,8 +763,12 @@ body::-webkit-scrollbar {
       flex-direction: column-reverse;
     }
     
-    .links{
+    .links a{
       display: none;
+    }
+
+    .links a#cadastro1 {
+      display: flex;
     }
 
     .containerMVV{
@@ -778,7 +786,7 @@ body::-webkit-scrollbar {
 
     .imagemTime01{
       width: 700px;
-      height: 400px;
+      height: 360px;
     }
 
     .box{
@@ -793,6 +801,17 @@ body::-webkit-scrollbar {
       display: none;
     }
 
+    .caixaTime{
+      height: 60%;
+    }
+
+    .ondulacao{
+      margin-top: -10px;
+    }
+
+    .boxes{
+      margin-top: 50px;
+    }
     
   }
 

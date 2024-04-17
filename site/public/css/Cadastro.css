@@ -105,7 +105,7 @@ span {
     flex-direction: column;
 }
 
-#titulo2 {
+.titulo2 {
     margin-left: 20px;
 }
 
@@ -123,6 +123,43 @@ svg {
     position: absolute;
     transform: rotate(90deg);
     margin-top: 201px;
-    height: 192px;
+    height: 149px;
     margin-left: 380px;
+}
+
+@media screen and (max-width: 1020px) {
+    body {
+        flex-direction: column;
+        overflow: hidden;
+    }
+
+    .container {
+        width: 106%;
+        height: 88%;
+    }
+
+    svg {
+        transform: rotate(180deg);
+        margin-left: -20px;
+        width: 103%;
+        margin-top: 950px;
+        height: 200px;
+    }
+
+    .div_2 {
+        display: none;
+    }
+
+    .card {
+        margin-top: 50px;
+    }
+
+}
+
+@media screen and (min-width: 900px) {
+    
+    svg {
+        height: 149px;
+        margin-left: 260px;
+    }
 }

@@ -37,7 +37,7 @@ body {
 
 }
 
-.card img#casa {
+.card img.casa {
     display: flex;
     margin-left: 540px;
     margin-top: 15px;
@@ -45,7 +45,7 @@ body {
     transition: all ease 0.3s;
 }
 
-#casa:hover {
+.casa:hover {
     transform: scale(1.05);
 }
 
@@ -124,10 +124,54 @@ svg {
     position: absolute;
     transform: rotate(270deg);
     margin-top: 201px;
-    height: 192px;
-    margin-left: 310px;
+    height: 149px;
+    margin-left: 300px;
 }
 
 .span #referenciaCadastro {
     text-decoration: none;
+}
+
+
+@media screen and (max-width: 1023px) {
+    
+    body {
+        flex-direction: column-reverse;
+        overflow-x: hidden;
+    }
+
+    .container {
+        width: 103%;
+        margin-left: -20px;
+        margin-bottom: 180px;
+    }
+
+    svg {
+        margin-left: 0px;
+        transform: rotate(180deg);
+        height: 184px;
+    }
+
+    .formulario {
+        height: 500px;
+    }
+
+    .div_2 {
+        display: none;
+    }
+
+    .card {
+        margin-top: 150px;
+    }
+}
+
+@media screen and (min-width: 1020px){
+
+    body {
+        width: 100%;
+    }
+
+    .card img.casa{
+        margin-left: 540px;
+    }
 }
