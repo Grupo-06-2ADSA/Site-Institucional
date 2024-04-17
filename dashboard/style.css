@@ -120,6 +120,8 @@ p{
     width: fit-content;
     height: fit-content;
     padding: 5px;
+    display: flex;
+    justify-content: center;
 }
 
 .perfil{
@@ -243,29 +245,35 @@ p{
 .header-tabela img {
     width: 30px;
     height: 30px;
-    margin-right: 20px;
 }
 
 .header-tabela p {
-    width: 250px;
     display: flex;
     align-items: center;
     cursor: pointer;
 }
 
 .header-tabela .id-campo {
-    width: 50px;
+    width: 100px;
 }
 
 #status_campo{
     width: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#ult_mod{
+    width: 200px;
+    margin-right: 70px;
+
 }
 
 #editar{
     text-decoration: underline;
     color: #023971;
     cursor: pointer;
-    margin-right: 15px;
 }
 
 .bolinha {
@@ -359,9 +367,16 @@ p{
 .alerta {
     width: 100px;
     height: 25px;
-    background-color: green;
     border-radius: 40px;
     border: none;
+}
+
+.red {
+    background-color: red;
+}
+
+.green {
+    background-color: green;
 }
 
 #header {
@@ -409,3 +424,4 @@ p{
     border-radius: 15px;
     cursor: pointer;
 }
+

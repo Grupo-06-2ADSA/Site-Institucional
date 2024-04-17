@@ -22,9 +22,10 @@
     font-weight: 800;
 }
 
-.list-header #nome-users {
-    width: 300px;
+#nome-users {
+    width: 150px;
 }
+
 
 .list-header span {
     display: flex;

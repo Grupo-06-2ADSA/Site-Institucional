@@ -69,7 +69,7 @@
 
         <div id="notebooks">
             <div class="pesquisar">
-                <p>HostName</p>
+                <p>HostName:</p>
                 <input id="Pesquisar">
                 <button onclick="pesquisarNote()">Pesquisar</button>
             </div>
@@ -77,7 +77,7 @@
                 <p class="id-campo">HostName</p>
                 <p id="status_campo">Status <img src="img/ordenar-decrescente.png" id="img_ordenar"></p>
                 <p id="ult_mod">Última modificação <img src="img/ordenar-decrescente.png" id="img_ordenar2"></p>
-                <img src="img/botao-editar.png" alt="">
+                <span></span>
             </div>
             <div id="repeticao">
 
@@ -161,9 +161,9 @@
 
     function note() {
 
-        for (let i = 0; i <= computadores.length; i++) {
+        for (let i = 0; i < computadores.length; i++) {
             repeticao.innerHTML += `
-            <div id="campo" onclick="graficos(${computadores[i].hostName})">
+            <div id="campo" onclick="graficos('${computadores[i].hostName}')">
                 <p>${computadores[i].hostName}</p>
                 <div class="bolinha" id="bolinha${i}"></div>
                 <p>${computadores[i].ultimaModificação}</p>
@@ -194,12 +194,12 @@
         modal.style.display = "block";
         tituloHeader.innerHTML += `HostName: ${hostname}`;
 
-
+    
         for (let i = 0; i < computadores.length; i++){
-            tituloHeader.innerHTML = `<button class="alerta" id="alerta${i}"></button>`
-            if (computadores[i].status == 1) {
-                const elemento = document.getElementById('alerta' + i);
-                elemento.setAttribute("style", "background-color: red;");
+            if (hostname == computadores[i].hostName){
+                let statusComputador = computadores[i].status == 1 ? "red" : "green";
+                
+                tituloHeader.innerHTML += `<button class="alerta ${statusComputador}" id="alerta${i}"></button>`;
             }
         }
 

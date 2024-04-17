@@ -21,7 +21,7 @@
       <div class="bloco 1">
         <a href="verificarNotebooks.html">
           <img class="imgBloco" src="img/computador.png">
-          <p>Verificar Notebooks</p>
+          <p>Parque de Máquinas</p>
         </a>
 
       </div>
@@ -72,11 +72,16 @@
     </div>
 
     <div class="list" id="list">
+      <div class="pesquisar">
+        <p>Nome:</p>
+        <input id="Pesquisar">
+        <button onclick="pesquisarUsuario()">Pesquisar</button>
+      </div>
       <div class="list-header">
 
         <span id="nome-users">Nome</span>
-        <span>Papel</span>
-        <span>Status</span>
+        <span id="papel">Papel</span>
+        <span id="status">Status</span>
         <img src="img/add.png">
       </div>
       <div class="list-users" id="listaUsers">
@@ -188,9 +193,21 @@
 
     function Usuarios() {
       if (i >= 7) {
-            listaUsers.style.overflowY = "scroll";
-            list.style.overflow = "hidden";
+        listaUsers.style.overflowY = "scroll";
+        list.style.overflow = "hidden";
+      }
+    }
+
+    function pesquisarUsuario() {
+      let usuarioPesquisa = Pesquisar.value;
+
+      for (let i = 0; i <= jsonLista.length; i++) {
+        if (usuarioPesquisa == jsonLista[i].nome) {
+          //graficos(usuarioPesquisa);
+          alert("Achou")
+          break;
         }
+      }
     }
 
   }
