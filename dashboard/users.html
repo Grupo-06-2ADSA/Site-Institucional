@@ -1,155 +1,165 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Usuários</title>
-    <link rel="shortcut icon" href="img/circle-MindCore.png" type="image/x-icon">
-    <link rel="stylesheet" href="users.css">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="style-responsivo.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Usuários</title>
+  <link rel="shortcut icon" href="img/circle-MindCore.png" type="image/x-icon">
+  <link rel="stylesheet" href="users.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style-responsivo.css">
 </head>
-<body> 
-    
-    <div class="left-sidebar">
-            
-      <img class="imgLogo" src="img/logo-MindCore.png" alt="logo">
-       
-      <div class="menu">
-          <div class="bloco 1">
-            <a href="verificarNotebooks.html">
-              <img class="imgBloco" src="img/computador.png">
-              <p>Verificar Notebooks</p>
-            </a>
-              
-          </div>
-          <div class="bloco 2 aqui">
-            <a href="users.html">
-              <img class="imgBloco" src="img/adicionar-usuario.png">
-              <p>Adicionar Usuário</p>
-            </a>
-          </div>
-          <div class="bloco 3">
-              <img class="imgBloco" src="img/recomendacao.png">
-              <p>Ações Recomendadas</p>
-          </div>
-          <div class="bloco 4">
-              <img class="imgBloco" src="img/estoque.png">
-              <p>Estoque</p>
-          </div>
+
+<body onload="Usuarios()">
+
+  <div class="left-sidebar">
+
+    <img class="imgLogo" src="img/logo-MindCore.png" alt="logo">
+
+    <div class="menu">
+      <div class="bloco 1">
+        <a href="verificarNotebooks.html">
+          <img class="imgBloco" src="img/computador.png">
+          <p>Verificar Notebooks</p>
+        </a>
+
       </div>
-
-      <div class="logout">
-          <img src="img/sair.png">
+      <div class="bloco 2 aqui">
+        <a href="users.html">
+          <img class="imgBloco" src="img/adicionar-usuario.png">
+          <p>Adicionar Usuário</p>
+        </a>
       </div>
-  </div>
-  <div class="dados">
-      <div class="perfil">
-          <div class="turmas">
-              <p>Turmas</p>
-              <select name="turmas" id="turma">
-                  <option value="adsA">ADS A</option>
-                  <option value="adsB">ADS B</option>
-                  <option value="adsC">ADS C</option>
-                  <option value="sis">SIS</option>
-                  <option value="CCO">CCO</option>
-              </select>
-          </div>
-  
-          <div class="usuario">
-              <div class="texto">
-                  <p class="nome">Olá, Heloisa</p>
-                  <p>Administrador</p>
-              </div>
-              <img src="img/usuario.png">
-          </div>
+      <div class="bloco 3">
+        <a href="">
+          <img class="imgBloco" src="img/historia.png">
+          <p>Histórico</p>
+        </a>
       </div>
-
-        <div class="list">
-            <div class="container">
-                <div class="list-header">
-                    <span id="nome-users">Nome</span>
-                    <span>Papel</span>
-                    <span>Status</span>
-                    <img src="img/add.png">
-                </div>
-                <div class="list-users" id="listaUsers">
-               
-                </div>
-            </div>
-        </div>
-
-
+      <div class="bloco 4">
+        <a href="">
+          <img class="imgBloco" src="img/estoque.png">
+          <p>Estoque</p>
+        </a>
+      </div>
     </div>
 
-    
-    
+    <div class="logout">
+      <img src="img/sair.png">
+    </div>
+  </div>
+  <div class="dados">
+    <div class="perfil">
+      <div class="turmas">
+        <p>Turmas</p>
+        <select name="turmas" id="turma">
+          <option value="adsA">ADS A</option>
+          <option value="adsB">ADS B</option>
+          <option value="adsC">ADS C</option>
+          <option value="sis">SIS</option>
+          <option value="CCO">CCO</option>
+        </select>
+      </div>
+
+      <div class="usuario">
+        <div class="texto">
+          <p id="nomeUsuario"></p>
+          <p>Administrador</p>
+        </div>
+        <img src="img/usuario.png">
+      </div>
+    </div>
+
+    <div class="list" id="list">
+      <div class="list-header">
+
+        <span id="nome-users">Nome</span>
+        <span>Papel</span>
+        <span>Status</span>
+        <img src="img/add.png">
+      </div>
+      <div class="list-users" id="listaUsers">
+
+
+      </div>
+    </div>
+
+
+  </div>
+
+
+
 </body>
+
 </html>
 <script>
-    const jsonLista = [
-  {
-    nome: "João Silva",
-    email: "joao@example.com",
-    papel: "Administrador",
-    status: "Ativo"
-  },
-  {
-    nome: "Maria Oliveira",
-    email: "maria@example.com",
-    papel: "Visualizador",
-    status: "Ativo"
-  },
-  {
-    nome: "Carlos Santos",
-    email: "carlos@example.com",
-    papel: "Administrador",
-    status: "Inativo"
-  },
-  {
-    nome: "Ana Costa",
-    email: "ana@example.com",
-    papel: "Visualizador",
-    status: "Ativo"
-  },
-  {
-    nome: "Pedro Sousa",
-    email: "pedro@example.com",
-    papel: "Visualizador",
-    status: "Inativo"
-  },
-  {
-    nome: "Luísa Fernandes",
-    email: "luisa@example.com",
-    papel: "Administrador",
-    status: "Ativo"
-  },
-  {
-    nome: "Marta Almeida",
-    email: "marta@example.com",
-    papel: "Visualizador",
-    status: "Inativo"
-  },
-  {
-    nome: "Rui Gonçalves",
-    email: "rui@example.com",
-    papel: "Administrador",
-    status: "Ativo"
-  },
-  {
-    nome: "Sofia Rodrigues",
-    email: "sofia@example.com",
-    papel: "Visualizador",
-    status: "Ativo"
-  },
-  {
-    nome: "Paulo Costa",
-    email: "paulo@example.com",
-    papel: "Visualizador",
-    status: "Inativo"
-  }
-];
-for(var i = 0;i<jsonLista.length; i++){
+  const jsonLista = [
+    {
+      nome: "João Silva",
+      email: "joao@example.com",
+      papel: "Administrador",
+      status: "Ativo"
+    },
+    {
+      nome: "Maria Oliveira",
+      email: "maria@example.com",
+      papel: "Técnico",
+      status: "Ativo"
+    },
+    {
+      nome: "Carlos Santos",
+      email: "carlos@example.com",
+      papel: "Administrador",
+      status: "Inativo"
+    },
+    {
+      nome: "Ana Costa",
+      email: "ana@example.com",
+      papel: "Técnico",
+      status: "Ativo"
+    },
+    {
+      nome: "Pedro Sousa",
+      email: "pedro@example.com",
+      papel: "Técnico",
+      status: "Inativo"
+    },
+    {
+      nome: "Luísa Fernandes",
+      email: "luisa@example.com",
+      papel: "Administrador",
+      status: "Ativo"
+    },
+    {
+      nome: "Marta Almeida",
+      email: "marta@example.com",
+      papel: "Técnico",
+      status: "Inativo"
+    },
+    {
+      nome: "Rui Gonçalves",
+      email: "rui@example.com",
+      papel: "Administrador",
+      status: "Ativo"
+    },
+    {
+      nome: "Sofia Rodrigues",
+      email: "sofia@example.com",
+      papel: "Técnico",
+      status: "Ativo"
+    },
+    {
+      nome: "Paulo Costa",
+      email: "paulo@example.com",
+      papel: "Técnico",
+      status: "Inativo"
+    }
+  ];
+
+  nomeUsuario.innerHTML = "Olá, " + jsonLista[2].nome;
+
+  for (var i = 0; i < jsonLista.length; i++) {
     listaUsers.innerHTML += `
     <div class="user" id="0${i}">
         <div class="email">
@@ -171,12 +181,19 @@ for(var i = 0;i<jsonLista.length; i++){
 
     </div>
     `
-    if(jsonLista[i].status == "Inativo"){
-        const elemento = document.getElementById('status'+i);
-        elemento.setAttribute("style", "background-color: red;");
+    if (jsonLista[i].status == "Inativo") {
+      const elemento = document.getElementById('status' + i);
+      elemento.setAttribute("style", "background-color: red;");
     }
-    
-}
+
+    function Usuarios() {
+      if (i >= 7) {
+            listaUsers.style.overflowY = "scroll";
+            list.style.overflow = "hidden";
+        }
+    }
+
+  }
 
 
 </script>

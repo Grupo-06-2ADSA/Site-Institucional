@@ -1,58 +1,54 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto:wght@100;300;500&display=swap');
-* {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-}
-
-.list{
-    display: inline;
+.list {
     width: 100%;
     height: 100%;
-}
-.list .container{
     display: flex;
+    align-items: center;
+    justify-content: center;
     flex-direction: column;
-    margin-left: 3%;
-    margin-right: 3%;
-    margin-top: 80px;
-    height: 80%;
 }
+
 .list-header {
+    width: 77%;
+    height: 20px;
+    background-color: #7272725c;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
     display: flex;
     justify-content: space-around;
+    padding: 1.5%;
     align-items: center;
-    background-color: #EAE8ED;
-    border-radius: 10px;
-    width: 100%;
-    height: 50px;
-    font-size: 25px;
+    color: #281549;
+    font-style: italic;
+    font-weight: 800;
+}
 
+.list-header #nome-users {
+    width: 300px;
 }
-.list-header #nome-users{
-    width: 250px;
-}
-.list-header span{
+
+.list-header span {
     display: flex;
     justify-content: baseline;
     align-items: center;
 }
-.list-header img{
+
+.list-header img {
     width: 30px;
     height: auto;
-    margin-right: 30px;
 }
 
-.list-users{
+.list-users {
     display: flex;
     flex-direction: column;
-    width: 100%;
-    height: 100%;
+    width: 80%;
+    height: 70%;
     background-color: #f2f2f2;
     font-size: 20px;
-    overflow-y: scroll;
-    border-radius: 10px;
-
+    overflow: hidden;
+    border-bottom-left-radius: 15px;
 }
-.user{
+
+.user {
     display: flex;
     width: 100%;
     height: 50px;
@@ -60,41 +56,48 @@
     justify-content: space-around;
     padding-top: 10px;
     padding-bottom: 10px;
-    border-bottom: solid 2px #281549;
-
+    border-bottom: solid 0.5px #02397185;
+    font-size: 17px;
 }
-.user span{
+
+.user:hover{
+    background-color: #20244f0b;
+}
+
+.user span {
     display: flex;
     align-items: center;
 }
-.email{
+
+.email {
     display: flex;
     flex-direction: column;
     width: 300px;
 }
-.papel{
-    position: relative;
-    width: 100px;
 
+.papel {
+    position: relative;
+    width: 200px;
 }
-.status span{
+
+.status span {
     display: flex;
-    justify-content: center ;
+    justify-content: center;
     align-items: center;
     width: 80px;
     background-color: chartreuse;
     border-radius: 25px;
 }
 
-.edit{
-display: flex;
-justify-content: center;
-align-items: center;
-width: 110px;
-
-font-weight: 600;
+.edit {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 110px;
+    font-weight: 600;
 }
-.edit a{
+
+.edit a {
     text-decoration: none;
     text-transform: none;
     color: #023971;

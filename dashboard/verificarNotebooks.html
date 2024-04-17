@@ -28,12 +28,16 @@
                 </a>
             </div>
             <div class="bloco 3">
-                <img class="imgBloco" src="img/recomendacao.png">
-                <p>Ações Recomendadas</p>
+                <a href="">
+                    <img class="imgBloco" src="img/historia.png">
+                    <p>Histórico</p>
+                </a>
             </div>
             <div class="bloco 4">
-                <img class="imgBloco" src="img/estoque.png">
-                <p>Estoque</p>
+                <a href="">
+                    <img class="imgBloco" src="img/estoque.png">
+                    <p>Estoque</p>
+                </a>
             </div>
         </div>
 
@@ -65,12 +69,12 @@
 
         <div id="notebooks">
             <div class="pesquisar">
-                <p>ID</p>
-                <input id="Pesquisar" type="number">
+                <p>HostName</p>
+                <input id="Pesquisar">
                 <button onclick="pesquisarNote()">Pesquisar</button>
             </div>
             <div class="header-tabela">
-                <p class="id-campo">ID</p>
+                <p class="id-campo">HostName</p>
                 <p id="status_campo">Status <img src="img/ordenar-decrescente.png" id="img_ordenar"></p>
                 <p id="ult_mod">Última modificação <img src="img/ordenar-decrescente.png" id="img_ordenar2"></p>
                 <img src="img/botao-editar.png" alt="">
@@ -99,4 +103,133 @@
 </body>
 
 </html>
-<script src="funcoes.js"></script>
+<script>
+    const computadores = [
+        {
+            hostName: "adsA1",
+            ultimaModificação: "10/03/2024",
+            status: 0
+        },
+        {
+            hostName: "adsA2",
+            ultimaModificação: "10/03/2024",
+            status: 1
+        },
+        {
+            hostName: "adsA3",
+            ultimaModificação: "10/03/2024",
+            status: 0
+        },
+        {
+            hostName: "adsA4",
+            ultimaModificação: "10/03/2024",
+            status: 0
+        },
+        {
+            hostName: "adsA5",
+            ultimaModificação: "10/03/2024",
+            status: 0
+        },
+        {
+            hostName: "adsA6",
+            ultimaModificação: "10/03/2024",
+            status: 1
+        },
+        {
+            hostName: "adsA7",
+            ultimaModificação: "10/03/2024",
+            status: 1
+        },
+        {
+            hostName: "adsA8",
+            ultimaModificação: "10/03/2024",
+            status: 0
+        },
+        {
+            hostName: "adsA9",
+            ultimaModificação: "10/03/2024",
+            status: 0
+        },
+        {
+            hostName: "adsA10",
+            ultimaModificação: "10/03/2024",
+            status: 0
+        }
+    ];
+
+
+
+    function note() {
+
+        for (let i = 0; i <= computadores.length; i++) {
+            repeticao.innerHTML += `
+            <div id="campo" onclick="graficos(${computadores[i].hostName})">
+                <p>${computadores[i].hostName}</p>
+                <div class="bolinha" id="bolinha${i}"></div>
+                <p>${computadores[i].ultimaModificação}</p>
+                <p id="editar">Editar</p>
+            </div>`;
+
+            
+            if (computadores[i].status == 1) {
+                const elemento = document.getElementById('bolinha' + i);
+                elemento.setAttribute("style", "background-color: red;");
+            }
+
+            if (i >= 7) {
+                repeticao.style.overflowY = "scroll";
+                notebooks.style.overflow = "hidden";
+            }
+        }
+    }
+
+
+    let modal = document.getElementById("myModal");
+    let span = document.getElementsByClassName("close")[0];
+
+    function graficos(hostname) {
+        let tituloHeader = document.getElementById("header-title");
+
+        tituloHeader.innerHTML = "";
+        modal.style.display = "block";
+        tituloHeader.innerHTML += `HostName: ${hostname}`;
+
+
+        for (let i = 0; i < computadores.length; i++){
+            tituloHeader.innerHTML = `<button class="alerta" id="alerta${i}"></button>`
+            if (computadores[i].status == 1) {
+                const elemento = document.getElementById('alerta' + i);
+                elemento.setAttribute("style", "background-color: red;");
+            }
+        }
+
+    }
+
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
+
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+    function pesquisarNote() {
+        let hostNamePesquisa = Pesquisar.value;
+
+        for (let i = 0; i <= computadores.length; i++) {
+            if (hostNamePesquisa == computadores[i].hostName) {
+                graficos(hostNamePesquisa);
+            }
+        }
+
+    }
+
+    let statusCampo = document.getElementById("status_campo");
+    let modificacao = document.getElementById("ult_mod");
+
+    statusCampo.onclick = function () {
+        img_ordenar.innerHTML = "img/ordenar-decrescente.png";
+    }
+</script>
