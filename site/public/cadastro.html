@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro</title>
+    <script src="js/sessao.js"></script>
     <link rel="stylesheet" href="css/Cadastro.css">
     <link rel="shortcut icon" href="assets/img/login-cadastro/1logo-MindCore.png" type="image/x-icon">
 </head>
@@ -17,31 +18,41 @@
                 <div class="campo">
                     <span>E-mail</span>
                     <img id="img1" src="assets/img/login-cadastro/do-utilizador.png" alt="">
-                    <input id="input_1" type="text">
+                    <input id="input_email" type="text">
                 </div>
                 <div class="campo">
                     <span>CNPJ</span>
                     <img id="img1" src="assets/img/login-cadastro/documento-de-texto.png" alt="">
-                    <input id="input_1" type="text" >
+                    <input id="input_cnpj" type="text" maxlength="14" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" >
                 </div>
                 <div class="campo">
                     <img id="img1" src="assets/img/login-cadastro/predio-comercial.png" alt="">
                     <span>Nome da Empresa</span>
-                    <input id="input_1" type="text" >
+                    <input id="input_nome" type="text" >
                 </div>
                 <div class="campo">
                     <span>Telefone</span>
                     <img id="img1" src="assets/img/login-cadastro/silhueta-de-alca-de-telefone.png" alt="">
-                    <input id="input_1" type="text">
+                    <input id="input_telefone" type="text" maxlength="11" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" >
                 </div>
                 <div class="campo">
                     <span>Senha</span>
                     <img id="img1" src="assets/img/login-cadastro/cadeado.png" alt="">
-                    <input id="input_1" type="text">
+                    <input id="input_senha" type="password" minlength="6">
                 </div>
-                <button class="button" onclick="buttonCadastro()">
+                <button class="button" onclick="Cadastrar()">
                     Cadastrar
                 </button>
+                <!-- MENSAGEM DE ERRO -->
+                <div class="alerta_erro">
+                    <div class="card_erro" id="cardErro">
+                      <span id="mensagem_erro"></span>
+                    </div>
+                  </div>
+                  <div id="div_aguardar" class="loading-div">
+                    <img src="assets/img/login-cadastro/aguarde-orange.gif" id="loading-gif" />
+                  </div>
+
                 <span>Já possui uma conta? <a href="login.html">Entrar</a></span>
             </div>
         </div>
@@ -55,3 +66,146 @@
     
 </body>
 </html>
+<script>
+        var emailVar;
+        var cnpjVar;
+        var nomeVar;
+        var telefoneVar;
+        var senhaVar;
+        var tipoVar = 'empresa';
+    function Cadastrar(){
+        mensagem_erro.innerHTML = ""
+        aguardar();
+
+        emailVar = input_email.value;
+        cnpjVar = input_cnpj.value;
+        nomeVar = input_nome.value;
+        telefoneVar = input_telefone.value;
+        senhaVar = input_senha.value;
+         if (nomeVar == "" || nomeVar.length < 1) {
+        cardErro.style.display = "block";
+        mensagem_erro.innerHTML +=
+            "Insire o nome da empresa<br>";
+
+        finalizarAguardar();
+        return false;
+    }
+    else if (emailVar == "" || emailVar.indexOf('@') < 0 || emailVar.indexOf('.com') < 0) {
+        cardErro.style.display = "block";
+        mensagem_erro.innerHTML +=
+            "Email precisa ter @ e .com <br>";
+
+        finalizarAguardar();
+        return false;
+    }
+    else if (senhaVar == "" || senhaVar.length < 6) {
+        cardErro.style.display = "block";
+        mensagem_erro.innerHTML +=
+            "A senha precisa ter pelo menos 6 caracteres <br>";
+
+        finalizarAguardar();
+        return false;
+    }
+    else if (telefoneVar == "" || telefoneVar.length < 11) {
+        cardErro.style.display = "block";
+        mensagem_erro.innerHTML +=
+            "Insira um telefone válido";
+
+        finalizarAguardar();
+        return false;
+    }
+    else if (cnpjVar == "" || cnpjVar.length < 14) {
+        cardErro.style.display = "block";
+        mensagem_erro.innerHTML +=
+            "Insira um cnpj válido";
+
+        finalizarAguardar();
+        return false;
+    }
+
+    else {
+        setInterval(sumirMensagem, 5000);
+    }
+    fetch("/usuarios/cadastrar", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            // crie um atributo que recebe o valor recuperado aqui
+            // Agora vá para o arquivo routes/usuario.js
+            cnpjServer: cnpjVar,
+            nomeServer: nomeVar,
+            telefoneServer: telefoneVar,
+        }),
+    })
+        .then(function (resposta) {
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+                cardErro.style.display = "block";
+                console.log("Tudo ok chamando funçao cadastrar funcionario")
+                setTimeout(() => {
+                    cadastrarFuncionarioEmpresa();
+                }, "2000");
+            } else {
+                throw "Houve um erro ao tentar realizar o cadastro!";
+            }
+        })
+        .catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+            finalizarAguardar();
+        });
+
+    return false;
+}
+
+function cadastrarFuncionarioEmpresa(){
+    fetch("/usuarios/cadastrarFuncionarioEmpresa", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            // crie um atributo que recebe o valor recuperado aqui
+            // Agora vá para o arquivo routes/usuario.js
+            emailServer: emailVar,
+            cnpjServer: cnpjVar,
+            nomeServer: nomeVar,
+            telefoneServer: telefoneVar,
+            senhaServer: senhaVar,
+            tipoServer: tipoVar
+        }),
+    })
+    .then(function (resposta) {
+        console.log("resposta: ", resposta);
+
+        if (resposta.ok) {
+            cardErro.style.display = "block";
+
+            mensagem_erro.innerHTML =
+                "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
+
+            setTimeout(() => {
+                window.location = "login.html";
+            }, "2000");
+
+            limparFormulario();
+            finalizarAguardar();
+        } else {
+            throw "Houve um erro ao tentar realizar o cadastro!";
+        }
+    })
+    .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+        finalizarAguardar();
+    });
+}
+
+
+
+function sumirMensagem() {
+    cardErro.style.display = "none";
+}
+   
+</script>

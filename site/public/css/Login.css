@@ -62,7 +62,7 @@ span {
     color: #023971;
 }
 
-.campo #input_1 {
+input {
     width: 215px;
     height: 35px;
     border-radius: 50px;

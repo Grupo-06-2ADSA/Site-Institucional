@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <script src="js/sessao.js"></script>
     <link rel="stylesheet" href="css/Login.css">
     <link rel="shortcut icon" href="assets/img/login-cadastro/1logo-MindCore.png" type="image/x-icon">
 </head>
@@ -22,21 +23,99 @@
                 <div class="campo">
                     <span>E-mail</span>
                     <img id="img1" src="assets/img/login-cadastro/do-utilizador.png" alt="">
-                    <input id="input_1" type="text">
+                    <input id="input_email" type="text">
                 </div>
                 <div class="campo">
                     <span>Senha</span>
                     <img id="img1" src="assets/img/login-cadastro/cadeado.png" alt="">
-                    <input id="input_1" type="text">
+                    <input id="input_senha" type="password">
                 </div>
-                <button class="button" onclick="buttonCadastro()">
-                    Entrar
-                </button>
-                <span>Não tem uma conta? <a href="cadastro.html">Cadastre-se</a></span>
+
+                <div class="alerta_erro">
+                <span class="card_erro" id="cardErro">
+                
+                
             </div>
+            <button class="button" onclick="entrar()">
+                Entrar
+            </button>
+            <span>Não tem uma conta? <a href="cadastro.html">Cadastre-se</a></span>
         </div>
     </div>
     
     
 </body>
 </html>
+
+<script>
+    function entrar() {
+        // aguardar();
+
+        var emailVar = input_email.value;
+        var senhaVar = input_senha.value;
+
+        if (emailVar == "" || senhaVar == "") {
+            // cardErro.style.display = "block"
+            cardErro.innerHTML = "Email ou Senha incorretos!";
+            // finalizarAguardar();
+            return false;
+        }
+        else {
+            setInterval(sumirMensagem, 5000)
+        }
+
+        console.log("FORM LOGIN: ", emailVar);
+        console.log("FORM SENHA: ", senhaVar);
+
+        fetch("/usuarios/autenticar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                emailServer: emailVar,
+                senhaServer: senhaVar
+            })
+        }).then(function (resposta) {
+            console.log("ESTOU NO THEN DO entrar()!")
+
+            if (resposta.ok) {
+                console.log(resposta);
+
+                resposta.json().then(json => {
+                    console.log(json);
+                    console.log(JSON.stringify(json));
+                    sessionStorage.EMAIL_USUARIO = json.email;
+                    sessionStorage.NOME_USUARIO = json.nome;
+                    sessionStorage.EMPRESA_USUARIO = json.fkEmpresa;
+                    sessionStorage.TIPO_USUARIO = json.tipo;
+
+                    setTimeout(function () {
+                        window.location = "../dashboard/verificarNotebooks.html";
+                    }, 1000); // apenas para exibir o loading
+
+                });
+
+            } else {
+
+                console.log("Houve um erro ao tentar realizar o login!");
+                cardErro.innerHTML = "Email ou Senha incorretos!";
+
+                resposta.text().then(texto => {
+                    console.error(texto);
+                    // finalizarAguardar(texto);
+                });
+            }
+
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+
+        return false;
+    }
+
+    function sumirMensagem() {
+        cardErro.style.display = "none"
+    }
+
+</script>

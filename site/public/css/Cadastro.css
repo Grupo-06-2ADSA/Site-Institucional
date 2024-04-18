@@ -60,7 +60,7 @@ span {
     color: #023971;
 }
 
-.campo #input_1 {
+input {
     width: 215px;
     height: 35px;
     border-radius: 50px;
@@ -126,6 +126,38 @@ svg {
     height: 149px;
     margin-left: 380px;
 }
+
+.loading-div {
+    width: 50px;
+    display: none;
+  }
+  
+  .loading-div img {
+    height: 50px;
+    width: 50px;
+  }
+  
+  #div_erros_login {
+    display: none
+  }
+  
+  .alerta_erro{
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .card_erro {
+    /* display: none; */
+   background-color: transparent;
+   text-align: center;
+   color: rgb(196, 6, 148);
+  }
+  
+  .card_erro #mensagem_erro{
+    font-weight: 500;
+    font-size: 20px;
+  }
+  
 
 @media screen and (max-width: 1020px) {
     body {
