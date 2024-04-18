@@ -5,12 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard | Máquinas</title>
-    <link rel="shortcut icon" href="img/circle-MindCore.png" type="image/x-icon">
+    <script src="../js/sessao.js"></script>
+    <link rel="shortcut icon" href="img/circle-MindCore-azul.png" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="style-responsivo.css">
 </head>
 
-<body onload="note()">
+<body onload="note(), validarSessao()">
     <div class="left-sidebar">
         <img class="imgLogo" src="img/logo-MindCore.png" alt="logo">
 
@@ -41,7 +42,7 @@
             </div>
         </div>
 
-        <div class="logout">
+        <div class="logout" onclick="limparSessao()">
             <img src="img/sair.png">
         </div>
     </div>
@@ -60,8 +61,8 @@
 
             <div class="usuario">
                 <div class="texto">
-                    <p class="nome">Olá, Heloisa</p>
-                    <p>Administrador</p>
+                    <p class="nome" id="nomeUsuario">Olá, </p>
+                    <p id="tipoUsuario">Administrador</p>
                 </div>
                 <img src="img/usuario.png">
             </div>

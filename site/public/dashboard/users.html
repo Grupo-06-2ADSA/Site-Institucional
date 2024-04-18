@@ -1,17 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard | Usuários</title>
-  <link rel="shortcut icon" href="img/circle-MindCore.png" type="image/x-icon">
+  <script src="../js/sessao.js"></script>
+  <link rel="shortcut icon" href="img/circle-MindCore-azul.png" type="image/x-icon">
   <link rel="stylesheet" href="users.css">
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="style-responsivo.css">
 </head>
 
-<body onload="Usuarios()">
+<body onload="Usuarios(), validarSessao()">
 
   <div class="left-sidebar">
 
@@ -45,7 +46,7 @@
       </div>
     </div>
 
-    <div class="logout">
+    <div class="logout" onclick="limparSessao()">
       <img src="img/sair.png">
     </div>
   </div>
@@ -64,11 +65,11 @@
 
       <div class="usuario">
         <div class="texto">
-          <p id="nomeUsuario"></p>
-          <p>Administrador</p>
+            <p class="nome" id="nomeUsuario">Olá, </p>
+            <p id="tipoUsuario">Administrador</p>
         </div>
         <img src="img/usuario.png">
-      </div>
+    </div>
     </div>
 
     <div class="list" id="list">
@@ -214,10 +215,6 @@
       status: "Inativo"
     }
   ];
-
-  nomeUsuario.innerHTML = "Olá, " + jsonLista[2].nome;
-
-
 
   function Usuarios() {
     for (var i = 0; i < jsonLista.length; i++) {

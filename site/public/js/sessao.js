@@ -9,7 +9,7 @@ function validarSessao() {
     var tipoUsuario = document.getElementById("tipoUsuario");
     
     if (email != null && nome != null && tipo != null && cnpj != null) {
-        nomeUsuario.innerHTML = nome;
+        nomeUsuario.innerHTML += nome;
         tipoUsuario.innerHTML = tipo
     } else {
         window.location = "../login.html";
