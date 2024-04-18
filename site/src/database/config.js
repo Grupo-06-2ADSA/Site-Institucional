@@ -22,7 +22,7 @@ var mySqlConfig = {
     host: "localhost",
     database: "mindcore",
     user: "root",
-    password: "Felipe@145514",
+    password: "",
 };
 
 function executar(instrucao) {
