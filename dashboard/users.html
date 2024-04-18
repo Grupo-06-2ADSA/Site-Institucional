@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Usuários</title>
+  <title>Dashboard | Usuários</title>
   <link rel="shortcut icon" href="img/circle-MindCore.png" type="image/x-icon">
   <link rel="stylesheet" href="users.css">
   <link rel="stylesheet" href="style.css">
@@ -32,7 +32,7 @@
         </a>
       </div>
       <div class="bloco 3">
-        <a href="">
+        <a href="historico.html">
           <img class="imgBloco" src="img/historia.png">
           <p>Histórico</p>
         </a>
@@ -72,7 +72,7 @@
     </div>
 
     <div class="list" id="list">
-      <div class="pesquisar">
+      <div class="pesquisar" id="srcUsuario">
         <p>Nome:</p>
         <input id="Pesquisar">
         <button onclick="pesquisarUsuario()">Pesquisar</button>
@@ -85,7 +85,60 @@
         <img src="img/add.png">
       </div>
       <div class="list-users" id="listaUsers">
+      </div>
 
+      <button onclick="AdicionarUsuario()" class="adicionar">Adicionar</button>
+
+      <div id="modalAdicionar" class="modalUsuario">
+        <div class="modal-conteudo">
+          <div class="modal-header-usuario">
+            <span class="close">&times;</span>
+            <div id="header">
+              <h2 id="header-title-usuario"></h2>
+            </div>
+          </div>
+          <div class="modal-body-usuario">
+            <div class="formulario">
+              <div class="campo">
+                <span>Nome</span>
+                <input type="text">
+              </div>
+              <div class="campo">
+                <span>Email</span>
+                <input type="email">
+              </div>
+              <div class="campo">
+                <span>Cargo</span>
+                <select name="" id="">
+                  <option selected disabled value="">Selecionar</option>
+                  <option value="gestor">Gestor</option>
+                  <option value="tecnico">Técnico</option>
+                </select>
+              </div>
+              <div class="campo">
+                <span>Status</span>
+                <select name="" id="">
+                  <option selected disabled value="">Selecionar</option>
+                  <option value="ativo">Ativo</option>
+                  <option value="inativo">Inativo</option>
+                </select>
+              </div>
+              <div class="campo">
+                <span>Turno</span>
+                <select name="" id="">
+                  <option selected disabled value="">Selecionar</option>
+                  <option value="manha">Manhã</option>
+                  <option value="tarde">Tarde</option>
+                  <option value="noite">Noite</option>
+                </select>
+              </div>
+              <div class="botoes">
+                <button class="cancelar">Cancelar</button>
+                <button class="adicionar-botao">Adicionar</button>
+              </div>
+            </div>
+          </div>
+        </div>
 
       </div>
     </div>
@@ -164,9 +217,51 @@
 
   nomeUsuario.innerHTML = "Olá, " + jsonLista[2].nome;
 
-  for (var i = 0; i < jsonLista.length; i++) {
-    listaUsers.innerHTML += `
-    <div class="user" id="0${i}">
+
+
+  function Usuarios() {
+    for (var i = 0; i < jsonLista.length; i++) {
+      listaUsers.innerHTML += `
+        <div class="user" id="0${i}">
+            <div class="email">
+                <span id="name">${jsonLista[i].nome}</span>
+                <span id="mail">${jsonLista[i].email}</span>
+            </div>
+            <div class="papel">
+                <span>${jsonLista[i].papel}</span>
+            </div>
+            <div class="status">
+                <span id="status${i}">${jsonLista[i].status}</span>
+    
+            </div>
+            <div class="edit">
+              <a href=""><span>Editar</span></a>
+                
+    
+            </div>
+    
+        </div>
+        `
+      if (jsonLista[i].status == "Inativo") {
+        const elemento = document.getElementById('status' + i);
+        elemento.setAttribute("style", "background-color: red;");
+      }
+      if (i >= 7) {
+        listaUsers.style.overflowY = "scroll";
+        list.style.overflow = "hidden";
+      }
+    }
+
+
+  }
+
+  function pesquisarUsuario() {
+    let usuarioPesquisa = Pesquisar.value;
+
+    for (let i = 0; i <= jsonLista.length; i++) {
+      if (usuarioPesquisa == jsonLista[i].nome) {
+        //graficos(usuarioPesquisa);
+        listaUsers.innerHTML = `<div class="user" id="0${i}">
         <div class="email">
             <span id="name">${jsonLista[i].nome}</span>
             <span id="mail">${jsonLista[i].email}</span>
@@ -180,37 +275,43 @@
         </div>
         <div class="edit">
           <a href=""><span>Editar</span></a>
-            
-
         </div>
 
-    </div>
-    `
-    if (jsonLista[i].status == "Inativo") {
-      const elemento = document.getElementById('status' + i);
-      elemento.setAttribute("style", "background-color: red;");
-    }
+        </div>`
 
-    function Usuarios() {
-      if (i >= 7) {
-        listaUsers.style.overflowY = "scroll";
-        list.style.overflow = "hidden";
+        srcUsuario.innerHTML += `<span id="limpar" onclick="LimparPesquisa()">Limpar</span>`;
+
+        break;
+      } else {
+        Usuarios();
       }
     }
-
-    function pesquisarUsuario() {
-      let usuarioPesquisa = Pesquisar.value;
-
-      for (let i = 0; i <= jsonLista.length; i++) {
-        if (usuarioPesquisa == jsonLista[i].nome) {
-          //graficos(usuarioPesquisa);
-          alert("Achou")
-          break;
-        }
-      }
-    }
-
   }
 
+  function LimparPesquisa() {
+    Usuarios();
+    let limpar = document.getElementById("limpar");
 
+    limpar.style.display = "none";
+  }
+
+  let modal = document.getElementById("modalAdicionar");
+  let span = document.getElementsByClassName("close")[0];
+
+  function AdicionarUsuario() {
+    let tituloHeader = document.getElementById("header-title-usuario");
+
+    modal.style.display = "block";
+    tituloHeader.innerHTML = `Adicionar novo usuário`;
+  }
+
+  span.onclick = function () {
+    modal.style.display = "none";
+  }
+
+  window.onclick = function (event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
 </script>

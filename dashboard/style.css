@@ -425,3 +425,9 @@ p{
     cursor: pointer;
 }
 
+.pesquisar span {
+    height: fit-content;
+    color: #281549;
+    font-style: italic;
+    cursor: pointer;
+}
