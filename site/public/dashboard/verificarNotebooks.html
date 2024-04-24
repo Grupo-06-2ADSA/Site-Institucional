@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard | Máquinas</title>
-    <script src="../js/sessao.js"></script>
+    <!-- <script src="../js/sessao.js"></script> -->
     <link rel="shortcut icon" href="img/circle-MindCore-azul.png" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="style-responsivo.css">
@@ -16,31 +16,34 @@
         <img class="imgLogo" src="img/logo-MindCore.png" alt="logo">
 
         <div class="menu">
-            <div class="bloco 1 aqui">
-                <a href="verificarNotebooks.html">
-                    <img class="imgBloco" src="img/computador.png">
-                    <p>Parque de Máquinas</p>
-                </a>
+            <div class="bloco 1">
+              <a href="dash.html">
+                <img class="imgBloco" src="img/historia.png">
+                <p>Dashboard</p>
+              </a>
             </div>
-            <div class="bloco 2">
-                <a href="users.html">
-                    <img class="imgBloco" src="img/adicionar-usuario.png">
-                    <p>Adicionar Usuário</p>
-                </a>
+      
+            <div class="bloco 2 aqui">
+              <a href="verificarNotebooks.html">
+                <img class="imgBloco" src="img/computador.png">
+                <p>Parque de Máquinas</p>
+              </a>
             </div>
-            <div class="bloco 3">
-                <a href="historico.html">
-                    <img class="imgBloco" src="img/historia.png">
-                    <p>Histórico</p>
-                </a>
+      
+            <div class="bloco 3 ">
+              <a href="users.html">
+                <img class="imgBloco" src="img/adicionar-usuario.png">
+                <p>Adicionar Usuário</p>
+              </a>
             </div>
+        
             <div class="bloco 4">
-                <a href="">
-                    <img class="imgBloco" src="img/estoque.png">
-                    <p>Estoque</p>
-                </a>
+              <a href="">
+                <img class="imgBloco" src="img/estoque.png">
+                <p>Estoque</p>
+              </a>
             </div>
-        </div>
+          </div>
 
         <div class="logout" onclick="limparSessao()">
             <img src="img/sair.png">
@@ -62,7 +65,7 @@
             <div class="usuario">
                 <div class="texto">
                     <p class="nome" id="nomeUsuario">Olá, </p>
-                    <p id="tipoUsuario">Administrador</p>
+                    <p id="tipoUsuario">Técnico</p>
                 </div>
                 <img src="img/usuario.png">
             </div>
@@ -92,6 +95,54 @@
                         </div>
                     </div>
                     <div class="modal-body">
+                        <div class="dashs">
+                            <div class="cpu">
+                                <h3>CPU: I3 11500U</h3>
+                                <!-- Gráfico -->
+                                <canvas id="myChartCPU" style="display: block; box-sizing: border-box; height: 100px; width: 200px;"></canvas>
+                                <div class="infos">
+                                    <div class="info">
+                                        <h5>Tempo de Atividade</h5>
+                                <span>0:01:35:54</span>
+                                    </div>
+                                    <div class="info">
+                                        <h5>Uso CPU%</h5>
+                                <span>60%</span>
+                                    </div>
+                                    <div class="info">
+                                        <h5>Temperatura</h5>
+                                <span>55ºC</span>
+                                    </div>
+                                </div>
+                            </div>
+    
+                            <div class="ram">
+                                <h3>Memória Ram: 8GB</h3>
+                                <div class="chart">
+                                    <canvas id="myChartRAM" style="display: block; box-sizing: border-box; height: 100px; width: 150px;"></canvas>
+                                    <canvas id="myChartRAM2" style="display: block; box-sizing: border-box; height: 30px; width: 30px;"></canvas>
+                                </div>   
+                            </div>
+
+                        </div>
+
+                        <div class="dashs">
+                            <div class="rede">
+                                <h3>Wifi</h3>
+                                <h3>Nome da rede:</h3>
+                                <span>Hl_Student</span>
+                            </div>
+
+                            <div class="disco">
+                                <h3>Disco: 500GB</h3>
+                                <canvas id="myChartDISCO" style="display: block; box-sizing: border-box; height: 100px; width: 150px;"></canvas>
+
+                            </div>
+                        </div>
+
+                        
+
+                       
 
                     </div>
                 </div>
@@ -104,6 +155,7 @@
 </body>
 
 </html>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
     const computadores = [
         {
@@ -233,4 +285,102 @@
     statusCampo.onclick = function () {
         img_ordenar.innerHTML = "img/ordenar-decrescente.png";
     }
+</script>
+<script>
+    //CHART CPU------------------------------------------------------
+const labelsCPU = ['60s', '50s', '40s', '30s', '20s', '10s', '0s'];    
+const dataCPU = {
+  labels: labelsCPU,
+  datasets: [{
+    label: 'Uso CPU %',
+    data: [59, 80, 81, 56, 55, 40, 60, 0, 100],
+    fill: false,
+    borderColor: '#9340FF',
+    tension: 0.1
+  }]
+};
+const configCPU = {
+    type: 'line',
+    data: dataCPU,
+  };
+
+    const myChartCPU = new Chart(
+        document.getElementById('myChartCPU'),
+        configCPU
+    );
+
+    // CHART RAM-----------------------------------------------------
+
+const labelsRAM = ['60s', '50s', '40s', '30s', '20s', '10s', '0s'];    
+const dataRAM = {
+  labels: labelsRAM,
+  datasets: [{
+    label: 'Uso RAM %',
+    data: [59, 80, 81, 56, 55, 40, 60, 0, 100],
+    fill: false,
+    borderColor: '#9340FF',
+    tension: 0.1
+  }]
+};
+const configRAM = {
+    type: 'line',
+    data: dataRAM,
+  };
+
+    const myChartRAM = new Chart(
+        document.getElementById('myChartRAM'),
+        configRAM
+    );
+
+    const dataRAM2 = {
+        labels: [
+          'Em uso',
+          'Disponível'
+        ],
+        datasets: [{
+          label: 'MB',
+          data: [3466, 4534],
+          backgroundColor: [
+            '#9340FF',
+            '#023971'
+          ],
+          hoverOffset: 4
+        }]
+      };
+      const configRAM2 = {
+        type: 'pie',
+        data: dataRAM2,
+      };
+    
+        const myChartRAM2 = new Chart(
+            document.getElementById('myChartRAM2'),
+            configRAM2
+        );
+        // DISCO-------------------------------------------------------
+        const dataDISCO = {
+            labels: [
+              'Em uso',
+              'Disponível'
+            ],
+            datasets: [{
+              label: 'GB',
+              data: [320, 180],
+              backgroundColor: [
+                '#9340FF',
+                '#023971'
+              ],
+              hoverOffset: 4
+            }]
+          };
+          const configDISCO = {
+            type: 'pie',
+            data: dataDISCO,
+          };
+        
+            const myChartDISCO = new Chart(
+                document.getElementById('myChartDISCO'),
+                configDISCO
+            );
+
+    
 </script>

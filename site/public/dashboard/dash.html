@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard</title>
+<script src="../js/sessao.js"></script>
+<link rel="shortcut icon" href="img/circle-MindCore-azul.png" type="image/x-icon">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style-responsivo.css">
+</head>
+
+<body onload="note(), validarSessao()">
+<div class="left-sidebar">
+    <img class="imgLogo" src="img/logo-MindCore.png" alt="logo">
+
+    <div class="menu">
+        <div class="bloco 1 aqui">
+            <a href="dash.html">
+            <img class="imgBloco" src="img/historia.png">
+            <p>Dashboard</p>
+            </a>
+        </div>
+    
+        <div class="bloco 2">
+            <a href="verificarNotebooks.html">
+            <img class="imgBloco" src="img/computador.png">
+            <p>Parque de Máquinas</p>
+            </a>
+        </div>
+    
+        <div class="bloco 3 ">
+            <a href="users.html">
+            <img class="imgBloco" src="img/adicionar-usuario.png">
+            <p>Adicionar Usuário</p>
+            </a>
+        </div>
+    
+        <div class="bloco 4">
+            <a href="">
+            <img class="imgBloco" src="img/estoque.png">
+            <p>Estoque</p>
+            </a>
+        </div>
+        </div>
+
+    <div class="logout" onclick="limparSessao()">
+        <img src="img/sair.png">
+    </div>
+</div>
+<div class="dados">
+    <div class="perfil">
+        <div class="turmas">
+            <p>Turmas</p>
+            <select name="turmas" id="turma">
+                <option value="geral" selected>Geral</option>
+                <option value="adsA">ADS A</option>
+                <option value="adsB">ADS B</option>
+                <option value="adsC">ADS C</option>
+                <option value="sis">SIS</option>
+                <option value="CCO">CCO</option>
+            </select>
+        </div>
+
+        <div class="usuario">
+            <div class="texto">
+                <p class="nome" id="nomeUsuario">Olá, </p>
+                <p id="tipoUsuario">Técnico</p>
+            </div>
+            <img src="img/usuario.png">
+        </div>
+    </div>
+
+    <div class="dash">
+        <div class="kpis">
+            <div class="kpi 1">
+                <h2>Máquinas inoperantes</h2>
+                <span>30</span>
+            </div>
+            <div class="kpi 2">
+                <h2>Máquinas sem limpeza a mais de 6 meses</h2>
+                <span>07</span>
+            </div>
+            <div class="kpi 3">
+                <h2>Máquinas reservas</h2>
+                <span>15</span>
+        </div>
+        <div class="kpi 4">
+            <h2>Manutenções pendentes</h2>
+            <span>3</span>
+    </div>
+        
+        </div>
+
+        <div class="problemas">
+            <h1>Problemas recorrentes</h1>
+            <canvas id="myChart" style="display: block; box-sizing: border-box; height: 300px; width: 1018px;"></canvas>
+        </div>
+
+        <div class="componentes">
+            <span>Componentes em falta</span>
+            <div class="lista">
+                <div class="titulo">
+                    <div class="nome">
+                        <span>Nome</span>
+                    </div>
+                    <div class="preco">
+                        <span>Preço</span>
+                    </div> 
+                </div>
+    
+                <div class="item">
+                    <div class="nome">
+                        <span>Bateria</span>
+                    </div>
+                    <div class="preco">
+                        <span>90</span>
+                    </div> 
+                </div>
+    
+                <div class="item">
+                    <div class="nome">
+                        <span>Memória</span>
+                    </div>
+                    <div class="preco">
+                        <span>110</span>
+                    </div> 
+                </div>
+                <div class="item">
+                    <div class="nome">
+                        <span>HD</span>
+                    </div>
+                    <div class="preco">
+                        <span>200</span>
+                    </div> 
+                </div>
+
+            </div>
+
+            
+
+        </div>
+            
+        
+    </div>
+
+
+</div>
+
+</body>
+
+</html>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const labels = [
+        'Memória',
+        'Rede',
+        'Disco',
+        'Temperatura',
+        'Limpeza',
+        'CPU',
+        'Bateria',
+    ];
+
+    const data = {
+        labels: labels,
+        datasets: [{
+            label: 'Problema',
+            data: [3, 10, 5, 2, 7, 2, 4],
+            backgroundColor: '#281549',
+            borderColor: '#a5efd3',
+
+        }]
+    };
+    const config = {
+        type: 'bar',
+        data: data,
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                title: {
+                    display: false,
+                    text: 'Problemas recorrentes'
+                }
+            }
+        }
+    };
+</script>
+<script>
+    const myChart = new Chart(
+        document.getElementById('myChart'),
+        config
+    );
+</script>

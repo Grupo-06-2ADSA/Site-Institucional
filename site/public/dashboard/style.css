@@ -293,7 +293,7 @@ p{
     display: none;
     position: fixed; 
     z-index: 1;
-    padding-top: 100px;
+    padding-top: 50px;
     left: 0;
     top: 0;
     width: 100%;
@@ -352,10 +352,78 @@ p{
 }
   
 .modal-body {
-    padding: 2px 16px;
+    display: flex;
+    flex-direction: column;
+    padding: 50px;
     background-color: var(--cor4);
 }
-
+.modal-body .dashs{
+    display: flex;
+    flex-direction: row;
+    height: 50%;
+}
+/* CPU----------------------------------------------------------------------- */
+.dashs .cpu{
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+    padding: 50px;
+    width: 500px;
+    height: 300px;
+    background-color: var(--cor5);
+}
+.cpu .infos{
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+}
+.infos .info{
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+}
+/* RAM----------------------------------------------------------------------- */
+.dashs .ram{
+    display: flex;
+    flex-direction: column;
+    margin-left: 50px;
+    border-radius: 20px;
+    padding: 50px;
+    width: 700px;
+    height: 300px;
+    background-color: var(--cor5);
+}
+.ram h3{
+    width: auto;
+    height: auto;
+}
+.ram .chart{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+/* REDE---------------------------------------------------------------------- */
+.dashs .rede{
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+    padding: 50px;
+    width: 700px;
+    height: 300px;
+    background-color: var(--cor5);
+}
+/* DISCO ---------------------------------------------------------------------*/
+.dashs .disco{
+    display: flex;
+    flex-direction: column;
+    margin-left: 50px;
+    border-radius: 20px;
+    padding: 50px;
+    width: 500px;
+    height: 300px;
+    background-color: var(--cor5);
+}
 #header-title {
     text-align: center;
     display: flex;
@@ -430,4 +498,119 @@ p{
     color: #281549;
     font-style: italic;
     cursor: pointer;
+}
+
+.dash {
+    display: flex;
+    flex-direction: column;
+    padding: 75px;
+}
+.kpis{
+    display: flex;
+    width: 100%;
+    height: auto;
+    justify-content: space-between;
+}
+.kpi{
+    display: flex;
+    flex-direction: column;
+    border: 3px solid var(--cor0);
+    border-radius: 10px;
+    padding: 15px;
+    padding-top: 30px;
+    justify-content:center;
+    align-items:center;
+    text-align: center;
+    width: 300px;
+    height: 100px;
+}
+.kpi span{
+    font-size: 50px;
+}
+.problemas{
+    display: flex;
+    height: 200px;
+    flex-direction: column;
+    padding: 50px;
+    justify-content:center ;
+    align-items:center ;
+    border: 3px solid var(--cor0);
+    border-radius: 10px;
+    margin-top: 50px;
+
+}
+.componentes{
+    display: flex;
+    flex-direction: column;
+    height: 200px;
+    padding: 20px;
+    border: 3px solid var(--cor0);
+    border-radius: 10px;
+    margin-top: 50px;
+    justify-content: center;
+    align-items: center;
+}
+.componentes span{
+    font-size: 30px;
+    height: auto;
+}
+.lista{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 20px;
+    overflow: hidden;
+    overflow-y: scroll;
+
+}
+.lista .titulo{
+    display: flex;
+    width: 100%;
+    height: 100px;
+    background-color: var(--cor5);
+    font-size: 20px;
+    justify-content:center ;
+    align-items: center;
+    border-bottom: 3px solid var(--cor0);
+}
+.titulo .nome{
+    display: flex;
+    width: 80%;
+    justify-content: center;
+    border-right: 3px solid var(--cor0);
+}
+.titulo .preco{
+    display: flex;
+    width: 20%;
+    justify-content: center;
+}
+.titulo span{
+    display: flex;
+    align-items: center;
+}
+
+.lista .item{
+    display: flex;
+    width: 100%;
+    height: 100px;
+    background-color: var(--cor4);
+    font-size: 25px;
+    justify-content:center ;
+    align-items: center;
+    border-bottom: 3px solid var(--cor0);
+}
+.item .nome{
+    display: flex;
+    width: 80%;
+    justify-content: center;
+    border-right: 3px solid var(--cor0);
+}
+.item .preco{
+    display: flex;
+    width: 20%;
+    justify-content: center;
+}
+.item span{
+    display: flex;
+    align-items: center;
 }
