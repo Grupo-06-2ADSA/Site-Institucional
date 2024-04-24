@@ -5,22 +5,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard | Máquinas</title>
-    <!-- <script src="../js/sessao.js"></script> -->
+    <script src="../js/sessao.js"></script>
     <link rel="shortcut icon" href="img/circle-MindCore-azul.png" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="style-responsivo.css">
 </head>
 
-<body onload="note(), validarSessao()">
+<body onload="validarSessao(),note()">
     <div class="left-sidebar">
         <img class="imgLogo" src="img/logo-MindCore.png" alt="logo">
 
         <div class="menu">
-            <div class="bloco 1">
-              <a href="dash.html">
-                <img class="imgBloco" src="img/historia.png">
+            <div class="bloco 1" onclick="verificarTipo()">
+                <img class="imgBloco" src="img/bar-chart.png">
                 <p>Dashboard</p>
-              </a>
             </div>
       
             <div class="bloco 2 aqui">

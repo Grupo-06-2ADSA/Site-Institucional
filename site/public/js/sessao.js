@@ -38,3 +38,12 @@ function finalizarAguardar(texto) {
     }
 }
 
+function verificarTipo(){
+    if(sessionStorage.TIPO_USUARIO == "empresa" || sessionStorage.TIPO_USUARIO == "gestor"){
+        window.location = "dashGestor.html";
+    }
+    else{
+        window.location = "dash.html";
+    }
+}
+

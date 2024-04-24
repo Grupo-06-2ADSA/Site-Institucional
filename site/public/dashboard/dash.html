@@ -4,23 +4,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dashboard</title>
+<title>Dashboard | Técnico</title>
 <script src="../js/sessao.js"></script>
 <link rel="shortcut icon" href="img/circle-MindCore-azul.png" type="image/x-icon">
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="style-responsivo.css">
 </head>
 
-<body onload="note(), validarSessao()">
+<body onload="validarSessao(), componente()">
 <div class="left-sidebar">
     <img class="imgLogo" src="img/logo-MindCore.png" alt="logo">
 
     <div class="menu">
-        <div class="bloco 1 aqui">
-            <a href="dash.html">
-            <img class="imgBloco" src="img/historia.png">
+        <div class="bloco 1 aqui" onclick="verificarTipo()">
+            <img class="imgBloco" src="img/bar-chart.png">
             <p>Dashboard</p>
-            </a>
         </div>
     
         <div class="bloco 2">
@@ -99,47 +97,28 @@
         </div>
 
         <div class="componentes">
-            <span>Componentes em falta</span>
-            <div class="lista">
-                <div class="titulo">
-                    <div class="nome">
-                        <span>Nome</span>
+            <div class="header-tabela">
+                <p class="teste">Nome</p>
+                <p class="teste2">Preço</p>
+                <span></span>
+            </div>
+            <div id="repeticao">
+
+            </div>
+            <div id="myModal" class="modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <span class="close">&times;</span>
+                        <div id="header">
+                            <h2 id="header-title"></h2>
+                        </div>
                     </div>
-                    <div class="preco">
-                        <span>Preço</span>
-                    </div> 
-                </div>
-    
-                <div class="item">
-                    <div class="nome">
-                        <span>Bateria</span>
+                    <div class="modal-body">
+
                     </div>
-                    <div class="preco">
-                        <span>90</span>
-                    </div> 
-                </div>
-    
-                <div class="item">
-                    <div class="nome">
-                        <span>Memória</span>
-                    </div>
-                    <div class="preco">
-                        <span>110</span>
-                    </div> 
-                </div>
-                <div class="item">
-                    <div class="nome">
-                        <span>HD</span>
-                    </div>
-                    <div class="preco">
-                        <span>200</span>
-                    </div> 
                 </div>
 
             </div>
-
-            
-
         </div>
             
         
@@ -151,6 +130,81 @@
 </body>
 
 </html>
+<script>
+    const computadores = [
+         {
+            Nome: "Memória",
+            Preço: "R$100",
+         },
+         {
+            Nome: "Memória",
+            Preço: "R$100",
+         },
+         {
+            Nome: "Memória",
+            Preço: "R$100",
+         },
+         {
+            Nome: "Memória",
+            Preço: "R$100",
+         },
+         {
+            Nome: "Memória",
+            Preço: "R$100",
+         },
+         {
+            Nome: "Memória",
+            Preço: "R$100",
+         },
+         {
+            Nome: "Memória",
+            Preço: "R$100",
+         },
+         {
+            Nome: "Memória",
+            Preço: "R$100",
+         },
+         {
+            Nome: "Memória",
+            Preço: "R$100",
+         },
+         {
+            Nome: "Memória",
+            Preço: "R$100",
+         },
+         {
+            Nome: "Memória",
+            Preço: "R$100",
+         },
+         {
+            Nome: "Memória",
+            Preço: "R$100",
+         },
+         {
+            Nome: "Memória",
+            Preço: "R$100",
+         }
+     ];
+ 
+ 
+ 
+     function componente() {
+ 
+         for (let i = 0; i < computadores.length; i++) {
+             repeticao.innerHTML += `
+             <div id="campo" onclick="graficos('${computadores[i].Nome}')">
+                 <p>${computadores[i].Nome}</p>
+                 <p>${computadores[i].Preço}</p>
+             </div>`;
+ 
+             if (i >= 7) {
+                 repeticao.style.overflowY = "scroll";
+                 notebooks.style.overflow = "hidden";
+             }
+         }
+     }
+ </script>
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
     const labels = [

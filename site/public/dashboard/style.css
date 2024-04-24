@@ -198,7 +198,7 @@ p{
 }
 
 #repeticao {
-    width: 80%;
+    width: 95%;
     height: 70%;
     overflow: hidden;
     display: flex;
@@ -503,7 +503,7 @@ p{
 .dash {
     display: flex;
     flex-direction: column;
-    padding: 75px;
+    padding: 20px;
 }
 .kpis{
     display: flex;
@@ -514,18 +514,27 @@ p{
 .kpi{
     display: flex;
     flex-direction: column;
-    border: 3px solid var(--cor0);
+    background-color: var(--cor4);
+    box-shadow: 10px 3px 7px 0px #727272;
     border-radius: 10px;
     padding: 15px;
     padding-top: 30px;
     justify-content:center;
     align-items:center;
     text-align: center;
-    width: 300px;
-    height: 100px;
+    width: 21%;
+    height: 60%;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.kpi:hover {
+    height: 65%;
+    width: 23%;
 }
 .kpi span{
     font-size: 50px;
+    font-weight: bold;
+    color: var(--cor1);
 }
 .problemas{
     display: flex;
@@ -534,83 +543,39 @@ p{
     padding: 50px;
     justify-content:center ;
     align-items:center ;
-    border: 3px solid var(--cor0);
-    border-radius: 10px;
-    margin-top: 50px;
-
-}
-.componentes{
-    display: flex;
-    flex-direction: column;
-    height: 200px;
-    padding: 20px;
-    border: 3px solid var(--cor0);
-    border-radius: 10px;
-    margin-top: 50px;
-    justify-content: center;
-    align-items: center;
-}
-.componentes span{
-    font-size: 30px;
-    height: auto;
-}
-.lista{
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    margin-top: 20px;
-    overflow: hidden;
-    overflow-y: scroll;
-
-}
-.lista .titulo{
-    display: flex;
-    width: 100%;
-    height: 100px;
-    background-color: var(--cor5);
-    font-size: 20px;
-    justify-content:center ;
-    align-items: center;
-    border-bottom: 3px solid var(--cor0);
-}
-.titulo .nome{
-    display: flex;
-    width: 80%;
-    justify-content: center;
-    border-right: 3px solid var(--cor0);
-}
-.titulo .preco{
-    display: flex;
-    width: 20%;
-    justify-content: center;
-}
-.titulo span{
-    display: flex;
-    align-items: center;
-}
-
-.lista .item{
-    display: flex;
-    width: 100%;
-    height: 100px;
     background-color: var(--cor4);
-    font-size: 25px;
-    justify-content:center ;
-    align-items: center;
-    border-bottom: 3px solid var(--cor0);
+    box-shadow: 10px 0px 7px 7px #727272;
+    border-radius: 10px;
+    margin-top: 20px;
+
 }
-.item .nome{
-    display: flex;
-    width: 80%;
-    justify-content: center;
-    border-right: 3px solid var(--cor0);
-}
-.item .preco{
-    display: flex;
-    width: 20%;
-    justify-content: center;
-}
-.item span{
+.componentes {
     display: flex;
     align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 33.3%;
+    width: 100%;
+    margin-top: 50px;
+}
+.header-tabela{
+    width: 92%;
+    height: 10px;
+    background-color: #281549;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    display: flex;
+    justify-content: space-around;
+    padding: 1.5%;
+    align-items: center;
+    color: #ffffff;
+    font-weight: 800;
+    font-size: 17px;
+}
+.teste {
+    margin-left: 160px;
+}
+
+.teste2 {
+    margin-left: 320px;
 }

@@ -91,7 +91,12 @@
                     sessionStorage.TIPO_USUARIO = json.tipo;
 
                     setTimeout(function () {
-                        window.location = "/dashboard/verificarNotebooks.html";
+                        if(sessionStorage.TIPO_USUARIO == "empresa" || sessionStorage.TIPO_USUARIO == "gestor"){
+                            window.location = "dashboard/dashGestor.html";
+                        }
+                        else{
+                            window.location = "dashboard/dash.html";
+                        }
                     }, 1000); // apenas para exibir o loading
 
                 });
