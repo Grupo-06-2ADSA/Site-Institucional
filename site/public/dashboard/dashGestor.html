@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Máquinas</title>
+    <script src="../js/sessao.js"></script>
+    <link rel="shortcut icon" href="img/circle-MindCore-azul.png" type="image/x-icon">
+    <link rel="stylesheet" href="dashGestor.css">
+    <link rel="stylesheet" href="style-responsivo.css">
+</head>
+
+<!-- <body onload="note(), validarSessao()"> -->
+
+<body onload="componente()">
+
+    <div class="left-sidebar">
+        <img class="imgLogo" src="img/logo-MindCore.png" alt="logo">
+
+        <div class="menu">
+            <div class="bloco 1 aqui">
+                <a href="verificarNotebooks.html">
+                    <img class="imgBloco" src="img/computador.png">
+                    <p>Dashboard</p>
+                </a>
+            </div>
+            <div class="bloco 2">
+                <a href="users.html">
+                    <img class="imgBloco" src="img/adicionar-usuario.png">
+                    <p>Adicionar Usuário</p>
+                </a>
+            </div>
+            <div class="bloco 3">
+                <a href="historico.html">
+                    <img class="imgBloco" src="img/historia.png">
+                    <p>Histórico</p>
+                </a>
+            </div>
+            <div class="bloco 4">
+                <a href="">
+                    <img class="imgBloco" src="img/estoque.png">
+                    <p>Estoque</p>
+                </a>
+            </div>
+        </div>
+
+        <div class="logout" onclick="limparSessao()">
+            <img src="img/sair.png">
+        </div>
+    </div>
+    <div class="dados">
+        <div class="perfil">
+            <div class="turmas">
+                <p>Turmas</p>
+                <select name="turmas" id="turma">
+                    <option value="adsA">ADS A</option>
+                    <option value="adsB">ADS B</option>
+                    <option value="adsC">ADS C</option>
+                    <option value="sis">SIS</option>
+                    <option value="CCO">CCO</option>
+                </select>
+            </div>
+
+            <div class="usuario">
+                <div class="texto">
+                    <p class="nome" id="nomeUsuario">Olá, </p>
+                    <p id="tipoUsuario">Administrador</p>
+                </div>
+                <img src="img/usuario.png">
+            </div>
+        </div>
+
+        <div class="kpi">
+            <div class="caixa maquinasInoperantes">
+
+            </div>
+            <div class="caixa maquinasReservas">
+
+            </div>
+            <div class="caixa valorTotalGastor">
+
+            </div>
+        </div>
+        <div class="componentes">
+            <div class="header-tabela">
+                <p class="teste">Nome</p>
+                <p class="teste2">Preço</p>
+                <span></span>
+            </div>
+            <div id="repeticao">
+
+            </div>
+            <div id="myModal" class="modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <span class="close">&times;</span>
+                        <div id="header">
+                            <h2 id="header-title"></h2>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="grafico">
+            
+        </div>
+
+        
+
+</body>
+
+</html>
+<script>
+   const computadores = [
+        {
+           Nome: "Memória",
+           Preço: "R$100",
+        },
+        {
+           Nome: "Memória",
+           Preço: "R$100",
+        },
+        {
+           Nome: "Memória",
+           Preço: "R$100",
+        },
+        {
+           Nome: "Memória",
+           Preço: "R$100",
+        },
+        {
+           Nome: "Memória",
+           Preço: "R$100",
+        },
+        {
+           Nome: "Memória",
+           Preço: "R$100",
+        },
+        {
+           Nome: "Memória",
+           Preço: "R$100",
+        },
+        {
+           Nome: "Memória",
+           Preço: "R$100",
+        },
+        {
+           Nome: "Memória",
+           Preço: "R$100",
+        },
+        {
+           Nome: "Memória",
+           Preço: "R$100",
+        },
+        {
+           Nome: "Memória",
+           Preço: "R$100",
+        },
+        {
+           Nome: "Memória",
+           Preço: "R$100",
+        },
+        {
+           Nome: "Memória",
+           Preço: "R$100",
+        }
+    ];
+
+
+
+    function componente() {
+
+        for (let i = 0; i < computadores.length; i++) {
+            repeticao.innerHTML += `
+            <div id="campo" onclick="graficos('${computadores[i].Nome}')">
+                <p>${computadores[i].Nome}</p>
+                <p>${computadores[i].Preço}</p>
+            </div>`;
+
+            if (i >= 7) {
+                repeticao.style.overflowY = "scroll";
+                notebooks.style.overflow = "hidden";
+            }
+        }
+    }
+</script>
