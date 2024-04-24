@@ -405,7 +405,7 @@ body::-webkit-scrollbar {
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 38%;
+    height: 40%;
     width: 20%;
 }
 
@@ -438,12 +438,13 @@ body::-webkit-scrollbar {
     align-items: center;
     height: 100%;
     width: 21%;
+    margin-top: 100px;
 }
 
 
 
 .imagemTime01 .foto {
-    height: 58%;
+    height: 89%;
     width: 52%;
     border-radius: 210px;
     background-color: white;
@@ -456,7 +457,7 @@ body::-webkit-scrollbar {
     align-items: center;
     justify-content: space-evenly;
     width: 100%;
-    height: 20%;
+    height: 40%;
 }
 
 .icon {
@@ -754,7 +755,78 @@ body::-webkit-scrollbar {
     }
   } */
 
-  @media only screen and (max-width: 940px) {
+  @media only screen and (max-width: 1300px) {
+  
+
+    
+  }
+
+  @media only screen and (max-width: 992px) {
+    .links {
+      margin-left: -50px;
+    }
+
+    .text h1 {
+      font-size: 45px;
+    }
+
+    .textSobreNos {
+      font-size: 19px;
+    }
+
+    .containerMVV img {
+      display: none;
+    }
+    .containerMVV {
+       margin-top: -30px;
+    }
+
+    .valores .textMVV {
+      font-size: 11px;
+    }
+
+    .visao .textMVV {
+      font-size: 13px;
+    }
+
+    .missao .textMVV {
+      font-size: 12px;
+    }
+
+    .imagemTime01 h1 {
+      width: 250px;
+      margin-left: 55px;
+    }
+
+    .imagemTime .icone {
+      height: 30px;
+    }
+
+    .imagemTime {
+      width: 280px;
+    }
+
+    .imagemTime01 .foto {
+      width: 150px;
+    }
+
+    .time {
+      margin-top: -100px;
+    }
+
+    .TituloProjeto {
+      margin-top: -100px;
+    }
+
+    .boxes {
+      margin-top: -40px;
+    }
+
+  }
+
+
+  
+  @media only screen and (max-width: 768px) {
     body{
       width: 100%;
       overflow-x: hidden;
@@ -768,26 +840,108 @@ body::-webkit-scrollbar {
       display: none;
     }
 
+    .text h1 {
+      font-size: 40px;
+    }
+
     .links a#cadastro1 {
       display: flex;
     }
 
+    .textSobreNos {
+      font-size: 19px;
+      margin-top: 20px;
+    }
+
+    .imgSobreNos img {
+      height: 450px;
+      margin-top: 25px;
+      transition: 0.4s;
+    }
+
+    .imgSobreNos img:hover {
+      height: 480px;
+    }
+
+    .tituloMVV h1 {
+      margin-bottom: -20px;
+    }
+
+    .tituloMVV {
+      margin-left: -160px;
+    }
+
+    .tituloMVV img {
+      margin-left: 200px;
+      margin-top: 10px;
+    }
+
     .containerMVV{
-      flex-direction: column-reverse;
+      flex-direction: column;
       justify-content: center;
-      width: 200%;
-      margin-left: -400px;
-      margin-top: 150px;
+      margin-top: 70px;
+      height: 800px;
+    }
+
+    .valores {
+      height: 500px;
+      width: 470px;
+      transition: none;
+    }
+
+    .visao {
+      height: 500px;
+      width: 470px;
+      transition: none;
+    }
+
+    .missao {
+      height: 500px;
+      width: 470px;
+      transition: none;
+    }
+
+    .valores:hover {
+      width: 470px;
+    }
+
+    .visao:hover {
+      width: 470px;
+    }
+
+    .missao:hover {
+      width: 470px;
+    }
+
+    .time {
+      margin-top: 250px;
+    }
+
+    .caixaTime {
+      margin-top: 65px;
+
+    }
+
+    .caixaTime01 {
+      margin-top: -40px;
     }
 
     .imagemTime{
-      width: 900px;
-      height: 250px;
+      width: 250px;
+      height: 210px;
     }
 
     .imagemTime01{
-      width: 700px;
-      height: 360px;
+      width: 250px;
+      height: 165px;
+    }
+
+    .imagemTime01 .icone {
+      width: 290px
+    }
+
+    .imagemTime01 .icone .icon {
+      height: 30px;
     }
 
     .box{
@@ -811,7 +965,199 @@ body::-webkit-scrollbar {
     }
 
     .boxes{
-      margin-top: 50px;
+      margin-top: 27px;
+    }
+
+    .TituloProjeto {
+      margin-top: -250px;
+    }
+    
+  }
+
+  @media only screen and (max-width: 600px) {
+    body {
+      flex-direction: column;
+    }
+
+    .text h1 {
+      font-size: 39px;
+      margin-top: -100px;
+    }
+
+    .btn {
+      margin-top: -80px;
+    }
+
+    .textSobreNos {
+      font-size: 15px;
+      margin-top: -25px;
+    }
+
+    .tituloSobreNos h1 {
+      margin-top: -10px;
+    }
+
+    .imgSobreNos img {
+      width: 180px;
+      height: 350px;
+      transition: 0.4s all ease;
+    }
+
+    .imgSobreNos img:hover {
+      height: 380px;
+      width: 200px;
+    }
+
+    .tituloMVV h1 {
+      margin-bottom: -20px;
+    }
+    
+    .tituloMVV img {
+      height: 60px;
+      width: 70px;
+    }
+
+    .mvv {
+      margin-top: -60px;
+    }
+
+    .mvv h1 {
+      margin-top: -7px;
+    }
+
+
+    .containerMVV {
+      margin-top: 55px;
+      height: 1000px;
+      margin-left: -40px;
+      flex-direction: column;
+    }
+
+    .valores {
+      margin-left: 65px;
+      width: 470px;
+      transition: none;
+    }
+
+    .visao {
+      margin-left: 65px;
+      width: 470px;
+      height: 700px;
+      transition: none;
+    }
+
+    .missao {
+      margin-left: 75px;
+      width: 470px;
+      transition: none;
+    }
+
+    .valores:hover {
+      width: 470px;
+      height: 700px;
+    }
+
+    .missao:hover {
+      width: 470px;
+    }
+
+    .visao:hover {
+      width: 470px;
+      height: 700px;
+    }
+
+    .valores img {
+      width: 50px;
+      height: 50px;
+      margin-left: 220px;
+      margin-top: 10px;
+    }
+
+    .visao img {
+      width: 100px;
+      margin-left: 220px;
+      margin-top: 10px;
+    }
+
+    .missao img {
+      height: 50px;
+      margin-top: 20px;
+      margin-left: 220px;
+    }
+
+    .time {
+      margin-top: 400px;
+    }
+
+    .TituloProjeto  {
+      margin-top: -300px;
+    }
+
+    .TituloProjeto img {
+      margin-top: 60px;
+    }
+
+    .imagemTime {
+      margin-top: 2000px;
+    }
+
+    .imagemTime .foto {
+      height: 97px;
+      width: 100px;
+    }
+
+    .imagemTime01 .foto {
+      height: 97px;
+      width: 100px;
+    }
+
+    .imagemTime h1 {
+      font-size: 15px;
+      margin-top: 10px;
+    }
+
+    .caixaTime {
+      margin-top: 45px;
+    }
+
+    .imagemTime01 h1 {
+      font-size: 15px;
+      margin-top: 10px;
+      margin-left: 130px;
+    }
+
+    .imagemTime .icone {
+      height: 30px;
+    }
+    
+    .icone {
+      height: 60px;
+    }
+
+    .imagemTime01 .icone .icon {
+      height: 30px;
+    }
+
+    .box {
+      font-size: 12px;
+      margin-top: 75px;
+    }
+
+    .box img {
+      height: 15px;
+      width: 20px;
+    }
+
+    .box .texto-nome {
+      margin-top: 95px;
+    }
+
+    .texto-endereco{
+      margin-top: 60px;
+    }
+
+    .box, h1{
+      margin-top: 60px;
     }
     
   }

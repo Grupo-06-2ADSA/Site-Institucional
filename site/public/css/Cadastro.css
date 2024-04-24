@@ -123,8 +123,8 @@ svg {
     position: absolute;
     transform: rotate(90deg);
     margin-top: 201px;
-    height: 149px;
-    margin-left: 380px;
+    height: 148.7px;
+    margin-left: 28%;
 }
 
 .loading-div {
@@ -158,8 +158,23 @@ svg {
     font-size: 20px;
   }
   
+  @media only screen and (max-width: 1200px) {
+    svg {
+        margin-left: 300px;
+    }
+}
 
-@media screen and (max-width: 1020px) {
+@media only screen and (max-width: 992px) {
+    svg {
+        margin-left: 180px;
+    }
+
+    .card #titulo {
+        font-size: 40px;
+    }
+}
+
+@media only screen and (max-width: 768px) {
     body {
         flex-direction: column;
         overflow: hidden;
@@ -172,10 +187,11 @@ svg {
 
     svg {
         transform: rotate(180deg);
-        margin-left: -20px;
-        width: 103%;
-        margin-top: 950px;
+        margin-left: 0px;
+        margin-top: 480px;
         height: 200px;
+        
+        
     }
 
     .div_2 {
@@ -183,15 +199,24 @@ svg {
     }
 
     .card {
-        margin-top: 50px;
+        margin-top: 8px;
     }
 
-}
-
-@media screen and (min-width: 900px) {
-    
-    svg {
-        height: 149px;
-        margin-left: 260px;
+    .card #titulo {
+        font-size: 30px;
     }
+
+    .card .formulario {
+       margin-top: -10px;
+    }
+
+    .campo {
+        height: 55px;
+    }
+
+    .campo #img1 {
+        margin-top: 28px;
+    }
+       
+
 }

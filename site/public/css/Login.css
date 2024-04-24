@@ -132,28 +132,136 @@ svg {
     text-decoration: none;
 }
 
+@media only screen and (max-width: 1360px){
 
-@media screen and (max-width: 1023px) {
-    
     body {
-        flex-direction: column-reverse;
-        overflow-x: hidden;
+        width: 100%;
     }
 
-    .container {
-        width: 103%;
-        margin-left: -20px;
-        margin-bottom: 180px;
+    .div_2 img {
+        height: 200px;
     }
 
     svg {
-        margin-left: 0px;
-        transform: rotate(180deg);
-        height: 184px;
+        margin-left: 320px;
     }
 
-    .formulario {
-        height: 500px;
+    .container {
+        width: 700px;
+        margin-left: 90px;
+    }
+
+    .card {
+        margin-left: -100px;
+    }
+
+    .card img.casa{
+        margin-left: 540px;
+    }
+
+    .card .formulario {
+        margin-left: 130px;
+    }
+
+    .card #titulo {
+        margin-left: 130px;
+        font-size: 40px;
+    }
+
+}
+
+@media only screen and (max-width: 1200px){
+
+    body {
+        width: 100%;
+    }
+
+    .div_2 img {
+        height: 160px;
+    }
+
+    svg {
+        margin-left: 195px;
+    }
+
+    .container {
+        width: 600px;
+        margin-left: 90px;
+    }
+
+    .card {
+        margin-left: -100px;
+    }
+
+    .card img.casa{
+        margin-left: 540px;
+    }
+
+    .card .formulario {
+        margin-left: 130px;
+    }
+
+    .card #titulo {
+        margin-left: 130px;
+        font-size: 40px;
+    }
+
+}
+
+@media only screen and (max-width: 992px) {
+    
+    body {
+        overflow: hidden;
+    }
+
+    .div_2 img {
+        height: 120px;
+    }
+
+    .card {
+        margin-top: 20px;
+        margin-left: -300px;
+    }
+
+    .card .formulario {
+        margin-left: 280px;
+    }
+
+    .container {
+        margin-left: 100px;
+    }
+
+    svg {
+        margin-left: 90px;
+    }
+
+    .card #titulo {
+        width: 500px;
+        margin-left: 100px;
+        font-size: 40px;
+    }
+}
+
+
+@media only screen and (max-width: 768px) {
+    body {
+        flex-direction: column;
+        overflow: hidden;
+    }
+
+    .container {
+        width: 100%;
+        height: 88%;
+        margin-left: 0px;
+    }
+
+    svg {
+        transform: rotate(180deg);
+        margin-left: 0px;
+        margin-top: 480px;
+        height: 200px;
+        
+        
     }
 
     .div_2 {
@@ -161,17 +269,61 @@ svg {
     }
 
     .card {
-        margin-top: 150px;
+        margin-top: 8px;
+        margin-left: -50px;
     }
+
+    .card #titulo {
+        font-size: 30px;
+        margin-top: 60px;
+        margin-left: 100px;
+    }
+
+    .card .formulario {
+       margin-top: -20px;
+       margin-left: 40px;
+    }
+
+    .campo {
+        height: 55px;
+    }
+
+    .campo #img1 {
+        margin-top: 28px;
+    }
+
+    .casa {
+        margin-top: -100px;
+    }
+       
+
 }
 
-@media screen and (min-width: 1020px){
-
-    body {
-        width: 100%;
+@media only screen and (max-width: 600px) {
+    .casa {
+        margin-left: 1000px;
     }
 
-    .card img.casa{
-        margin-left: 540px;
+    .container {
+        width: 600px;
+        margin-left: 0px;
     }
+
+    .card {
+        margin-left: -100px;
+    }
+
+    svg {
+        height: 150px;
+    }
+
+    .card .formulario {
+        margin-left: 100px;
+    }
+
+    .card #titulo {
+        margin-left: 60px;
+        margin-top: 100px;
+    }
+
 }
