@@ -9,6 +9,7 @@
     <link rel="shortcut icon" href="img/circle-MindCore-azul.png" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="style-responsivo.css">
+    <link rel="stylesheet" href="users.css">
 </head>
 
 <body onload="validarSessao(),note()">
@@ -87,7 +88,7 @@
             <div id="repeticao">
 
             </div>
-            <button onclick="AdicionarMáquina()" class="adicionar">Adicionar</button>
+            <button onclick="AdicionarMaquina()" class="adicionar">Adicionar</button>
 
             <div id="myModal" class="modal">
                 <div class="modal-content">
@@ -143,13 +144,38 @@
                             </div>
                         </div>
 
-                        
-
-                       
-
                     </div>
+                    
                 </div>
 
+            </div>
+
+            <div id="modalAdicionar" class="modalUsuario">
+                <div class="modal-conteudo">
+                  <div class="modal-header-usuario">
+                    <span class="close">&times;</span>
+                    <div id="header">
+                      <h2 id="header-title-usuario"></h2>
+                    </div>
+                  </div>
+                  <div class="modal-body-usuario">
+                    <div class="formulario">
+                      <div class="campo">
+                        <span>HostName</span>
+                        <input type="text">
+                      </div>
+                      <div class="campo">
+                        <span>IP</span>
+                        <input type="number">
+                      </div>
+                      <div class="botoes">
+                        <button class="cancelar">Cancelar</button>
+                        <button class="adicionar-botao">Adicionar</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+        
             </div>
         </div>
 
@@ -288,6 +314,22 @@
 
     statusCampo.onclick = function () {
         img_ordenar.innerHTML = "img/ordenar-decrescente.png";
+    }
+
+    let modalAdicionar = document.getElementById("modalAdicionar");
+
+    function AdicionarMaquina() {
+        let tituloHeader = document.getElementById("header-title-usuario");
+
+        modalAdicionar.style.display = "block";
+        tituloHeader.innerHTML = `Adicionar nova máquina`;
+    }
+
+
+    window.onclick = function (event) {
+        if (event.target == modalAdicionar) {
+            modalAdicionar.style.display = "none";
+        }
     }
 </script>
 <script>
