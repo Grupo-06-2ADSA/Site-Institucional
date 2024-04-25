@@ -140,7 +140,7 @@
                 </div>
               </div>
               <div id="div_aguardar" class="loading-div">
-                <img src="assets/img/login-cadastro/aguarde-orange.gif" id="loading-gif" />
+                <img src="../assets/img/login-cadastro/aguarde-orange.gif" id="loading-gif" />
               </div>
 
               <div class="botoes">
@@ -330,12 +330,12 @@
 <!-- CADASTRAR FUNCIONARIO -->
 <script>
   function adicionarFuncionario(){
-    var nomeFunc = nomeFunc.value;
-    var emailFunc = emailFunc.value;
-    var senhaFunc = senhaFunc.value;
-    var telFunc = telFunc.value;
-    var cargoFunc = cargoFunc.value;
-    var turnoFunc = turnoFunc.value;
+    var nome= nomeFunc.value;
+    var email= emailFunc.value;
+    var senha= senhaFunc.value;
+    var tel= telFunc.value;
+    var cargo= cargoFunc.value;
+    var turno= turnoFunc.value;
     fetch("/usuarios/cadastrarFuncionarioEmpresa", {
       method: "POST",
       headers: {
@@ -344,13 +344,13 @@
       body: JSON.stringify({
           // crie um atributo que recebe o valor recuperado aqui
           // Agora vá para o arquivo routes/usuario.js
-          emailServer: emailFunc,
+          emailServer: email,
           cnpjServer: sessionStorage.EMPRESA_USUARIO,
-          nomeServer: nomeFunc,
-          telefoneServer: telFunc,
-          senhaServer: senhaFunc,
-          tipoServer: cargoFunc,
-          turnoServer: turnoFunc
+          nomeServer: nome,
+          telefoneServer: tel,
+          senhaServer: senha,
+          tipoServer: cargo,
+          turnoServer: turno
       }),
   })
   .then(function (resposta) {
