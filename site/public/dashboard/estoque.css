@@ -1,138 +1,34 @@
-.list {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-}
-
-.list-header {
-    width: 77%;
-    height: 20px;
-    background-color: #7272725c;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
-    display: flex;
-    justify-content: space-around;
-    padding: 1.5%;
-    align-items: center;
-    color: #281549;
-    font-style: italic;
-    font-weight: 800;
-}
-
-#nome-users {
-    width: 300px;
-    height: auto;
-}
-
-#papel{
-    height: auto;
+.id-campo-componente, .nomeComponente{
     width: 200px;
-}
-
-#status{
-    height: auto;
-    width: 80px;
-}
-
-
-.list-header span {
     display: flex;
-    justify-content: baseline;
-    align-items: center;
+    justify-content: flex-start;
 }
 
-.list-header img {
-    width: 30px;
-    height: auto;
-}
-
-.list-users {
+.quantidade-campo, .quantidade{
+    width: 150px;
     display: flex;
-    flex-direction: column;
-    width: 95%;
-    height: 70%;
-    background-color: #f2f2f2;
-    font-size: 20px;
-    overflow: hidden;
-    border-bottom-left-radius: 15px;
+    justify-content: flex-start;
 }
 
-.user {
+.editar-campo, #editar {
+    width: 70px;
+}
+
+.precoUnitario-campo, .precoUnitario{
+    width: 150px;
     display: flex;
-    width: 98%;
-    align-items: center;
-    justify-content: space-around;
-    font-size: 17px;
-    height: 70px;
-    background-color: #eeeded;
-    padding-top: 17px;
-    padding-bottom: 17px;
-    padding-left: 20px;
-    border-bottom: 1px solid #02397185;
+    justify-content: flex-start;
 }
 
-.user:hover{
-    background-color: #20244f0b;
-}
-
-.user span {
+.precoTotal-campo, .precoTotal{
+    width: 120px;
     display: flex;
-    align-items: center;
+    justify-content: flex-start;
 }
 
-.email {
-    display: flex;
-    flex-direction: column;
-    width: 300px;
-}
 
-.papel {
-    position: relative;
-    width: 200px;
-}
 
-.status span {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 80px;
-    background-color: chartreuse;
-    border-radius: 25px;
-}
-
-.edit {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 110px;
-    font-weight: 600;
-}
-
-.edit a {
-    text-decoration: none;
-    text-transform: none;
-    color: #023971;
-}
-
-.adicionar{
-    width: 300px;
-    height: fit-content;
-    padding: 8px;
-    align-self: flex-end;
-    border: none;
-    background-color: #281549;
-    color: white;
-    font-weight: 900;
-    border-radius: 5px;
-    margin-right: 125px;
-    margin-top: 20px;
-    cursor: pointer;
-    font-size: 17px;
-}
-
+/* Formulario */
 .modalUsuario {
     display: none;
     position: fixed; 
@@ -210,23 +106,6 @@
     height: 20%;
     font-size: 16px;
 }
-
-.excluir-campo{
-    width: 30px;
-}
-
-.excluir img{
-    width: 30px;
-    height: 30px;
-}
-
-.excluir {
-    display: flex;
-    align-items: center;
-    width: 30px;
-}
-
-/* Formulario*/
 .formulario{
     width: 100%;
     height: 100%;
@@ -261,7 +140,7 @@
 
 .botoes{
     width: 80%;
-    height: 200px;
+    height: 50px;
     display: flex;
     justify-content: space-between;
 }

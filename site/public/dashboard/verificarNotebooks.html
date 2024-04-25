@@ -16,9 +16,11 @@
         <img class="imgLogo" src="img/logo-MindCore.png" alt="logo">
 
         <div class="menu">
-            <div class="bloco 1" onclick="verificarTipo()">
-                <img class="imgBloco" src="img/bar-chart.png">
-                <p>Dashboard</p>
+            <div class="bloco 1">
+                <a onclick="verificarTipo()">
+                    <img class="imgBloco" src="img/bar-chart.png">
+                    <p>Dashboard</p>
+                  </a>
             </div>
       
             <div class="bloco 2 aqui">
@@ -36,7 +38,7 @@
             </div>
         
             <div class="bloco 4">
-              <a href="">
+              <a href="estoque.html">
                 <img class="imgBloco" src="img/estoque.png">
                 <p>Estoque</p>
               </a>
@@ -77,13 +79,16 @@
             </div>
             <div class="header-tabela">
                 <p class="id-campo">HostName</p>
-                <p id="status_campo">Status <img src="img/ordenar-decrescente.png" id="img_ordenar"></p>
-                <p id="ult_mod">Última modificação <img src="img/ordenar-decrescente.png" id="img_ordenar2"></p>
-                <span></span>
+                <p id="status_campo">Status</p>
+                <p id="ult_mod">Última modificação</p>
+                <p class="editar-campo"></p>
+                <p class="excluir-campo"></p>
             </div>
             <div id="repeticao">
 
             </div>
+            <button onclick="AdicionarMáquina()" class="adicionar">Adicionar</button>
+
             <div id="myModal" class="modal">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -215,10 +220,11 @@
         for (let i = 0; i < computadores.length; i++) {
             repeticao.innerHTML += `
             <div id="campo" onclick="graficos('${computadores[i].hostName}')">
-                <p>${computadores[i].hostName}</p>
+                <p class="hostname">${computadores[i].hostName}</p>
                 <div class="bolinha" id="bolinha${i}"></div>
-                <p>${computadores[i].ultimaModificação}</p>
+                <p class="ultimaModificacao">${computadores[i].ultimaModificação}</p>
                 <p id="editar">Editar</p>
+                <img src="../assets/img/excluir.png" onclick="excluirComponente('${computadores[i]}')">
             </div>`;
 
             

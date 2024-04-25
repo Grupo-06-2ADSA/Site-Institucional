@@ -210,19 +210,57 @@ p{
 }
 
 .header-tabela{
-    width: 77%;
-    height: 20px;
-    background-color: #7272725c;
+    width: 92%;
+    height: 10px;
+    background-color: #281549;
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
     display: flex;
     justify-content: space-around;
     padding: 1.5%;
     align-items: center;
-    color: #281549;
+    color: #ffffff;
     font-style: italic;
     font-weight: 800;
     font-size: 17px;
+}
+
+.adicionar{
+    width: 300px;
+    height: fit-content;
+    padding: 8px;
+    align-self: flex-end;
+    border: none;
+    background-color: #281549;
+    color: white;
+    font-weight: 900;
+    border-radius: 5px;
+    margin-right: 40px;
+    margin-top: 20px;
+    cursor: pointer;
+    font-size: 17px;
+}
+
+.excluir-campo{
+    width: 30px;
+}
+
+.excluir img{
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+
+.excluir {
+    display: flex;
+    align-items: center;
+    width: 30px;
+}
+
+#campo img{
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
 }
 
 #campo{
@@ -234,7 +272,7 @@ p{
     align-items: center;
     padding-top: 17px;
     padding-bottom: 17px;
-    padding-left: 18px;
+    padding-left: 20px;
     border-bottom: 1px solid #02397185;
 }
 
@@ -253,31 +291,33 @@ p{
     cursor: pointer;
 }
 
-.header-tabela .id-campo {
+.header-tabela .id-campo, .hostname {
     width: 100px;
 }
 
-#status_campo{
+#status_campo, .bolinha{
     width: 100px;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-#ult_mod{
+#ult_mod, .ultimaModificao{
     width: 200px;
-    margin-right: 70px;
-
 }
 
 #editar{
-    text-decoration: underline;
+    text-decoration: none;
+    font-weight: 600;
     color: #023971;
     cursor: pointer;
 }
 
+.editar-campo, #editar {
+    width: 70px;
+}
+
 .bolinha {
-    width: 20px;
     height: 20px;
     border-radius: 100px;
     background-color: green;
@@ -558,7 +598,7 @@ p{
     width: 100%;
     margin-top: 50px;
 }
-.header-tabela{
+.header-tabela-dash{
     width: 92%;
     height: 10px;
     background-color: #281549;

@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Estoque</title>
+    <script src="../js/sessao.js"></script>
+    <link rel="shortcut icon" href="img/circle-MindCore-azul.png" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style-responsivo.css">
+    <link rel="stylesheet" href="estoque.css">
+</head>
+
+<body onload="validarSessao(), Componentes()">
+    <div class="left-sidebar">
+        <img class="imgLogo" src="img/logo-MindCore.png" alt="logo">
+
+        <div class="menu">
+            <div class="bloco 1">
+                <a onclick="verificarTipo()">
+                  <img class="imgBloco" src="img/bar-chart.png">
+                  <p>Dashboard</p>
+                </a>
+              </div>
+            <div class="bloco 2">
+                <a href="verificarNotebooks.html">
+                    <img class="imgBloco" src="img/computador.png">
+                    <p>Parque de Máquinas</p>
+                </a>
+            </div>
+            <div class="bloco 3">
+                <a href="users.html">
+                    <img class="imgBloco" src="img/adicionar-usuario.png">
+                    <p>Adicionar Usuário</p>
+                </a>
+            </div>
+        
+            <div class="bloco 4 aqui">
+                <a href="">
+                    <img class="imgBloco" src="img/estoque.png">
+                    <p>Estoque</p>
+                </a>
+            </div>
+        </div>
+
+        <div class="logout" onclick="limparSessao()">
+            <img src="img/sair.png">
+        </div>
+    </div>
+    <div class="dados">
+        <div class="perfil">
+            <div class="turmas">
+                <p>Turmas</p>
+                <select name="turmas" id="turma">
+                    <option value="adsA">ADS A</option>
+                    <option value="adsB">ADS B</option>
+                    <option value="adsC">ADS C</option>
+                    <option value="sis">SIS</option>
+                    <option value="CCO">CCO</option>
+                </select>
+            </div>
+
+            <div class="usuario">
+                <div class="texto">
+                    <p class="nome" id="nomeUsuario">Olá, </p>
+                    <p id="tipoUsuario">Administrador</p>
+                </div>
+                <img src="img/usuario.png">
+            </div>
+        </div>
+
+        <div id="notebooks">
+            <div class="pesquisar">
+                <p>Componente:</p>
+                <input id="Pesquisar">
+                <button onclick="pesquisarComponente()">Pesquisar</button>
+            </div>
+            <div class="header-tabela">
+                <p class="id-campo-componente">Nome</p>
+                <p class="quantidade-campo">Quantidade</p>
+                <p class="precoUnitario-campo">Preço unitário</p>
+                <p class="precoTotal-campo">Preço Total</p>
+                <p class="editar-campo"></p>
+                <p class="excluir-campo"></p>
+            </div>
+            <div id="repeticao">
+
+            </div>
+            
+            <button onclick="AdicionarComponente()" class="adicionar">Adicionar</button>
+
+            <div id="modalAdicionar" class="modalUsuario">
+                <div class="modal-conteudo">
+                  <div class="modal-header-usuario">
+                    <span class="close">&times;</span>
+                    <div id="header">
+                      <h2 id="header-title-usuario"></h2>
+                    </div>
+                  </div>
+                  <div class="modal-body-usuario">
+                    <div class="formulario">
+                      <div class="campo">
+                        <span>Nome</span>
+                        <input type="text">
+                      </div>
+                      <div class="campo">
+                        <span>Quantidade</span>
+                        <input type="number">
+                      </div>
+                      <div class="campo">
+                        <span>Preço unitário</span>
+                        <input type="number">
+                      </div>
+                      <div class="botoes">
+                        <button class="cancelar">Cancelar</button>
+                        <button class="adicionar-botao">Adicionar</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+        
+              </div>
+        </div>
+
+
+    </div>
+
+</body>
+
+</html>
+<script>
+    const componente = [
+        {
+            id: 1,
+            nome: "Mémoria RAM",
+            quantidade: 5,
+            precoUnitario: 100.00,
+            precoTotal: 500.00
+        },
+        {
+            id: 2,
+            nome: "SSD",
+            quantidade: 10,
+            precoUnitario: 89.90,
+            precoTotal: 899.00
+        },
+        {
+            id: 3,
+            nome: "HD",
+            quantidade: 25,
+            precoUnitario: 140.00,
+            precoTotal: 3500.00
+        },
+        {
+            id: 4,
+            nome: "Processador",
+            quantidade: 8,
+            precoUnitario: 110.50,
+            precoTotal: 884.00
+        },
+        {
+            id: 5,
+            nome: "Carregadores",
+            quantidade: 20,
+            precoUnitario: 50.00,
+            precoTotal: 1000.00
+        },
+        {
+            id: 6,
+            nome: "Baterias",
+            quantidade: 50,
+            precoUnitario: 80.00,
+            precoTotal: 4000.00
+        },
+        {
+            id: 7,
+            nome: "Mémoria RAM",
+            quantidade: 5,
+            precoUnitario: 100.00,
+            precoTotal: 500.00
+        },
+        {
+            id: 8,
+            nome: "Mémoria RAM",
+            quantidade: 5,
+            precoUnitario: 100.00,
+            precoTotal: 500.00
+        },
+        {
+            id: 9,
+            nome: "Mémoria RAM",
+            quantidade: 5,
+            precoUnitario: 100.00,
+            precoTotal: 500.00
+        },
+        {
+            id: 10,
+            nome: "Mémoria RAM",
+            quantidade: 5,
+            precoUnitario: 100.00,
+            precoTotal: 500.00
+        }
+    ];
+
+
+
+    function Componentes() {
+
+        for (let i = 0; i < componente.length; i++) {
+            repeticao.innerHTML += `
+            <div id="campo" class="${i}">
+                <p class="nomeComponente">${componente[i].nome}</p>
+                <p class="quantidade">${componente[i].quantidade}</p>
+                <p class="precoUnitario">R$${componente[i].precoUnitario}</p>
+                <p class="precoTotal">R$${componente[i].precoTotal}</p>
+                <p id="editar">Editar</p>
+                <img src="../assets/img/excluir.png" onclick="excluirComponente('${componente[i]}')">
+            </div>`;
+
+
+            if (i >= 7) {
+                repeticao.style.overflowY = "scroll";
+                notebooks.style.overflow = "hidden";
+            }
+        }
+    }
+
+
+  
+
+    function pesquisarComponente() {
+        let nomeComponente = Pesquisar.value;
+
+        for (let i = 0; i <= componente.length; i++) {
+            if (nomeComponente == componente[i].nome) {
+                graficos(hostNamePesquisa);
+            }
+        }
+
+    }
+
+    let modal = document.getElementById("modalAdicionar");
+    let span = document.getElementsByClassName("close")[0];
+
+
+    function AdicionarComponente() {
+        let tituloHeader = document.getElementById("header-title-usuario");
+
+        modal.style.display = "block";
+        tituloHeader.innerHTML = `Adicionar novo componente`;
+    }
+
+        span.onclick = function () {
+        modal.style.display = "none";
+    }
+
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
