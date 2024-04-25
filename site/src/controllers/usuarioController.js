@@ -79,6 +79,8 @@ function cadastrarFuncionarioEmpresa(req, res) {
     var telefone = req.body.telefoneServer;
     var senha = req.body.senhaServer;
     var tipo = req.body.tipoServer;
+    var turno = req.body.turnoServer;
+
     
 
     // Faça as validações dos valores
@@ -93,12 +95,14 @@ function cadastrarFuncionarioEmpresa(req, res) {
     } else if(telefone == undefined){
         res.status(400).send("Seu telefone está undefined!");
     } else if(tipo == undefined){
-        res.status(400).send("Seu tioo está undefined!");
+        res.status(400).send("Seu tipo está undefined!");
+    }else if(turno == undefined){
+        res.status(400).send("Seu turno está undefined!");
     }
      else {
 
         // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
-        usuarioModel.cadastrarFuncionarioEmpresa(nome, email, senha, telefone, tipo, cnpj)
+        usuarioModel.cadastrarFuncionarioEmpresa(nome, email, senha, telefone, tipo, turno, cnpj)
             .then(
                 function (resultado) {
                     res.json(resultado);

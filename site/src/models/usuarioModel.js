@@ -24,10 +24,10 @@ function cadastrar(nome, cnpj, telefone) {
 }
 
 //Cadastro Funcionário
-function cadastrarFuncionarioEmpresa(nome, email, senha, telefone, tipo, cnpj){
+function cadastrarFuncionarioEmpresa(nome, email, senha, telefone, tipo, turno, cnpj){
     var instrucao = `
-    insert into Funcionario (nome, email, senha, telefone, tipo, fkEmpresa) values (
-        '${nome}', '${email}', '${senha}', '${telefone}', '${tipo}', '${cnpj}');
+    insert into Funcionario (nome, email, senha, telefone, tipo, turno, estado, fkEmpresa) values (
+        '${nome}', '${email}', '${senha}', '${telefone}', '${tipo}','${turno}','ativo', '${cnpj}');
     `
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
