@@ -588,7 +588,11 @@ p{
     background-color: var(--cor4);
     box-shadow: 10px 0px 7px 7px #727272;
     border-radius: 10px;
+    margin-top: 15px;
 
+}
+.problemas h1{
+    height: auto;
 }
 .componentes {
     display: flex;
@@ -597,6 +601,7 @@ p{
     flex-direction: column;
     height: 33.3%;
     width: 100%;
+    margin-top: 15px;
 }
 .header-tabela-dash{
     width: 92%;
