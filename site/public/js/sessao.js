@@ -39,7 +39,7 @@ function finalizarAguardar(texto) {
 }
 
 function verificarTipo(){
-    if(sessionStorage.TIPO_USUARIO == "empresa" || sessionStorage.TIPO_USUARIO == "gestor"){
+    if(sessionStorage.TIPO_USUARIO == "Empresa" || sessionStorage.TIPO_USUARIO == "Gestor"){
         window.location = "dashGestor.html";
     }
     else{

@@ -124,8 +124,8 @@
                 <span>Cargo</span>
                 <select name="" id="cargoFunc">
                   <option selected disabled value="">Selecionar</option>
-                  <option value="gestor">Gestor</option>
-                  <option value="tecnico">Técnico</option>
+                  <option value="Gestor">Gestor</option>
+                  <option value="Técnico">Técnico</option>
                 </select>
               </div>
               <div class="campo">
@@ -273,7 +273,7 @@
       }
     }
 
-    if(sessionStorage.TIPO_USUARIO == "tecnico"){
+    if(sessionStorage.TIPO_USUARIO == "Técnico"){
       const botao = document.getElementsByClassName("adicionar");
       botao[0].disabled = true;
       botao[0].style.opacity = "0.5";
@@ -331,7 +331,7 @@
   let button = document.getElementsByClassName("cancelar")
 
   function AdicionarUsuario() {
-    if(sessionStorage.TIPO_USUARIO != "tecnico"){
+    if(sessionStorage.TIPO_USUARIO != "Técnico"){
       let tituloHeader = document.getElementById("header-title-usuario");
 
     modal.style.display = "block";
