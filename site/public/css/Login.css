@@ -88,6 +88,7 @@ input {
     transition: all ease 0.3s;
     font-size: 18px;
     box-shadow: #281549 0px 5px 10px;
+    border: none;
 }
 
 .button:hover {
@@ -120,13 +121,20 @@ input {
     margin-left: 10px;
 }
 
-svg {
+/* svg {
     position: absolute;
     transform: rotate(270deg);
-    margin-top: 201px;
-    height: 143.9px;
-    margin-left: 300px;
+    height: 106%;
+    width: 87%;
+    margin-right: 66%;;
+} */
+
+.onda{
+    height: 100%;
+    position: absolute;
+    margin-left: 48%;
 }
+
 
 .span #referenciaCadastro {
     text-decoration: none;
@@ -235,6 +243,10 @@ svg {
         margin-left: 90px;
     }
 
+    .onda{
+        margin-left: 45%;
+    }
+
     .card #titulo {
         width: 500px;
         margin-left: 100px;
@@ -260,8 +272,10 @@ svg {
         margin-left: 0px;
         margin-top: 480px;
         height: 200px;
-        
-        
+    }
+
+    .onda{
+        display: none;
     }
 
     .div_2 {
