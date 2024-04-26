@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="users.css">
 </head>
 
-<body onload="validarSessao(),note()">
+<body onload="validarSessao(),note(), ListaManutencao()">
     <div class="left-sidebar">
         <img class="imgLogo" src="img/logo-MindCore.png" alt="logo">
 
@@ -132,14 +132,21 @@
 
                         <div class="dashs">
                             <div class="rede">
-                                <h3>Wifi</h3>
-                                <h3>Nome da rede:</h3>
-                                <span>Hl_Student</span>
+                                <h3>Histórico de Manutenções <button onclick="adicionarHistorico()">Adicionar</button></h3>
+                                <div class="headerManutencao">
+                                    <p class="header-descricao">Descrição</p>
+                                    <p class="header-responsavel">Responsável</p>
+                                    <p class="header-tipo">Tipo</p>
+                                    <p class="header-data">Data</p>
+                                </div>
+                                <div class="bodyManutencao" id="manutencoes">
+                                    
+                                </div>
                             </div>
 
                             <div class="disco">
                                 <h3>Disco: 500GB</h3>
-                                <canvas id="myChartDISCO" style="display: block; box-sizing: border-box; height: 100px; width: 150px;"></canvas>
+                                <canvas id="myChartDISCO" style="display: block; box-sizing: border-box; height: 8%; width: 10%;"></canvas>
 
                             </div>
                         </div>
@@ -428,5 +435,85 @@ const configRAM = {
                 configDISCO
             );
 
+    const manutencoes = [
+        {
+            descricao: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+            responsavel: "Pedro",
+            tipo: "Limpeza",
+            data: "12/10/2023"
+        },
+        {
+            descricao: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+            responsavel: "Pedro",
+            tipo: "Limpeza",
+            data: "12/10/2023"
+        },
+        {
+            descricao: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+            responsavel: "Pedro",
+            tipo: "Limpeza",
+            data: "12/10/2023"
+        },
+        {
+            descricao: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+            responsavel: "Pedro",
+            tipo: "Limpeza",
+            data: "12/10/2023"
+        },
+        {
+            descricao: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+            responsavel: "Pedro",
+            tipo: "Limpeza",
+            data: "12/10/2023"
+        },
+        {
+            descricao: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+            responsavel: "Pedro",
+            tipo: "Limpeza",
+            data: "12/10/2023"
+        },
+        {
+            descricao: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+            responsavel: "Pedro",
+            tipo: "Limpeza",
+            data: "12/10/2023"
+        },
+        {
+            descricao: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+            responsavel: "Pedro",
+            tipo: "Limpeza",
+            data: "12/10/2023"
+        },
+        {
+            descricao: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+            responsavel: "Pedro",
+            tipo: "Limpeza",
+            data: "12/10/2023"
+        },
+        {
+            descricao: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+            responsavel: "Pedro",
+            tipo: "Limpeza",
+            data: "12/10/2023"
+        }
+    ];
+
     
+    function ListaManutencao(){
+        let manutencao = document.getElementById("manutencoes");
+
+        for (let i = 0; i < manutencoes.length; i++) {
+            manutencao.innerHTML += `
+            <div class="informacoes">
+                <p class="campo-descricao">${manutencoes[i].descricao}</p>
+                <p class="campo-responsavel">${manutencoes[i].responsavel}</p>
+                <p class="campo-tipo">${manutencoes[i].tipo}</p>
+                <p class="campo-data">${manutencoes[i].data}</p>
+            </div>`;
+    
+            if (i >= 7) {
+                manutencao.style.overflowY = "scroll";
+            }
+        }
+    }
 </script>
