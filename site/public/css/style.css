@@ -1092,7 +1092,7 @@ body::-webkit-scrollbar {
     .visao {
       margin-left: 65px;
       width: 470px;
-      height: 700px;
+      height: 500px;
       transition: none;
     }
 
@@ -1113,7 +1113,7 @@ body::-webkit-scrollbar {
 
     .visao:hover {
       width: 470px;
-      height: 700px;
+      height: 600px;
     }
 
     .valores img {
