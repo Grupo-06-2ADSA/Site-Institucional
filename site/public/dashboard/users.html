@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="style-responsivo.css">
 </head>
 
-<body onload="Usuarios()">
+<body onload="validarSessao(),Usuarios()">
 
   <div class="left-sidebar">
 
@@ -262,6 +262,14 @@
       }
     }
 
+    if(sessionStorage.TIPO_USUARIO == "tecnico"){
+      const botao = document.getElementsByClassName("adicionar");
+      botao[0].disabled = true;
+      botao[0].style.opacity = "0.5";
+      //botao.setAttribute('data-toggle', 'tooltip');
+      //botao.setAttribute('title', 'Tooltip em elemento desativado');
+    }
+
 
   }
 
@@ -310,10 +318,13 @@
   let button = document.getElementsByClassName("cancelar")
 
   function AdicionarUsuario() {
-    let tituloHeader = document.getElementById("header-title-usuario");
+    if(sessionStorage.TIPO_USUARIO != "tecnico"){
+      let tituloHeader = document.getElementById("header-title-usuario");
 
     modal.style.display = "block";
     tituloHeader.innerHTML = `Adicionar novo usuário`;
+    }
+    
   }
 
   span.onclick = function () {
