@@ -9,13 +9,14 @@ body {
     background-color: #281549;
     display: flex;
     margin: 0%;
+    overflow: hidden;
 }
 
 .container {
     display: flex;
     background-color: #ffff;
     width: 50%;
-    height: 105%;
+    height: 106%;
     justify-content: center;
 }
 
