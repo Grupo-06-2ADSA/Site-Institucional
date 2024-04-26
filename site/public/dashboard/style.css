@@ -543,11 +543,12 @@ p{
 .dash {
     display: flex;
     flex-direction: column;
-    padding: 20px;
+    align-items: center;
 }
 .kpis{
     display: flex;
-    width: 100%;
+    align-items: center;
+    width: 98%;
     height: auto;
     justify-content: space-between;
 }
@@ -558,7 +559,6 @@ p{
     box-shadow: 10px 3px 7px 0px #727272;
     border-radius: 10px;
     padding: 15px;
-    padding-top: 30px;
     justify-content:center;
     align-items:center;
     text-align: center;
@@ -569,24 +569,23 @@ p{
 }
 .kpi:hover {
     height: 65%;
-    width: 23%;
+    width: 22%;
 }
 .kpi span{
-    font-size: 50px;
+    font-size: 40px;
     font-weight: bold;
     color: var(--cor1);
 }
 .problemas{
     display: flex;
-    height: 200px;
+    height: 30%;
+    width: 98%;
     flex-direction: column;
-    padding: 50px;
     justify-content:center ;
     align-items:center ;
     background-color: var(--cor4);
     box-shadow: 10px 0px 7px 7px #727272;
     border-radius: 10px;
-    margin-top: 20px;
 
 }
 .componentes {
@@ -596,7 +595,6 @@ p{
     flex-direction: column;
     height: 33.3%;
     width: 100%;
-    margin-top: 50px;
 }
 .header-tabela-dash{
     width: 92%;

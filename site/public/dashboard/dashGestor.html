@@ -12,7 +12,7 @@
 </head>
 
 
-<body onload="validarSessao(),componente()">
+<body onload="componente()">
 
     <div class="left-sidebar">
         <img class="imgLogo" src="img/logo-MindCore.png" alt="logo">
@@ -72,45 +72,58 @@
                 <img src="img/usuario.png">
             </div>
         </div>
-
-        <div class="kpi">
-            <div class="caixa maquinasInoperantes">
-
+        <div class="dash">
+            <div class="kpi">
+                <div class="caixa">
+                    <h2>Máquinas inoperantes</h2>
+                    <span>30</span>
+    
+                </div>
+                <div class="caixa">
+                    <h2>Máquinas reservas</h2>
+                    <span>07</span>
+    
+    
+                </div>
+                <div class="caixa">
+                    <h2>Valor total gasto</h2>
+                    <span>R$1.503,77</span>
+    
+    
+                </div>
             </div>
-            <div class="caixa maquinasReservas">
-
+            <div class="grafico">
+                <h3>Valores das Manutenções</h3>
+                <canvas id="myChart" style="display: block; box-sizing: border-box; height: 80%; width: 80%;"></canvas>
             </div>
-            <div class="caixa valorTotalGastor">
-
-            </div>
-        </div>
-        <div class="componentes">
-            <div class="header-tabela">
-                <p class="teste">Nome</p>
-                <p class="teste2">Preço</p>
-                <span></span>
-            </div>
-            <div id="repeticao">
-
-            </div>
-            <div id="myModal" class="modal">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <span class="close">&times;</span>
-                        <div id="header">
-                            <h2 id="header-title"></h2>
+            <div class="componentes">
+                <div class="header-tabela">
+                    <p class="teste">Nome</p>
+                    <p class="teste2">Preço</p>
+                    <span></span>
+                </div>
+                <div id="repeticao">
+    
+                </div>
+                <div id="myModal" class="modal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <span class="close">&times;</span>
+                            <div id="header">
+                                <h2 id="header-title"></h2>
+                            </div>
+                        </div>
+                        <div class="modal-body">
+    
                         </div>
                     </div>
-                    <div class="modal-body">
-
-                    </div>
+    
                 </div>
 
-            </div>
         </div>
-        <div class="grafico">
-            
+
         </div>
+        
 
         
 
@@ -190,4 +203,49 @@
             }
         }
     }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const labels = [
+        'Janeiro',
+        'Fevereiro',
+        'Março',
+        'Abril',
+        'Maio',
+        'Junho',
+        'Julho',
+    ];
+
+    const data = {
+        labels: labels,
+        datasets: [{
+            label: 'Valor',
+            data: [30, 50, 55, 22, 72, 20, 14],
+            backgroundColor: '#281549',
+            borderColor: '#a5efd3',
+
+        }]
+    };
+    const config = {
+        type: 'bar',
+        data: data,
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                title: {
+                    display: false,
+                    text: 'Problemas recorrentes'
+                }
+            }
+        }
+    };
+</script>
+<script>
+    const myChart = new Chart(
+        document.getElementById('myChart'),
+        config
+    );
 </script>
