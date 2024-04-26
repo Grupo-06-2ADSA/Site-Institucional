@@ -208,8 +208,7 @@ p{
     font-size: 17px;
     border-bottom-left-radius: 15px;
 }
-
-.header-tabela{
+.titulo{
     width: 92%;
     height: 20px;
     background-color: #281549;
@@ -224,12 +223,25 @@ p{
     font-size: 17px;
 }
 
+.header-tabela{
+    width: 92%;
+    height: 20px;
+    background-color: #281549;
+    display: flex;
+    justify-content: space-around;
+    padding: 1.5%;
+    align-items: center;
+    color: #ffffff;
+    font-weight: 800;
+    font-size: 17px;
+}
+
 .teste {
-    margin-left: 160px;
+    margin-left: 50%;
 }
 
 .teste2 {
-    margin-left: 320px;
+    margin-left: 50%;
 }
 #campo{
     width: 98%;

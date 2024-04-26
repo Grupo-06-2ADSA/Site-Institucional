@@ -206,7 +206,10 @@ svg {
     }
 
     .onda{
-        display: none;
+        transform: rotate(270deg);
+        width: 15vw;
+        height: 150vh; 
+        margin-top: 13%; 
     }
 
     .div_2 {
@@ -233,5 +236,14 @@ svg {
         margin-top: 28px;
     }
        
-
+    @media only screen and (max-width: 600px) {
+        .onda {
+           transform: rotate(270deg);
+           width: 15vw;
+           height: 118vh; 
+           margin-top: 30%;
+        }
+            
+        
+    } 
 }
