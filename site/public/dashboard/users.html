@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="users.css">
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="style-responsivo.css">
+  <link rel="stylesheet" href="modal.css">
 </head>
 
 <body onload="validarSessao(),Usuarios()">
@@ -85,8 +86,9 @@
         <span id="nome-users">Nome</span>
         <span id="papel">Cargo</span>
         <span id="status">Status</span>
+        <p class="turno-campo">Turno</p>
         <p class="editar-campo"></p>
-        <p class="excluir-campo"></p>      </div>
+      </div>
       <div class="list-users" id="listaUsers">
       </div>
 
@@ -170,61 +172,71 @@
       nome: "João Silva",
       email: "joao@example.com",
       papel: "Administrador",
-      status: "Ativo"
+      status: "Ativo",
+      turno: "Manhã"
     },
     {
       nome: "Maria Oliveira",
       email: "maria@example.com",
       papel: "Técnico",
-      status: "Ativo"
+      status: "Ativo",
+      turno: "Manhã"
     },
     {
       nome: "Carlos Santos",
       email: "carlos@example.com",
       papel: "Administrador",
-      status: "Inativo"
+      status: "Inativo",
+      turno: "Manhã"
     },
     {
       nome: "Ana Costa",
       email: "ana@example.com",
       papel: "Técnico",
-      status: "Ativo"
+      status: "Ativo",
+      turno: "Manhã"
     },
     {
       nome: "Pedro Sousa",
       email: "pedro@example.com",
       papel: "Técnico",
-      status: "Inativo"
+      status: "Inativo",
+      turno: "Manhã"
     },
     {
       nome: "Luísa Fernandes",
       email: "luisa@example.com",
       papel: "Administrador",
-      status: "Ativo"
+      status: "Ativo",
+      turno: "Manhã"
     },
     {
       nome: "Marta Almeida",
       email: "marta@example.com",
       papel: "Técnico",
-      status: "Inativo"
+      status: "Inativo",
+      turno: "Manhã"
     },
     {
       nome: "Rui Gonçalves",
       email: "rui@example.com",
       papel: "Administrador",
-      status: "Ativo"
+      status: "Ativo",
+      turno: "Manhã"
     },
     {
       nome: "Sofia Rodrigues",
       email: "sofia@example.com",
       papel: "Técnico",
-      status: "Ativo"
+      status: "Ativo",
+      turno: "Manhã"
     },
     {
       nome: "Paulo Costa",
       email: "paulo@example.com",
       papel: "Técnico",
-      status: "Inativo"
+      status: "Inativo",
+      turno: "Manhã"
     }
   ];
 
@@ -241,13 +253,12 @@
             </div>
             <div class="status">
                 <span id="status${i}">${jsonLista[i].status}</span>
-    
+            </div>
+            <div class="turno">
+            <span>${jsonLista[i].turno}</span>  
             </div>
             <div class="edit">
             <a href=""><span>Editar</span></a>  
-            </div>
-            <div class="excluir">
-            <img src="../assets/img/excluir.png" onclick="excluirComponente('${jsonLista[i]}')">
             </div>
     
         </div>

@@ -9,7 +9,7 @@
     <link rel="shortcut icon" href="img/circle-MindCore-azul.png" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="style-responsivo.css">
-    <link rel="stylesheet" href="users.css">
+    <link rel="stylesheet" href="modal.css">
 </head>
 
 <body onload="validarSessao(),note(), ListaManutencao()">
@@ -175,6 +175,10 @@
                         <span>IP</span>
                         <input type="number">
                       </div>
+                      <div class="campo">
+                        <span>Última Imagem</span>
+                        <input type="date">
+                      </div>
                       <div class="botoes">
                         <button class="cancelar">Cancelar</button>
                         <button class="adicionar-botao">Adicionar</button>
@@ -182,7 +186,6 @@
                     </div>
                   </div>
                 </div>
-        
             </div>
         </div>
 
@@ -256,7 +259,7 @@
                 <p class="hostname">${computadores[i].hostName}</p>
                 <div class="bolinha" id="bolinha${i}"></div>
                 <p class="ultimaModificacao">${computadores[i].ultimaModificação}</p>
-                <p id="editar">Editar</p>
+                <p id="editar" onclick="EditarMaquina()">Editar</p>
                 <img src="../assets/img/excluir.png" onclick="excluirComponente('${computadores[i]}')">
             </div>`;
 
