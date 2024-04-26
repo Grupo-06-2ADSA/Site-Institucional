@@ -102,7 +102,7 @@ input {
     justify-content: center;
     margin-left: 16%;
     height: 100%;
-    align-items: start;
+    align-items: center;
     font-size: 30px;
     flex-direction: column;
 }
@@ -132,7 +132,7 @@ svg {
 .onda{
     height: 100%;
     position: absolute;
-    margin-left: 47%;
+    margin-left: 42%;
     transform: rotate(-180deg);
 }
 

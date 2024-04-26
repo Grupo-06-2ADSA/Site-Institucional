@@ -137,6 +137,7 @@ body::-webkit-scrollbar {
     width: 630px;
     font-weight: 100;
     font-size: 65px;
+    margin-top: 16%;
 }
 
 .text .btn button {
