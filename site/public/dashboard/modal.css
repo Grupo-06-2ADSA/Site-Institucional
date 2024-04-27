@@ -330,34 +330,36 @@
     flex-direction: column;
     align-items: center;
     padding: 20px;
+    justify-content: space-evenly;
 }
 .kpis{
     display: flex;
     align-items: center;
-    width: 98%;
+    width: 96%;
     height: auto;
     justify-content: space-between;
 }
-.kpi{
+.kpis .kpi{
     display: flex;
     flex-direction: column;
     background-color: var(--cor4);
-    box-shadow: 10px 3px 7px 0px #727272;
+    box-shadow: 0px 0px 16px 1px #727272;
     border-radius: 10px;
-    padding: 15px;
-    justify-content:center;
-    align-items:center;
+    padding: 19px;
+    justify-content: center;
+    align-items: center;
     text-align: center;
     width: 21%;
-    height: 60%;
+    height: 78%;
     cursor: pointer;
     transition: 0.2s;
 }
-.kpi:hover {
+
+.kpis .kpi:hover {
     height: 65%;
     width: 22%;
 }
-.kpi span{
+.kpis .kpi span{
     font-size: 40px;
     font-weight: bold;
     color: var(--cor1);
@@ -365,15 +367,15 @@
 .problemas{
     display: flex;
     height: 30%;
-    width: 98%;
+    width: 92%;
     flex-direction: column;
-    justify-content:center ;
-    align-items:center ;
+    justify-content: space-around;
+    align-items: center;
     background-color: var(--cor4);
-    box-shadow: 10px 0px 7px 7px #727272;
+    box-shadow: 0px 0px 16px 1px #727272;
     border-radius: 10px;
-    margin-top: 15px;
-
+    padding: 24px;
+    font-size: 14px;
 }
 .problemas h1{
     height: auto;
@@ -385,8 +387,8 @@
     flex-direction: column;
     height: 33.3%;
     width: 100%;
-    margin-top: 15px;
 }
+
 .header-tabela-dash{
     width: 92%;
     height: 10px;
@@ -400,13 +402,6 @@
     color: #ffffff;
     font-weight: 800;
     font-size: 17px;
-}
-.teste {
-    margin-left: 160px;
-}
-
-.teste2 {
-    margin-left: 320px;
 }
 
 .loading-div {

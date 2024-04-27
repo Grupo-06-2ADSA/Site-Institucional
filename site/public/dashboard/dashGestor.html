@@ -9,6 +9,7 @@
     <link rel="shortcut icon" href="img/circle-MindCore-azul.png" type="image/x-icon">
     <link rel="stylesheet" href="dashGestor.css">
     <link rel="stylesheet" href="style-responsivo.css">
+    <link rel="stylesheet" href="modal.css">
 </head>
 
 
@@ -20,9 +21,9 @@
         <div class="menu">
             <div class="bloco 1 aqui" onclick="verificarTipo()">
                 <a onclick="verificarTipo()">
-                    <img class="imgBloco" src="img/bar-chart.png">
-                    <p>Dashboard</p>
-                  </a>
+                <img class="imgBloco" src="img/bar-chart.png">
+                <p>Dashboard</p>
+                </a>
             </div>
         
             <div class="bloco 2">
@@ -72,7 +73,7 @@
                 <img src="img/usuario.png">
             </div>
         </div>
-        <div class="dash">
+        <div class="dashGestor">
             <div class="kpi">
                 <div class="caixa">
                     <h2>Máquinas inoperantes</h2>
@@ -93,7 +94,16 @@
                 </div>
             </div>
             <div class="grafico">
-                <h3>Valores das Manutenções</h3>
+                <div class="periodo">
+                    <h3>Valores das Manutenções</h3>
+                    <select name="" id="">
+                        <option value="2024" selected>2024</option>
+                        <option value="2023">2023</option>
+                        <option value="2022">2022</option>
+                        <option value="2021">2021</option>
+                        <option value="2020">2020</option>
+                    </select>
+                </div>
                 <canvas id="myChart" style="display: block; box-sizing: border-box; height: 80%; width: 80%;"></canvas>
             </div>
             <div class="componentes">
@@ -201,8 +211,20 @@
 
             if (i >= 7) {
                 repeticao.style.overflowY = "scroll";
-                notebooks.style.overflow = "hidden";
             }
+        }
+    }
+
+    let modal = document.getElementById("myModal");
+    let span = document.getElementsByClassName("close")[0];
+
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
+
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
         }
     }
 </script>
@@ -221,7 +243,7 @@
     const data = {
         labels: labels,
         datasets: [{
-            label: 'Valor',
+            label: 'Valor (R$)',
             data: [30, 50, 55, 22, 72, 20, 14],
             backgroundColor: '#281549',
             borderColor: '#a5efd3',
