@@ -215,7 +215,7 @@
         {
             hostName: "adsA4",
             ultimaModificação: "10/03/2024",
-            status: 0
+            status: 2
         },
         {
             hostName: "adsA5",
@@ -230,7 +230,7 @@
         {
             hostName: "adsA7",
             ultimaModificação: "10/03/2024",
-            status: 1
+            status: 0
         },
         {
             hostName: "adsA8",
@@ -240,7 +240,7 @@
         {
             hostName: "adsA9",
             ultimaModificação: "10/03/2024",
-            status: 0
+            status: 2
         },
         {
             hostName: "adsA10",
@@ -264,9 +264,12 @@
             </div>`;
 
             
-            if (computadores[i].status == 1) {
-                const elemento = document.getElementById('bolinha' + i);
+            const elemento = document.getElementById('bolinha' + i);
+
+            if (computadores[i].status == 2) {
                 elemento.setAttribute("style", "background-color: red;");
+            } else if (computadores[i].status == 1) {
+                elemento.setAttribute("style", "background-color: yellow;")
             }
 
             if (i >= 7) {

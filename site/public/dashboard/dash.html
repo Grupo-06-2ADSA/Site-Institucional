@@ -79,7 +79,7 @@
                 <h3>Máquinas inoperantes</h3>
                 <span>30</span>
             </div>
-            <div class="kpi 2">
+            <div class="kpi 2" onclick="maquinaSemLimpeza()">
                 <h3>Máquinas sem limpeza a mais de 6 meses</h3>
                 <span>07</span>
             </div>
@@ -119,7 +119,14 @@
                         </div>
                     </div>
                     <div class="modal-body">
+                        <div class="header-tabela">
+                            <p>HostName</p>
+                            <p>Sala</p>
+                            <p>Última Limpeza</p>
+                        </div>
+                        <div id="maquinas">
 
+                        </div>
                     </div>
                 </div>
 
@@ -207,6 +214,78 @@
              }
          }
      }
+
+     let modal = document.getElementById("myModal");
+     let span = document.getElementsByClassName("close")[0];
+
+     const noteSemLimpeza = [
+         {
+            hostName: "adsA1",
+            sala: "1 ADS A",
+            ultimaLimpeza: "10/03/2023"
+         },
+         {
+            hostName: "adsA1",
+            sala: "1 ADS B",
+            ultimaLimpeza: "04/07/2023"
+         },
+         {
+            hostName: "adsA55",
+            sala: "1 ADS A",
+            ultimaLimpeza: "25/08/2023"
+         },
+         {
+            hostName: "adsA3",
+            sala: "1 ADS A",
+            ultimaLimpeza: "07/09/2023"
+         },
+         {
+            hostName: "adsA21",
+            sala: "1 ADS C",
+            ultimaLimpeza: "13/05/2023"
+         },
+         {
+            hostName: "adsA13",
+            sala: "1 ADS C",
+            ultimaLimpeza: "14/08/2023"
+         },
+         {
+            hostName: "adsA9",
+            sala: "1 ADS A",
+            ultimaLimpeza: "10/03/2024"
+         },
+     ];
+
+     function maquinaSemLimpeza(){
+        let tituloHeader = document.getElementById("header-title");
+
+        tituloHeader.innerHTML = "Máquinas sem limpeza"
+        modal.style.display = "block";
+
+        for (let i = 0; i < noteSemLimpeza.length; i++){
+            maquinas.innerHTML += 
+            `<div id="campo" onclick="graficos('${computadores[i].hostName}')">
+                <p>${noteSemLimpeza[i].hostName}</p>
+                <p>${noteSemLimpeza[i].sala}</p>
+                <p>${noteSemLimpeza[i].ultimaLimpeza}</p>
+            </div>`;
+
+            if (i >= 3){
+                maquinas.style.overflowY = "scroll";
+            }
+        }
+     }
+
+     span.onclick = function () {
+        modal.style.display = "none";
+    }
+
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
  </script>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

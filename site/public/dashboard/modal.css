@@ -389,6 +389,27 @@
     width: 100%;
 }
 
+.componentes .modal-content{
+    height: 75%;
+    width: 70%;
+}
+
+.componentes .modal-body{
+    align-items: center;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    justify-content: center;
+}
+
+#maquinas{
+    width: 95%;
+    height: 80%;
+    background-color: #7272721f;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    overflow: hidden;
+}
+
 .header-tabela-dash{
     width: 92%;
     height: 10px;
