@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="modal.css">
 </head>
 
-<body onload="validarSessao(),note(), ListaManutencao()">
+<body onload="validarSessao(), visualizarMaquinas(), ListaManutencao(), verificarFkSala(), numMaquinas()">
     <div class="left-sidebar">
         <img class="imgLogo" src="img/logo-MindCore.png" alt="logo">
 
@@ -21,30 +21,30 @@
                 <a onclick="verificarTipo()">
                     <img class="imgBloco" src="img/bar-chart.png">
                     <p>Dashboard</p>
-                  </a>
+                </a>
             </div>
-      
+
             <div class="bloco 2 aqui">
-              <a href="verificarNotebooks.html">
-                <img class="imgBloco" src="img/computador.png">
-                <p>Parque de Máquinas</p>
-              </a>
+                <a href="verificarNotebooks.html">
+                    <img class="imgBloco" src="img/computador.png">
+                    <p>Parque de Máquinas</p>
+                </a>
             </div>
-      
+
             <div class="bloco 3 ">
-              <a href="users.html">
-                <img class="imgBloco" src="img/adicionar-usuario.png">
-                <p>Adicionar Usuário</p>
-              </a>
+                <a href="users.html">
+                    <img class="imgBloco" src="img/adicionar-usuario.png">
+                    <p>Adicionar Usuário</p>
+                </a>
             </div>
-        
+
             <div class="bloco 4">
-              <a href="estoque.html">
-                <img class="imgBloco" src="img/estoque.png">
-                <p>Estoque</p>
-              </a>
+                <a href="estoque.html">
+                    <img class="imgBloco" src="img/estoque.png">
+                    <p>Estoque</p>
+                </a>
             </div>
-          </div>
+        </div>
 
         <div class="logout" onclick="limparSessao()">
             <img src="img/sair.png">
@@ -55,10 +55,10 @@
             <div class="turmas">
                 <p>Turmas</p>
                 <select name="turmas" id="turma">
-                    <option value="adsA">ADS A</option>
-                    <option value="adsB">ADS B</option>
-                    <option value="adsC">ADS C</option>
-                    <option value="sis">SIS</option>
+                    <option value="ADS A">ADS A</option>
+                    <option value="ADS B">ADS B</option>
+                    <option value="ADS C">ADS C</option>
+                    <option value="SIS">SIS</option>
                     <option value="CCO">CCO</option>
                 </select>
             </div>
@@ -81,7 +81,7 @@
             <div class="header-tabela">
                 <p class="id-campo">HostName</p>
                 <p id="status_campo">Status</p>
-                <p id="ult_mod">Última modificação</p>
+                <p id="ult_mod">Última Imagem</p>
                 <p class="editar-campo"></p>
                 <p class="excluir-campo"></p>
             </div>
@@ -103,36 +103,40 @@
                             <div class="cpu">
                                 <h3>CPU: I3 11500U</h3>
                                 <!-- Gráfico -->
-                                <canvas id="myChartCPU" style="display: block; box-sizing: border-box; height: 100px; width: 200px;"></canvas>
+                                <canvas id="myChartCPU"
+                                    style="display: block; box-sizing: border-box; height: 100px; width: 200px;"></canvas>
                                 <div class="infos">
                                     <div class="info">
                                         <h5>Tempo de Atividade</h5>
-                                <span>0:01:35:54</span>
+                                        <span>0:01:35:54</span>
                                     </div>
                                     <div class="info">
                                         <h5>Uso CPU%</h5>
-                                <span>60%</span>
+                                        <span>60%</span>
                                     </div>
                                     <div class="info">
                                         <h5>Temperatura</h5>
-                                <span>55ºC</span>
+                                        <span>55ºC</span>
                                     </div>
                                 </div>
                             </div>
-    
+
                             <div class="ram">
                                 <h3>Memória Ram: 8GB</h3>
                                 <div class="chart">
-                                    <canvas id="myChartRAM" style="display: block; box-sizing: border-box; height: 100px; width: 150px;"></canvas>
-                                    <canvas id="myChartRAM2" style="display: block; box-sizing: border-box; height: 30px; width: 30px;"></canvas>
-                                </div>   
+                                    <canvas id="myChartRAM"
+                                        style="display: block; box-sizing: border-box; height: 100px; width: 150px;"></canvas>
+                                    <canvas id="myChartRAM2"
+                                        style="display: block; box-sizing: border-box; height: 30px; width: 30px;"></canvas>
+                                </div>
                             </div>
 
                         </div>
 
                         <div class="dashs">
                             <div class="rede">
-                                <h3>Histórico de Manutenções <button onclick="adicionarHistorico()">Adicionar</button></h3>
+                                <h3>Histórico de Manutenções <button onclick="adicionarHistorico()">Adicionar</button>
+                                </h3>
                                 <div class="headerManutencao">
                                     <p class="header-descricao">Descrição</p>
                                     <p class="header-responsavel">Responsável</p>
@@ -140,51 +144,61 @@
                                     <p class="header-data">Data</p>
                                 </div>
                                 <div class="bodyManutencao" id="manutencoes">
-                                    
+
                                 </div>
                             </div>
 
                             <div class="disco">
                                 <h3>Disco: 500GB</h3>
-                                <canvas id="myChartDISCO" style="display: block; box-sizing: border-box; height: 8%; width: 10%;"></canvas>
+                                <canvas id="myChartDISCO"
+                                    style="display: block; box-sizing: border-box; height: 8%; width: 10%;"></canvas>
 
                             </div>
                         </div>
 
                     </div>
-                    
+
                 </div>
 
             </div>
 
             <div id="modalAdicionar" class="modalUsuario">
                 <div class="modal-conteudo">
-                  <div class="modal-header-usuario">
-                    <span class="close">&times;</span>
-                    <div id="header">
-                      <h2 id="header-title-usuario"></h2>
+                    <div class="modal-header-usuario">
+                        <span class="close">&times;</span>
+                        <div id="header">
+                            <h2 id="header-title-usuario"></h2>
+                        </div>
                     </div>
-                  </div>
-                  <div class="modal-body-usuario">
-                    <div class="formulario">
-                      <div class="campo">
-                        <span>HostName</span>
-                        <input type="text">
-                      </div>
-                      <div class="campo">
-                        <span>IP</span>
-                        <input type="number">
-                      </div>
-                      <div class="campo">
-                        <span>Última Imagem</span>
-                        <input type="date">
-                      </div>
-                      <div class="botoes">
-                        <button class="cancelar">Cancelar</button>
-                        <button class="adicionar-botao">Adicionar</button>
-                      </div>
+                    <div class="modal-body-usuario">
+                        <div class="formulario">
+                            <div class="campo">
+                                <span>HostName</span>
+                                <input type="text" id="hostname">
+                            </div>
+                            <div class="campo">
+                                <span>IPV4</span>
+                                <input type="text" id="ipv4" oninput="mascaraIP(this)" maxlength="15"
+                                    placeholder="000.000.000.000">
+                            </div>
+                            <div class="campo">
+                                <span>Última Imagem</span>
+                                <input type="date" id="dtImagem">
+                            </div>
+                            <div class="alerta_erro">
+                                <div class="card_erro" id="cardErro">
+                                    <span id="mensagem_erro"></span>
+                                </div>
+                            </div>
+                            <div id="div_aguardar" class="loading-div">
+                                <img src="../assets/img/login-cadastro/aguarde-orange.gif" id="loading-gif" />
+                            </div>
+                            <div class="botoes">
+                                <button class="cancelar">Cancelar</button>
+                                <button class="adicionar-botao" onclick="cadastrarMaquina()">Adicionar</button>
+                            </div>
+                        </div>
                     </div>
-                  </div>
                 </div>
             </div>
         </div>
@@ -196,87 +210,111 @@
 </html>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-    const computadores = [
-        {
-            hostName: "adsA1",
-            ultimaModificação: "10/03/2024",
-            status: 0
-        },
-        {
-            hostName: "adsA2",
-            ultimaModificação: "10/03/2024",
-            status: 1
-        },
-        {
-            hostName: "adsA3",
-            ultimaModificação: "10/03/2024",
-            status: 0
-        },
-        {
-            hostName: "adsA4",
-            ultimaModificação: "10/03/2024",
-            status: 2
-        },
-        {
-            hostName: "adsA5",
-            ultimaModificação: "10/03/2024",
-            status: 0
-        },
-        {
-            hostName: "adsA6",
-            ultimaModificação: "10/03/2024",
-            status: 1
-        },
-        {
-            hostName: "adsA7",
-            ultimaModificação: "10/03/2024",
-            status: 0
-        },
-        {
-            hostName: "adsA8",
-            ultimaModificação: "10/03/2024",
-            status: 0
-        },
-        {
-            hostName: "adsA9",
-            ultimaModificação: "10/03/2024",
-            status: 2
-        },
-        {
-            hostName: "adsA10",
-            ultimaModificação: "10/03/2024",
-            status: 0
-        }
-    ];
 
+    function numMaquinas() {
+        fetch("/maquinas/buscarNumeroMaquinas", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                fkEmpresaServer: sessionStorage.EMPRESA_USUARIO
+            }),
+        }).then(function (resposta) {
+            console.log("ESTOU NO THEN DO buscar()!")
 
+            if (resposta.ok) {
+                console.log(resposta);
 
-    function note() {
+                resposta.json().then(json => {
+                    console.log(json);
+                    console.log(JSON.stringify(json));
 
-        for (let i = 0; i < computadores.length; i++) {
-            repeticao.innerHTML += `
-            <div id="campo" onclick="graficos('${computadores[i].hostName}')">
-                <p class="hostname">${computadores[i].hostName}</p>
-                <div class="bolinha" id="bolinha${i}"></div>
-                <p class="ultimaModificacao">${computadores[i].ultimaModificação}</p>
-                <p id="editar" onclick="EditarMaquina()">Editar</p>
-                <img src="../assets/img/excluir.png" onclick="excluirComponente('${computadores[i]}')">
-            </div>`;
+                    sessionStorage.NUM_MAQUINAS = json.numMaquinas
 
-            
-            const elemento = document.getElementById('bolinha' + i);
+                });
 
-            if (computadores[i].status == 2) {
-                elemento.setAttribute("style", "background-color: red;");
-            } else if (computadores[i].status == 1) {
-                elemento.setAttribute("style", "background-color: yellow;")
+            } else {
+                console.log("Houve um erro ao tentar realizar o select!");
             }
 
-            if (i >= 7) {
-                repeticao.style.overflowY = "scroll";
-                notebooks.style.overflow = "hidden";
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+    }
+
+    function visualizarMaquinas() {
+
+        fetch("/maquinas/buscarMaquinas", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                fkEmpresaServer: sessionStorage.EMPRESA_USUARIO
+            }),
+        }).then(function (resposta) {
+            console.log("ESTOU NO THEN DO buscar()!")
+
+            if (resposta.ok) {
+                console.log(resposta);
+
+                resposta.json().then(json => {
+                    console.log(json);
+                    console.log(JSON.stringify(json));
+
+
+                    for (i = 0; i < sessionStorage.NUM_MAQUINAS; i++) {
+                        let dataString = json[i].imagem;
+                        let data = new Date(dataString);
+
+                        repeticao.innerHTML += `
+                        <div id="campo" onclick="graficos('${json[i].hostname}')">
+                            <p class="hostname">${json[i].hostname}</p>
+                            <div class="bolinha" id="bolinha${i}"></div>
+                            <p class="ultimaModificacao">${data.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' })}</p>
+                            <p id="editar" onclick="EditarMaquina()">Editar</p>
+                            <img src="../assets/img/excluir.png" onclick="excluirComponente('${json[i].idMaquina}')">
+                        </div>`;
+
+
+                        const elemento = document.getElementById('bolinha' + i);
+
+                        // if (json[i].status == 2) {
+                            // elemento.setAttribute("style", "background-color: red;");
+                        // } else if (json[i].status == 1) {
+                        //     elemento.setAttribute("style", "background-color: yellow;")
+                        // }
+
+                        if (i >= 4) {
+                            repeticao.style.overflowY = "scroll";
+                            notebooks.style.overflow = "hidden";
+                        }
+                    }
+
+                    function pesquisarNote() {
+                        let hostNamePesquisa = Pesquisar.value;
+
+                        for (let i = 0; i <= json.length; i++) {
+                            if (hostNamePesquisa == json[i].hostname) {
+                                graficos(hostNamePesquisa);
+                            }
+                        }
+
+                    }
+
+                });
+
+            } else {
+                console.log("Houve um erro ao tentar realizar o select!");
             }
-        }
+
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+
+        return false;
+
     }
 
 
@@ -290,11 +328,11 @@
         modal.style.display = "block";
         tituloHeader.innerHTML += `HostName: ${hostname}`;
 
-    
-        for (let i = 0; i < computadores.length; i++){
-            if (hostname == computadores[i].hostName){
+
+        for (let i = 0; i < computadores.length; i++) {
+            if (hostname == computadores[i].hostName) {
                 let statusComputador = computadores[i].status == 1 ? "red" : "green";
-                
+
                 tituloHeader.innerHTML += `<button class="alerta ${statusComputador}" id="alerta${i}"></button>`;
             }
         }
@@ -311,15 +349,30 @@
         }
     }
 
-    function pesquisarNote() {
-        let hostNamePesquisa = Pesquisar.value;
 
-        for (let i = 0; i <= computadores.length; i++) {
-            if (hostNamePesquisa == computadores[i].hostName) {
-                graficos(hostNamePesquisa);
+
+    function mascaraIP(input) {
+        let value = input.value;
+        // Remove todos os caracteres que não são números ou pontos
+        value = value.replace(/[^\d.]/g, '');
+
+        // Divide em blocos por ponto
+        let blocks = value.split('.').map(block => block.slice(0, 3));
+
+        blocks = blocks.slice(0, 4);
+
+        // Recria o valor com os blocos formatados
+        input.value = blocks.join('.');
+
+        // Verifica e ajusta a validade dos números entre 0 e 255
+        for (let i = 0; i < blocks.length; i++) {
+            if (blocks[i] !== '' && (parseInt(blocks[i]) < 0 || parseInt(blocks[i]) > 255)) {
+                blocks[i] = '255';
             }
         }
 
+        // Atualiza o valor de entrada com os blocos válidos
+        input.value = blocks.join('.').slice(0, 15)
     }
 
     let statusCampo = document.getElementById("status_campo");
@@ -339,6 +392,90 @@
     }
 
 
+    let fkSala;
+
+    function verificarFkSala() {
+        let nomeSala = turma.value;
+
+        fetch("/maquinas/verificarFkSala", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/usuario.js
+                nomeSalaServer: nomeSala,
+                fkEmpresaServer: sessionStorage.EMPRESA_USUARIO
+            }),
+        })
+            .then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+
+                    resposta.json().then(json => {
+                        console.log(json);
+                        console.log(JSON.stringify(json));
+
+                        fkSala = json[0].idSala;
+
+                    });
+
+                    limparFormulario();
+                    finalizarAguardar();
+                } else {
+                    throw "Houve um erro ao tentar realizar a verificacão!";
+                }
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+                finalizarAguardar();
+            });
+    }
+
+    function cadastrarMaquina() {
+        let hostName = hostname.value;
+        let ip = ipv4.value;
+        let dataImagem = dtImagem.value;
+
+
+        fetch("/maquinas/cadastrarMaquina", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/usuario.js
+                hostNameServer: hostName,
+                ipv4Server: ip,
+                imagemServer: dataImagem,
+                fkSalaServer: fkSala,
+                fkEmpresaServer: sessionStorage.EMPRESA_USUARIO
+            }),
+        })
+            .then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+                    cardErro.style.display = "block";
+
+                    mensagem_erro.innerHTML = "Cadastro realizado com sucesso!";
+
+                    limparFormulario();
+                    finalizarAguardar();
+                } else {
+                    throw "Houve um erro ao tentar realizar o cadastro!";
+                }
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+                finalizarAguardar();
+            });
+    }
+
+
     window.onclick = function (event) {
         if (event.target == modalAdicionar) {
             modalAdicionar.style.display = "none";
@@ -347,21 +484,21 @@
 </script>
 <script>
     //CHART CPU------------------------------------------------------
-const labelsCPU = ['60s', '50s', '40s', '30s', '20s', '10s', '0s'];    
-const dataCPU = {
-  labels: labelsCPU,
-  datasets: [{
-    label: 'Uso CPU %',
-    data: [59, 80, 81, 56, 55, 40, 60, 0, 100],
-    fill: false,
-    borderColor: '#9340FF',
-    tension: 0.1
-  }]
-};
-const configCPU = {
-    type: 'line',
-    data: dataCPU,
-  };
+    const labelsCPU = ['60s', '50s', '40s', '30s', '20s', '10s', '0s'];
+    const dataCPU = {
+        labels: labelsCPU,
+        datasets: [{
+            label: 'Uso CPU %',
+            data: [59, 80, 81, 56, 55, 40, 60, 0, 100],
+            fill: false,
+            borderColor: '#9340FF',
+            tension: 0.1
+        }]
+    };
+    const configCPU = {
+        type: 'line',
+        data: dataCPU,
+    };
 
     const myChartCPU = new Chart(
         document.getElementById('myChartCPU'),
@@ -370,21 +507,21 @@ const configCPU = {
 
     // CHART RAM-----------------------------------------------------
 
-const labelsRAM = ['60s', '50s', '40s', '30s', '20s', '10s', '0s'];    
-const dataRAM = {
-  labels: labelsRAM,
-  datasets: [{
-    label: 'Uso RAM %',
-    data: [59, 80, 81, 56, 55, 40, 60, 0, 100],
-    fill: false,
-    borderColor: '#9340FF',
-    tension: 0.1
-  }]
-};
-const configRAM = {
-    type: 'line',
-    data: dataRAM,
-  };
+    const labelsRAM = ['60s', '50s', '40s', '30s', '20s', '10s', '0s'];
+    const dataRAM = {
+        labels: labelsRAM,
+        datasets: [{
+            label: 'Uso RAM %',
+            data: [59, 80, 81, 56, 55, 40, 60, 0, 100],
+            fill: false,
+            borderColor: '#9340FF',
+            tension: 0.1
+        }]
+    };
+    const configRAM = {
+        type: 'line',
+        data: dataRAM,
+    };
 
     const myChartRAM = new Chart(
         document.getElementById('myChartRAM'),
@@ -393,53 +530,53 @@ const configRAM = {
 
     const dataRAM2 = {
         labels: [
-          'Em uso',
-          'Disponível'
+            'Em uso',
+            'Disponível'
         ],
         datasets: [{
-          label: 'MB',
-          data: [3466, 4534],
-          backgroundColor: [
-            '#9340FF',
-            '#023971'
-          ],
-          hoverOffset: 4
-        }]
-      };
-      const configRAM2 = {
-        type: 'pie',
-        data: dataRAM2,
-      };
-    
-        const myChartRAM2 = new Chart(
-            document.getElementById('myChartRAM2'),
-            configRAM2
-        );
-        // DISCO-------------------------------------------------------
-        const dataDISCO = {
-            labels: [
-              'Em uso',
-              'Disponível'
-            ],
-            datasets: [{
-              label: 'GB',
-              data: [320, 180],
-              backgroundColor: [
+            label: 'MB',
+            data: [3466, 4534],
+            backgroundColor: [
                 '#9340FF',
                 '#023971'
-              ],
-              hoverOffset: 4
-            }]
-          };
-          const configDISCO = {
-            type: 'pie',
-            data: dataDISCO,
-          };
-        
-            const myChartDISCO = new Chart(
-                document.getElementById('myChartDISCO'),
-                configDISCO
-            );
+            ],
+            hoverOffset: 4
+        }]
+    };
+    const configRAM2 = {
+        type: 'pie',
+        data: dataRAM2,
+    };
+
+    const myChartRAM2 = new Chart(
+        document.getElementById('myChartRAM2'),
+        configRAM2
+    );
+    // DISCO-------------------------------------------------------
+    const dataDISCO = {
+        labels: [
+            'Em uso',
+            'Disponível'
+        ],
+        datasets: [{
+            label: 'GB',
+            data: [320, 180],
+            backgroundColor: [
+                '#9340FF',
+                '#023971'
+            ],
+            hoverOffset: 4
+        }]
+    };
+    const configDISCO = {
+        type: 'pie',
+        data: dataDISCO,
+    };
+
+    const myChartDISCO = new Chart(
+        document.getElementById('myChartDISCO'),
+        configDISCO
+    );
 
     const manutencoes = [
         {
@@ -504,8 +641,8 @@ const configRAM = {
         }
     ];
 
-    
-    function ListaManutencao(){
+
+    function ListaManutencao() {
         let manutencao = document.getElementById("manutencoes");
 
         for (let i = 0; i < manutencoes.length; i++) {
@@ -516,7 +653,7 @@ const configRAM = {
                 <p class="campo-tipo">${manutencoes[i].tipo}</p>
                 <p class="campo-data">${manutencoes[i].data}</p>
             </div>`;
-    
+
             if (i >= 7) {
                 manutencao.style.overflowY = "scroll";
             }

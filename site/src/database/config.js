@@ -3,10 +3,10 @@ var sql = require('mssql');
 
 // CONEXÃO DO SQL SERVER - AZURE (NUVEM)
 var sqlServerConfig = {
-    server: "SEU_SERVIDOR",
-    database: "SEU_BANCO_DE_DADOS",
-    user: "SEU_USUARIO",
-    password: "SUA_SENHA",
+    server: 'EC2AMAZ-6280P8B\SQLEXPRESS',
+    database: "MindCore",
+    user: "sa",
+    password: "mindcore123",
     pool: {
         max: 10,
         min: 0,
@@ -21,8 +21,8 @@ var sqlServerConfig = {
 var mySqlConfig = {
     host: "localhost",
     database: "MindCore",
-    user: "root",
-    password: "",
+    user: "mindcore",
+    password: "mindcore123grupo6",
 };
 
 function executar(instrucao) {
