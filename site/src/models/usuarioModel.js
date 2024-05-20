@@ -3,7 +3,7 @@ var database = require("../database/config")
 function autenticar(email, senha) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ", email, senha)
     var instrucao = `
-        SELECT nome, email, senha, tipo, fkEmpresa FROM Funcionario WHERE email = '${email}' AND senha = '${senha}';
+        SELECT idFunc, nome, email, senha, tipo, fkEmpresa FROM Funcionario WHERE email = '${email}' AND senha = '${senha}';
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
@@ -31,13 +31,39 @@ function cadastrarFuncionarioEmpresa(nome, email, senha, telefone, tipo, turno, 
     `
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
-
 }
 
+function listarUsuarios(fkEmpresa){
+    var instrucao = `
+    select idFunc, nome, email, tipo, senha, telefone, turno, estado from Funcionario where fkEmpresa = ${fkEmpresa} and tipo != 'Empresa';
+    `
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
 
+function atualizarFuncionario(nome, email, senha, telefone, tipo, status, turno, idFunc){
+    instrucaoSql = `
+    update Funcionario set nome = '${nome}', email = '${email}', senha = '${senha}', telefone = '${telefone}', tipo = '${tipo}', estado = '${status}', turno = '${turno}' where idFunc = ${idFunc};
+    `;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function excluirFuncionario(idFunc){
+    instrucaoSql = `
+    delete from Funcionario where idFunc = ${idFunc};
+    `;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
 
 module.exports = {
     autenticar,
     cadastrar,
-    cadastrarFuncionarioEmpresa
+    listarUsuarios,
+    cadastrarFuncionarioEmpresa,
+    atualizarFuncionario,
+    excluirFuncionario
 };

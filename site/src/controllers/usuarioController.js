@@ -38,17 +38,17 @@ function cadastrar(req, res) {
     var nome = req.body.nomeServer;
     var cnpj = req.body.cnpjServer;
     var telefone = req.body.telefoneServer;
-    
+
 
     // Faça as validações dos valores
     if (nome == undefined) {
         res.status(400).send("Seu nome está undefined!");
     } else if (cnpj == undefined) {
         res.status(400).send("Seu cnpj está undefined!");
-    } else if(telefone == undefined){
+    } else if (telefone == undefined) {
         res.status(400).send("Seu telefone está undefined!");
     }
-     else {
+    else {
 
         // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
         usuarioModel.cadastrar(nome, cnpj, telefone)
@@ -81,8 +81,6 @@ function cadastrarFuncionarioEmpresa(req, res) {
     var tipo = req.body.tipoServer;
     var turno = req.body.turnoServer;
 
-    
-
     // Faça as validações dos valores
     if (nome == undefined) {
         res.status(400).send("Seu nome está undefined!");
@@ -92,14 +90,14 @@ function cadastrarFuncionarioEmpresa(req, res) {
         res.status(400).send("Sua senha está undefined!");
     } else if (cnpj == undefined) {
         res.status(400).send("Seu cnpj está undefined!");
-    } else if(telefone == undefined){
+    } else if (telefone == undefined) {
         res.status(400).send("Seu telefone está undefined!");
-    } else if(tipo == undefined){
+    } else if (tipo == undefined) {
         res.status(400).send("Seu tipo está undefined!");
-    }else if(turno == undefined){
+    } else if (turno == undefined) {
         res.status(400).send("Seu turno está undefined!");
     }
-     else {
+    else {
 
         // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
         usuarioModel.cadastrarFuncionarioEmpresa(nome, email, senha, telefone, tipo, turno, cnpj)
@@ -120,11 +118,111 @@ function cadastrarFuncionarioEmpresa(req, res) {
     }
 }
 
+function listarUsuarios(req, res) {
+    var fkEmpresa = req.body.fkEmpresaServer;
 
+    usuarioModel.listarUsuarios(fkEmpresa)
+        .then((resultado) => {
+
+            console.log(`\nResultados encontrados: ${resultado.length}`);
+            console.log(`Resultados: ${JSON.stringify(resultado)}`); // transforma JSON em String
+
+            if (resultado.length > 0) {
+                res.status(200).json(resultado);
+                console.log(resultado);
+
+            } else {
+                res.status(204).send("Nenhum resultado encontrado!")
+            }
+        }).catch(function (erro) {
+            console.log(erro);
+            console.log("Houve um erro ao buscar as informações: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        });
+}
+
+function atualizarFuncionario(req, res) {
+    let nome = req.body.nomeServer;
+    let email = req.body.emailServer;
+    let senha = req.body.senhaServer;
+    let telefone = req.body.telefoneServer;
+    let tipo = req.body.tipoServer;
+    let status = req.body.statusServer;
+    let turno = req.body.turnoServer;
+    let idFunc = req.body.idFuncionarioServer;
+
+
+    // Faça as validações dos valores
+    if (nome == undefined) {
+        res.status(400).send("Seu nome está undefined!");
+    } else if (email == undefined) {
+        res.status(400).send("Sua email está undefined!");
+    } else if (senha == undefined) {
+        res.status(400).send("Seu senha está undefined!");
+    } else if (telefone == undefined) {
+        res.status(400).send("Sua telefone está undefined!");
+    } else if (tipo == undefined) {
+        res.status(400).send("Sua tipo está undefined!");
+    } else if (status == undefined) {
+        res.status(400).send("Seu status está undefined!");
+    } else if (turno == undefined) {
+        res.status(400).send("Sua turno está undefined!");
+    } else if (idFunc == undefined) {
+        res.status(400).send("Sua idFunc está undefined!");
+    }
+    else {
+        usuarioModel.atualizarFuncionario(nome, email, senha, telefone, tipo, status, turno, idFunc)
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao realizar o cadastro! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
+
+function excluirFuncionario(req, res){
+    let idFunc = req.body.idFuncServer;
+
+    // Faça as validações dos valores
+    if (idFunc == undefined) {
+        res.status(400).send("Sua idFunc está undefined!");
+    }
+    else {
+
+        // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
+        usuarioModel.excluirFuncionario(idFunc)
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao realizar o delete! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
 
 
 module.exports = {
     autenticar,
     cadastrar,
-    cadastrarFuncionarioEmpresa
+    listarUsuarios,
+    cadastrarFuncionarioEmpresa,
+    atualizarFuncionario,
+    excluirFuncionario
 }

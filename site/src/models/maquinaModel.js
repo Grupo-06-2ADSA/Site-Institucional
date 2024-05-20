@@ -12,6 +12,16 @@ function cadastrar(hostname, ip, dtImagem, fkSala, fkEmpresa) {
     return database.executar(instrucao);
 }
 
+function cadastrarManutencao(data, descricao, tipo, fkMaquina, fkSala, responsavel) {    
+    var instrucao = `
+    insert into HistoricoManutencao (Dia, descricao, tipo, fkMaquina, fkSala, responsavel) values (
+        '${data}', '${descricao}', '${tipo}', ${fkMaquina}, ${fkSala}, ${responsavel});
+    `;
+    
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
 function verificarFkSala(nomeSala, fkEmpresa){
     var instrucao = `
     select idSala from sala where nome = '${nomeSala}' and fkEmpresa = '${fkEmpresa}';
@@ -23,26 +33,47 @@ function verificarFkSala(nomeSala, fkEmpresa){
 
 function buscarMaquinas(fkEmpresa) {
     instrucaoSql = `
-    select idMaquina, hostname, imagem from Maquina where fkEmpresa = ${fkEmpresa};
+    select idMaquina, hostname, ip, imagem from Maquina where fkEmpresa = ${fkEmpresa};
     `;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
 
-function numMaquinas(fkEmpresa) {
-
+function buscarManutencoes(fkMaquina) {
     instrucaoSql = `
-      SELECT count(idMaquina) numMaquinas from Maquina where fkEmpresa = ${fkEmpresa}
+    select Dia, descricao, hm.tipo, f.nome nomeResponsavel from HistoricoManutencao hm inner join Funcionario f on hm.responsavel = f.idFunc where fkMaquina = ${fkMaquina};
     `;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
+
+function excluirMaquina(idMaquina){
+    instrucaoSql = `
+    delete from Maquina where idMaquina = ${idMaquina};
+    `;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function atualizarMaquina(hostname, ipv4, dtImagem, idMaquina){
+    instrucaoSql = `
+    update Maquina set hostname = '${hostname}', ip = '${ipv4}', imagem = '${dtImagem}' where idMaquina = ${idMaquina};
+    `;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 
 module.exports = {
     cadastrar,
     verificarFkSala,
     buscarMaquinas,
-    numMaquinas
+    excluirMaquina,
+    atualizarMaquina,
+    cadastrarManutencao,
+    buscarManutencoes
 };

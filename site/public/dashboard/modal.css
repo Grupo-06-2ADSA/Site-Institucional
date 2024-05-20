@@ -35,13 +35,20 @@
     to {top:0; opacity:1}
 }
   
-.close {
+.close, .close2, .close3, .close4 {
     color: var(--cor3);
     font-size: 50px;
+    height: 60px;
 }
   
 .close:hover,
-.close:focus {
+.close:focus,
+.close2:hover,
+.close2:focus,
+.close3:hover,
+.close3:focus,
+.close4:hover,
+.close4:focus   {
     color: var(--cor2);
     text-decoration: none;
     cursor: pointer;
@@ -52,12 +59,16 @@
     background-color: var(--cor5);
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
-    height: 10%;
+    height: 8%;
     color: var(--cor3);
     align-items: center;
     display: flex;
     flex-direction: row-reverse;
     justify-content: space-between;
+}
+
+.modal-header-maquina{
+    height: 8%;
 }
   
 .modal-body {
@@ -93,7 +104,7 @@
     margin: auto;
     padding: 0;
     width: 40%;
-    height: 85%;
+    height: 88%;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
     -webkit-animation-name: animatetop;
     -webkit-animation-duration: 0.4s;
@@ -249,7 +260,7 @@
     background-color: var(--cor5);
     align-items: center;
 }
-#header-title {
+#header-title, #header-title-maquina, #header-title-historico {
     text-align: center;
     display: flex;
     align-items: center;

@@ -20,10 +20,10 @@
         <div class="menu">
             <div class="bloco 1">
                 <a onclick="verificarTipo()">
-                  <img class="imgBloco" src="img/bar-chart.png">
-                  <p>Dashboard</p>
+                    <img class="imgBloco" src="img/bar-chart.png">
+                    <p>Dashboard</p>
                 </a>
-              </div>
+            </div>
             <div class="bloco 2">
                 <a href="verificarNotebooks.html">
                     <img class="imgBloco" src="img/computador.png">
@@ -36,7 +36,7 @@
                     <p>Adicionar Usuário</p>
                 </a>
             </div>
-        
+
             <div class="bloco 4 aqui">
                 <a href="">
                     <img class="imgBloco" src="img/estoque.png">
@@ -88,37 +88,80 @@
             <div id="repeticao">
 
             </div>
-            
+
             <button onclick="AdicionarComponente()" class="adicionar">Adicionar</button>
 
             <div id="modalAdicionar" class="modalUsuario">
                 <div class="modal-conteudo">
-                  <div class="modal-header-usuario">
-                    <span class="close">&times;</span>
-                    <div id="header">
-                      <h2 id="header-title-usuario"></h2>
+                    <div class="modal-header-usuario">
+                        <span class="close">&times;</span>
+                        <div id="header">
+                            <h2 id="header-title-usuario"></h2>
+                        </div>
                     </div>
-                  </div>
-                  <div class="modal-body-usuario">
-                    <div class="formulario">
-                      <div class="campo">
-                        <span>Nome</span>
-                        <input type="text">
-                      </div>
-                      <div class="campo">
-                        <span>Quantidade</span>
-                        <input type="number">
-                      </div>
-                      <div class="campo">
-                        <span>Preço unitário</span>
-                        <input type="number">
-                      </div>
-                      <div class="botoes">
-                        <button class="cancelar">Cancelar</button>
-                        <button class="adicionar-botao">Adicionar</button>
-                      </div>
+                    <div class="modal-body-usuario">
+                        <div class="formulario">
+                            <div class="campo">
+                                <span>Nome</span>
+                                <input type="text" id="nomeComponente">
+                            </div>
+                            <div class="campo">
+                                <span>Quantidade</span>
+                                <input type="number" id="quantidadeProd">
+                            </div>
+                            <div class="campo">
+                                <span>Preço unitário (R$)</span>
+                                <input type="number" id="precoUnit">
+                            </div>
+                            <div class="alerta_erro">
+                                <div class="card_erro" id="cardErro">
+                                    <span id="mensagem_erro"></span>
+                                </div>
+                            </div>
+                            <div class="botoes">
+                                <button class="cancelar" onclick="cancelarEdicao()">Cancelar</button>
+                                <button class="adicionar-botao" onclick="cadastrarComponente()">Adicionar</button>
+                            </div>
+                        </div>
                     </div>
-                  </div>
+                </div>
+            </div>
+
+            <div id="modalEditar" class="modalUsuario">
+                <div class="modal-conteudo">
+                    <div class="modal-header-usuario">
+                        <span class="close2">&times;</span>
+                        <div id="header">
+                            <h2 id="header-title"></h2>
+                        </div>
+                    </div>
+                    <div class="modal-body-usuario">
+                        <div class="formulario">
+                            <div class="campo">
+                                <span>Nome</span>
+                                <input type="text" id="nomeComponenteEdit">
+                            </div>
+                            <div class="campo">
+                                <span>Quantidade</span>
+                                <input type="number" id="quantidadeProdEdit">
+                            </div>
+                            <div class="campo">
+                                <span>Preço unitário (R$)</span>
+                                <input type="number" id="precoUnitEdit">
+                            </div>
+
+                            <div class="alerta_erro">
+                                <div class="card_erro" id="cardErro">
+                                    <span id="mensagem_erro_editar"></span>
+                                </div>
+                            </div>
+                            <div class="botoes">
+                                <button class="cancelar" onclick="cancelarEdicao()">Cancelar</button>
+                                <button class="adicionar-botao" onclick="salvarAlteracoes()">Salvar
+                                    alterações</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -130,104 +173,110 @@
 
 </html>
 <script>
-    const componente = [
-        {
-            id: 1,
-            nome: "Mémoria RAM",
-            quantidade: 5,
-            precoUnitario: 100.00,
-            precoTotal: 500.00
-        },
-        {
-            id: 2,
-            nome: "SSD",
-            quantidade: 10,
-            precoUnitario: 89.90,
-            precoTotal: 899.00
-        },
-        {
-            id: 3,
-            nome: "HD",
-            quantidade: 25,
-            precoUnitario: 140.00,
-            precoTotal: 3500.00
-        },
-        {
-            id: 4,
-            nome: "Processador",
-            quantidade: 8,
-            precoUnitario: 110.50,
-            precoTotal: 884.00
-        },
-        {
-            id: 5,
-            nome: "Carregadores",
-            quantidade: 20,
-            precoUnitario: 50.00,
-            precoTotal: 1000.00
-        },
-        {
-            id: 6,
-            nome: "Baterias",
-            quantidade: 50,
-            precoUnitario: 80.00,
-            precoTotal: 4000.00
-        },
-        {
-            id: 7,
-            nome: "Mémoria RAM",
-            quantidade: 5,
-            precoUnitario: 100.00,
-            precoTotal: 500.00
-        },
-        {
-            id: 8,
-            nome: "Mémoria RAM",
-            quantidade: 5,
-            precoUnitario: 100.00,
-            precoTotal: 500.00
-        },
-        {
-            id: 9,
-            nome: "Mémoria RAM",
-            quantidade: 5,
-            precoUnitario: 100.00,
-            precoTotal: 500.00
-        },
-        {
-            id: 10,
-            nome: "Mémoria RAM",
-            quantidade: 5,
-            precoUnitario: 100.00,
-            precoTotal: 500.00
-        }
-    ];
+
+    function cadastrarComponente() {
+        let nome = nomeComponente.value;
+        let quantidade = quantidadeProd.value;
+        let precoUnitario = precoUnit.value;
 
 
+        fetch("/estoque/cadastrarComponente", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/usuario.js
+                nomeComponenteServer: nome,
+                quantidadeServer: quantidade,
+                precoServer: precoUnitario,
+                fkEmpresaServer: sessionStorage.EMPRESA_USUARIO
+            }),
+        })
+            .then(function (resposta) {
+                console.log("resposta: ", resposta);
 
-    function Componentes() {
+                if (resposta.ok) {
+                    let cardErro = document.getElementById("cardErro");
+                    let mensagemErroEditar = document.getElementById("mensagem_erro");
 
-        for (let i = 0; i < componente.length; i++) {
-            repeticao.innerHTML += `
-            <div id="campo" class="${i}">
-                <p class="nomeComponente">${componente[i].nome}</p>
-                <p class="quantidade">${componente[i].quantidade}</p>
-                <p class="precoUnitario">R$${componente[i].precoUnitario}</p>
-                <p class="precoTotal">R$${componente[i].precoTotal}</p>
-                <p id="editar">Editar</p>
-                <img src="../assets/img/excluir.png" onclick="excluirComponente('${componente[i]}')">
-            </div>`;
+                    if (cardErro && mensagemErroEditar) {
+                        cardErro.style.display = "block";
+                        mensagemErroEditar.innerHTML = "Alteração realizada com sucesso!";
 
+                        setTimeout(() => {
+                            mensagemErroEditar.innerHTML = "";
+                            cardErro.style.display = "none";
+                            location.reload();
+                        }, 2000);
 
-            if (i >= 7) {
-                repeticao.style.overflowY = "scroll";
-                notebooks.style.overflow = "hidden";
-            }
-        }
+                    } else {
+                        console.error("Elementos de mensagem de erro não encontrados.");
+                    }
+
+                } else {
+                    throw "Houve um erro ao tentar realizar o cadastro!";
+                }
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
     }
 
 
-  
+    function Componentes() {
+        fetch("/estoque/buscarComponentes", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                fkEmpresaServer: sessionStorage.EMPRESA_USUARIO
+            }),
+        }).then(function (resposta) {
+            console.log("ESTOU NO THEN DO buscar()!")
+
+            if (resposta.ok) {
+                console.log(resposta);
+
+                resposta.json().then(json => {
+                    console.log(json);
+                    console.log(JSON.stringify(json));
+
+                    sessionStorage.ID_COMPONENTE = json.idComponente
+
+                    for (i = 0; i < json.length; i++) {
+
+                        repeticao.innerHTML += `
+                        <div id="campo" class="${i}">
+                        <p class="nomeComponente">${json[i].nomeComponente}</p>
+                        <p class="quantidade">${json[i].quantidade}</p>
+                        <p class="precoUnitario">R$${json[i].preco}</p>
+                        <p class="precoTotal">R$${(json[i].quantidade * json[i].preco).toFixed(2)}</p>
+                        <p class="editar" data-id="${json[i].idComponente}" data-nome="${json[i].nomeComponente}" data-quantidade="${json[i].quantidade}" data-preco="${json[i].preco}"  onclick="editarComponente(event)">Editar</p>
+                        <img src="../assets/img/excluir.png" data-id="${json[i].idComponente}" onclick="excluirComponente(event)">
+                        </div>`;
+
+
+                        if (i >= 5) {
+                            repeticao.style.overflowY = "scroll";
+                            notebooks.style.overflow = "hidden";
+                        }
+                    }
+
+                });
+
+            } else {
+                console.log("Houve um erro ao tentar realizar o select!");
+            }
+
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+
+        return false;
+    }
 
     function pesquisarComponente() {
         let nomeComponente = Pesquisar.value;
@@ -237,12 +286,136 @@
                 graficos(hostNamePesquisa);
             }
         }
-
     }
 
     let modal = document.getElementById("modalAdicionar");
+    let modalEdicao = document.getElementById("modalEditar");
     let span = document.getElementsByClassName("close")[0];
+    let span2 = document.getElementsByClassName("close2")[0];
 
+    
+    let idComponente;
+
+    function cancelarEdicao(){
+        modalEdicao.style.display = "none";
+        modal.style.display = "none";
+    }
+    
+    function editarComponente(event) {
+        let tituloHeader = document.getElementById("header-title");
+        let elemento = event.target;
+        let nome = elemento.dataset.nome;
+        let quantidade = parseInt(elemento.dataset.quantidade); // Converter para número
+        let preco = parseFloat(elemento.dataset.preco); // Converter para número
+        idComponente = parseInt(elemento.dataset.id);
+
+        modalEdicao.style.display = "block";
+        tituloHeader.innerHTML = `Editar componente`;
+
+        let nomeInput = document.getElementById("nomeComponenteEdit");
+        let qtdInput = document.getElementById("quantidadeProdEdit");
+        let precoInput = document.getElementById("precoUnitEdit");
+
+
+        nomeInput.value = nome;
+        qtdInput.value = quantidade;
+        precoInput.value = preco;
+    }
+
+    function salvarAlteracoes() {
+        let confirmar = confirm("Você tem certeza que deseja salvar as alterações?");
+        if (!confirmar) {
+            return;
+        }
+        let nome = document.getElementById("nomeComponenteEdit").value;
+        let quantidade = document.getElementById("quantidadeProdEdit").value;
+        let preco = document.getElementById("precoUnitEdit").value;
+
+        fetch("/estoque/atualizarComponentes", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/usuario.js
+                nomeComponenteServer: nome,
+                quantidadeServer: quantidade,
+                precoServer: preco,
+                idComponenteServer: idComponente
+            }),
+        })
+            .then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+                    let cardErro = document.getElementById("cardErro");
+                    let mensagemErroEditar = document.getElementById("mensagem_erro_editar");
+
+                    if (cardErro && mensagemErroEditar) {
+                        cardErro.style.display = "block";
+                        mensagemErroEditar.innerHTML = "Alteração realizada com sucesso!";
+
+                        setTimeout(() => {
+                            mensagemErroEditar.innerHTML = "";
+                            cardErro.style.display = "none";
+                            location.reload();
+                        }, 2000);
+
+                        limparFormulario();
+                    } else {
+                        console.error("Elementos de mensagem de erro não encontrados.");
+                    }
+
+                    limparFormulario();
+                } else {
+                    throw "Houve um erro ao tentar realizar o update!";
+                }
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+
+        return false;
+    }
+
+    function excluirComponente(event){
+        let confirmar = confirm("Você tem certeza que deseja excluir o componente?");
+        if (!confirmar) {
+            return;
+        }
+
+        let elemento = event.target;
+        idComponente = parseInt(elemento.dataset.id);
+
+
+        fetch("/estoque/excluirComponente", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                idComponenteServer: idComponente
+            }),
+        })
+            .then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+                    alert("Componente excluído com sucesso!")
+
+                    location.reload();
+
+                } else {
+                    throw "Houve um erro ao tentar realizar o delete!";
+                }
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+
+        return false;
+    }
 
     function AdicionarComponente() {
         let tituloHeader = document.getElementById("header-title-usuario");
@@ -251,13 +424,19 @@
         tituloHeader.innerHTML = `Adicionar novo componente`;
     }
 
-        span.onclick = function () {
+    span.onclick = function () {
         modal.style.display = "none";
+    }
+
+    span2.onclick = function () {
+        modalEdicao.style.display = "none";
     }
 
     window.onclick = function (event) {
         if (event.target == modal) {
             modal.style.display = "none";
+        } else if (event.target == modalEdicao) {
+            modalEdicao.style.display = "none"
         }
     }
 </script>

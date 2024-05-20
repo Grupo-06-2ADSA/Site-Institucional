@@ -7,6 +7,10 @@ router.post("/cadastrarMaquina", function (req, res) {
     maquinaController.cadastrar(req, res);
 });
 
+router.post("/cadastrarManutencao", function (req, res) {
+    maquinaController.cadastrarManutencao(req, res);
+});
+
 router.post("/verificarFkSala", function (req, res) {
     maquinaController.verificarFkSala(req, res);
 });
@@ -15,9 +19,16 @@ router.post("/buscarMaquinas", function (req, res) {
     maquinaController.buscarMaquinas(req, res);
 });
 
-router.post("/buscarNumeroMaquinas", function (req, res) {
-    maquinaController.numMaquinas(req, res);
+router.post("/atualizarMaquina", function (req, res) {
+    maquinaController.atualizarMaquina(req, res);
 });
 
+router.post("/excluirMaquina", function (req, res) {
+    maquinaController.excluirMaquina(req, res);
+});
+
+router.post("/buscarManutencoes", function (req, res) {
+    maquinaController.buscarManutencoes(req, res);
+});
 
 module.exports = router;

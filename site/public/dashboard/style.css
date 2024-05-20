@@ -207,6 +207,7 @@ p{
     align-content: start;
     font-size: 17px;
     border-bottom-left-radius: 15px;
+    background-color: #72727246;
 }
 .componentes .titulo{
     width: 92%;
@@ -292,7 +293,7 @@ p{
 }
 
 #campo{
-    width: 100%;
+    width: 99%;
     height: 70px;
     display: flex;
     background-color: #eeeded;
@@ -305,7 +306,7 @@ p{
 }
 
 #campo:hover{
-    background-color: #20244f0b;
+    background-color: #ececec00;
 }
 
 .header-tabela img {
@@ -354,5 +355,13 @@ p{
 .note {
     width: 100px;
     height: 100px;
+    cursor: pointer;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
     cursor: pointer;
 }

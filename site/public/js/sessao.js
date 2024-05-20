@@ -4,11 +4,12 @@ function validarSessao() {
     var nome = sessionStorage.NOME_USUARIO;
     var cnpj = sessionStorage.EMPRESA_USUARIO;
     var tipo = sessionStorage.TIPO_USUARIO;
+    let idFunc = sessionStorage.ID_USUARIO;
 
     var nomeUsuario = document.getElementById("nomeUsuario");
     var tipoUsuario = document.getElementById("tipoUsuario");
     
-    if (email != null && nome != null && tipo != null && cnpj != null) {
+    if (email != null && nome != null && tipo != null && cnpj != null && idFunc != null) {
         nomeUsuario.innerHTML += nome;
         tipoUsuario.innerHTML = tipo
     } else {

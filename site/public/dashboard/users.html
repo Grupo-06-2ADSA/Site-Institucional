@@ -25,7 +25,7 @@
           <img class="imgBloco" src="img/bar-chart.png">
           <p>Dashboard</p>
         </a>
-    </div>
+      </div>
 
       <div class="bloco 2">
         <a href="verificarNotebooks.html">
@@ -40,7 +40,7 @@
           <p>Adicionar Usuário</p>
         </a>
       </div>
-  
+
       <div class="bloco 4">
         <a href="estoque.html">
           <img class="imgBloco" src="img/estoque.png">
@@ -68,11 +68,11 @@
 
       <div class="usuario">
         <div class="texto">
-            <p class="nome" id="nomeUsuario">Olá, </p>
-            <p id="tipoUsuario">Administrador</p>
+          <p class="nome" id="nomeUsuario">Olá, </p>
+          <p id="tipoUsuario">Administrador</p>
         </div>
         <img src="img/usuario.png">
-    </div>
+      </div>
     </div>
 
     <div class="list" id="list">
@@ -156,134 +156,259 @@
         </div>
 
       </div>
+      <div id="modalEditar" class="modalUsuario">
+        <div class="modal-conteudo">
+          <div class="modal-header-usuario">
+            <span class="close2">&times;</span>
+            <div id="header">
+              <h2 id="header-title"></h2>
+            </div>
+          </div>
+          <div class="modal-body-usuario">
+            <div class="formulario">
+              <div class="campo">
+                <span>Nome</span>
+                <input type="text" id="nomeFuncEdit">
+              </div>
+              <div class="campo">
+                <span>Email</span>
+                <input type="email" id="emailFuncEdit">
+              </div>
+              <div class="campo">
+                <span>Senha</span>
+                <input type="password" id="senhaFuncEdit">
+              </div>
+              <div class="campo">
+                <span>Telefone</span>
+                <input type="text" maxlength="11" id="telFuncEdit">
+              </div>
+              <div class="campo" id="statusCampo">
+                <span>Status</span>
+                <select name="" id="statusFuncEdit">
+                  <option selected disabled value="">Selecionar</option>
+                  <option value="ativo">Ativo</option>
+                  <option value="inativo">Inativo</option>
+                </select>
+              </div>
+              <div class="campo" id="cargo">
+                <span>Cargo</span>
+                <select name="" id="cargoFuncEdit">
+                  <option selected disabled value="">Selecionar</option>
+                  <option value="Gestor">Gestor</option>
+                  <option value="Técnico">Técnico</option>
+                </select>
+              </div>
+              <div class="campo" id="turno">
+                <span>Turno</span>
+                <select name="" id="turnoFuncEdit">
+                  <option selected disabled value="">Selecionar</option>
+                  <option value="manha">Manhã</option>
+                  <option value="tarde">Tarde</option>
+                  <option value="noite">Noite</option>
+                </select>
+              </div>
+              <!-- MENSAGEM DE ERRO -->
+              <div class="alerta_erro">
+                <div class="card_erro" id="cardErro">
+                  <span id="mensagem_erro_editar"></span>
+                </div>
+              </div>
+              <div id="div_aguardar" class="loading-div">
+                <img src="../assets/img/login-cadastro/aguarde-orange.gif" id="loading-gif" />
+              </div>
+
+              <div class="botoes">
+                <button class="cancelar" onclick="excluirFuncionario()">Excluir</button>
+                <button class="adicionar-botao" onclick="salvarAlteracoes()">Salvar Alterações</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-
-
   </div>
-
-
-
 </body>
 
 </html>
 <script>
-  const jsonLista = [
-    {
-      nome: "João Silva",
-      email: "joao@example.com",
-      papel: "Administrador",
-      status: "Ativo",
-      turno: "Manhã"
-    },
-    {
-      nome: "Maria Oliveira",
-      email: "maria@example.com",
-      papel: "Técnico",
-      status: "Ativo",
-      turno: "Manhã"
-    },
-    {
-      nome: "Carlos Santos",
-      email: "carlos@example.com",
-      papel: "Administrador",
-      status: "Inativo",
-      turno: "Manhã"
-    },
-    {
-      nome: "Ana Costa",
-      email: "ana@example.com",
-      papel: "Técnico",
-      status: "Ativo",
-      turno: "Manhã"
-    },
-    {
-      nome: "Pedro Sousa",
-      email: "pedro@example.com",
-      papel: "Técnico",
-      status: "Inativo",
-      turno: "Manhã"
-    },
-    {
-      nome: "Luísa Fernandes",
-      email: "luisa@example.com",
-      papel: "Administrador",
-      status: "Ativo",
-      turno: "Manhã"
-    },
-    {
-      nome: "Marta Almeida",
-      email: "marta@example.com",
-      papel: "Técnico",
-      status: "Inativo",
-      turno: "Manhã"
-    },
-    {
-      nome: "Rui Gonçalves",
-      email: "rui@example.com",
-      papel: "Administrador",
-      status: "Ativo",
-      turno: "Manhã"
-    },
-    {
-      nome: "Sofia Rodrigues",
-      email: "sofia@example.com",
-      papel: "Técnico",
-      status: "Ativo",
-      turno: "Manhã"
-    },
-    {
-      nome: "Paulo Costa",
-      email: "paulo@example.com",
-      papel: "Técnico",
-      status: "Inativo",
-      turno: "Manhã"
-    }
-  ];
 
   function Usuarios() {
-    for (var i = 0; i < jsonLista.length; i++) {
-      listaUsers.innerHTML += `
-        <div class="user" id="0${i}">
-            <div class="email">
-                <span id="name">${jsonLista[i].nome}</span>
-                <span id="mail">${jsonLista[i].email}</span>
+    fetch("/usuarios/listarUsuarios", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        fkEmpresaServer: sessionStorage.EMPRESA_USUARIO
+      }),
+    }).then(function (resposta) {
+      console.log("ESTOU NO THEN DO buscar()!")
+
+      if (resposta.ok) {
+        console.log(resposta);
+
+        resposta.json().then(json => {
+          console.log(json);
+          console.log(JSON.stringify(json));
+
+          for (var i = 0; i < json.length; i++) {
+            let stringTurno = json[i].turno == 'manha' ? "Manhã" : json[i].turno == 'tarde' ? "Tarde" : "Noite";
+
+            listaUsers.innerHTML += `
+            <div class="user" id="0${i}">
+                <div class="email">
+                    <span id="name">${json[i].nome}</span>
+                    <span id="mail">${json[i].email}</span>
+                </div>
+                <div class="papel">
+                    <span>${json[i].tipo}</span>
+                </div>
+                <div class="status">
+                    <span id="status${i}">${json[i].estado}</span>
+                </div>
+                <div class="turno">
+                <span>${stringTurno}</span>  
+                </div>
+                <div class="edit">
+                <a><span class="editar" data-id="${json[i].idFunc}" data-nome="${json[i].nome}" data-email="${json[i].email}" data-senha="${json[i].senha}" data-tel="${json[i].telefone}" data-tipo="${json[i].tipo}" data-turno="${json[i].turno}" data-status="${json[i].estado}" onclick="editarFuncionario(event)">Editar</span> 
+                </div></a>
+        
             </div>
-            <div class="papel">
-                <span>${jsonLista[i].papel}</span>
-            </div>
-            <div class="status">
-                <span id="status${i}">${jsonLista[i].status}</span>
-            </div>
-            <div class="turno">
-            <span>${jsonLista[i].turno}</span>  
-            </div>
-            <div class="edit">
-            <a href=""><span>Editar</span></a>  
-            </div>
-    
-        </div>
-        `
-      if (jsonLista[i].status == "Inativo") {
-        const elemento = document.getElementById('status' + i);
-        elemento.setAttribute("style", "background-color: red;");
+            `
+            if (json[i].estado == "inativo") {
+              const elemento = document.getElementById('status' + i);
+              elemento.setAttribute("style", "background-color: red;");
+            }
+
+            if (i >= 4) {
+              listaUsers.style.overflowY = "scroll";
+              list.style.overflow = "hidden";
+            }
+
+            if (sessionStorage.TIPO_USUARIO == "Técnico") {
+              const botao = document.getElementsByClassName("adicionar");
+              const editar = document.getElementsByClassName("editar");
+              botao[0].disabled = true;
+              botao[0].style.opacity = "0.5";
+              botao[0].style.cursor = "not-allowed";
+
+              editar[i].disabled = true;
+              editar[i].style.opacity = "0.5";
+              editar[i].style.cursor = "not-allowed";
+            }
+          }
+
+        });
+
+      } else {
+        console.log("Houve um erro ao tentar realizar o select!");
       }
-      if (i >= 7) {
-        listaUsers.style.overflowY = "scroll";
-        list.style.overflow = "hidden";
-      }
+
+    }).catch(function (erro) {
+      console.log(erro);
+    })
+
+    return false;
+  }
+
+  let idFunc;
+
+  function salvarAlteracoes() {
+    let confirmar = confirm("Você tem certeza que deseja salvar as alterações?");
+    if (!confirmar) {
+      return;
     }
 
-    if(sessionStorage.TIPO_USUARIO == "Técnico"){
-      const botao = document.getElementsByClassName("adicionar");
-      botao[0].disabled = true;
-      botao[0].style.opacity = "0.5";
-      botao[0].style.cursor = "not-allowed";
-      
-      //botao.setAttribute('data-toggle', 'tooltip');
-      //botao.setAttribute('title', 'Tooltip em elemento desativado');
+    let nome = document.getElementById("nomeFuncEdit").value;
+    let email = document.getElementById("emailFuncEdit").value;
+    let senha = document.getElementById("senhaFuncEdit").value;
+    let telefone = document.getElementById("telFuncEdit").value;
+    let tipo = document.getElementById("cargoFuncEdit").value;
+    let status = document.getElementById("statusFuncEdit").value;
+    let turno = document.getElementById("turnoFuncEdit").value;
+
+    fetch("/usuarios/atualizarFuncionario", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        nomeServer: nome,
+        emailServer: email,
+        senhaServer: senha,
+        telefoneServer: telefone,
+        tipoServer: tipo,
+        statusServer: status,
+        turnoServer: turno,
+        idFuncionarioServer: idFunc
+      }),
+    })
+      .then(function (resposta) {
+        console.log("resposta: ", resposta);
+
+        if (resposta.ok) {
+          let cardErro = document.getElementById("cardErro");
+          let mensagemErroEditar = document.getElementById("mensagem_erro_editar");
+
+          if (cardErro && mensagemErroEditar) {
+            cardErro.style.display = "block";
+            mensagemErroEditar.innerHTML = "Alteração realizada com sucesso!";
+
+            setTimeout(() => {
+              mensagemErroEditar.innerHTML = "";
+              cardErro.style.display = "none";
+              location.reload();
+            }, 2000);
+
+            limparFormulario();
+          } else {
+            console.error("Elementos de mensagem de erro não encontrados.");
+          }
+
+          limparFormulario();
+        } else {
+          throw "Houve um erro ao tentar realizar o update!";
+        }
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+      });
+
+    return false;
+  }
+
+  function excluirFuncionario() {
+    let confirmar = confirm("Você tem certeza que deseja excluir o funcionário?");
+    if (!confirmar) {
+      return;
     }
 
+    fetch("/usuarios/excluirFuncionario", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        idFuncServer: idFunc
+      }),
+    })
+      .then(function (resposta) {
+        console.log("resposta: ", resposta);
 
+        if (resposta.ok) {
+          alert("Funcionário excluído com sucesso!")
+
+          location.reload();
+
+        } else {
+          throw "Houve um erro ao tentar realizar o delete!";
+        }
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+      });
+
+    return false;
   }
 
   function pesquisarUsuario() {
@@ -305,7 +430,7 @@
 
         </div>
         <div class="edit">
-          <a href=""><span>Editar</span></a>
+          <a href=""><span ">Editar</span></a>
         </div>
 
         </div>`
@@ -327,83 +452,132 @@
   }
 
   let modal = document.getElementById("modalAdicionar");
+  let modalEdicao = document.getElementById("modalEditar");
   let span = document.getElementsByClassName("close")[0];
+  let span2 = document.getElementsByClassName("close2")[0];
   let button = document.getElementsByClassName("cancelar")
 
   function AdicionarUsuario() {
-    if(sessionStorage.TIPO_USUARIO != "Técnico"){
+    if (sessionStorage.TIPO_USUARIO != "Técnico") {
       let tituloHeader = document.getElementById("header-title-usuario");
 
-    modal.style.display = "block";
-    tituloHeader.innerHTML = `Adicionar novo usuário`;
+      modal.style.display = "block";
+      tituloHeader.innerHTML = `Adicionar novo usuário`;
     }
-    
+  }
+
+  function editarFuncionario(event) {
+    let tituloHeader = document.getElementById("header-title");
+    let elemento = event.target;
+
+    let nome = elemento.dataset.nome;
+    let email = elemento.dataset.email
+    let senha = elemento.dataset.senha;
+    let telefone = elemento.dataset.tel;
+    let tipo = elemento.dataset.tipo;
+    let turno = elemento.dataset.turno;
+    let status = elemento.dataset.status;
+    idFunc = parseInt(elemento.dataset.id);
+
+    modalEdicao.style.display = "block";
+    tituloHeader.innerHTML = `Editar dados Funcionário`;
+
+    let nomeInput = document.getElementById("nomeFuncEdit");
+    let emailInput = document.getElementById("emailFuncEdit");
+    let senhaInput = document.getElementById("senhaFuncEdit");
+    let telInput = document.getElementById("telFuncEdit");
+    let tipoInput = document.getElementById("cargoFuncEdit")
+    let statusInput = document.getElementById("statusFuncEdit");
+    let turnoInput = document.getElementById("turnoFuncEdit");
+
+    nomeInput.value = nome;
+    emailInput.value = email;
+    senhaInput.value = senha;
+    telInput.value = telefone;
+    tipoInput.value = tipo;
+    statusInput.value = status;
+    turnoInput.value = turno;
   }
 
   span.onclick = function () {
     modal.style.display = "none";
   }
-  button.onclick = function(){
+
+  span2.onclick = function () {
+    modalEdicao.style.display = "none;"
+  }
+
+  button.onclick = function () {
     modal.style.display = "none";
   }
 
   window.onclick = function (event) {
     if (event.target == modal) {
       modal.style.display = "none";
+    } else if (event.target == modalEdicao) {
+      modalEdicao.style.display = "none"
     }
   }
 </script>
 
 <!-- CADASTRAR FUNCIONARIO -->
 <script>
-  function adicionarFuncionario(){
-    var nome= nomeFunc.value;
-    var email= emailFunc.value;
-    var senha= senhaFunc.value;
-    var tel= telFunc.value;
-    var cargo= cargoFunc.value;
-    var turno= turnoFunc.value;
+  function adicionarFuncionario() {
+    var nome = nomeFunc.value;
+    var email = emailFunc.value;
+    var senha = senhaFunc.value;
+    var tel = telFunc.value;
+    var cargo = cargoFunc.value;
+    var turno = turnoFunc.value;
     fetch("/usuarios/cadastrarFuncionarioEmpresa", {
       method: "POST",
       headers: {
-          "Content-Type": "application/json",
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
-          // crie um atributo que recebe o valor recuperado aqui
-          // Agora vá para o arquivo routes/usuario.js
-          emailServer: email,
-          cnpjServer: sessionStorage.EMPRESA_USUARIO,
-          nomeServer: nome,
-          telefoneServer: tel,
-          senhaServer: senha,
-          tipoServer: cargo,
-          turnoServer: turno
+        // crie um atributo que recebe o valor recuperado aqui
+        // Agora vá para o arquivo routes/usuario.js
+        emailServer: email,
+        cnpjServer: sessionStorage.EMPRESA_USUARIO,
+        nomeServer: nome,
+        telefoneServer: tel,
+        senhaServer: senha,
+        tipoServer: cargo,
+        turnoServer: turno
       }),
-  })
-  .then(function (resposta) {
-      console.log("resposta: ", resposta);
+    })
+      .then(function (resposta) {
+        console.log("resposta: ", resposta);
 
-      if (resposta.ok) {
-          cardErro.style.display = "block";
+        if (resposta.ok) {
+          let cardErro = document.getElementById("cardErro");
+          let mensagemErroEditar = document.getElementById("mensagem_erro");
 
-          mensagem_erro.innerHTML =
-              "Cadastro realizado com sucesso!";
+          if (cardErro && mensagemErroEditar) {
+            cardErro.style.display = "block";
+            mensagemErroEditar.innerHTML = "Funcionário cadastrado!";
 
-          limparFormulario();
-          finalizarAguardar();
-      } else {
+            setTimeout(() => {
+              mensagemErroEditar.innerHTML = "";
+              cardErro.style.display = "none";
+              location.reload();
+            }, 2000);
+
+          } else {
+            console.error("Elementos de mensagem de erro não encontrados.");
+          }
+
+        } else {
           throw "Houve um erro ao tentar realizar o cadastro!";
-      }
-  })
-  .catch(function (resposta) {
-      console.log(`#ERRO: ${resposta}`);
-      finalizarAguardar();
-  });
-}
+        }
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+        finalizarAguardar();
+      });
+  }
 
-
-
-function sumirMensagem() {
-  cardErro.style.display = "none";
+  function sumirMensagem() {
+    cardErro.style.display = "none";
   }
 </script>

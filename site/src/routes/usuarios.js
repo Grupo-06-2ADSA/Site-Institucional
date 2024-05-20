@@ -14,5 +14,17 @@ router.post("/autenticar", function (req, res) {
     usuarioController.autenticar(req, res);
 });
 
+router.post("/listarUsuarios", function (req, res) {
+    usuarioController.listarUsuarios(req, res);
+});
+
+router.post("/atualizarFuncionario", function (req, res) {
+    usuarioController.atualizarFuncionario(req, res);
+});
+
+router.post("/excluirFuncionario", function (req, res) {
+    usuarioController.excluirFuncionario(req, res);
+});
+
 
 module.exports = router;

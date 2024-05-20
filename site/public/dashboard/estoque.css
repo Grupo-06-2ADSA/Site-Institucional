@@ -10,8 +10,10 @@
     justify-content: flex-start;
 }
 
-.editar-campo, #editar {
-    width: 70px;
+.editar {
+    font-weight: 600;
+    color: #023971;
+    cursor: pointer;
 }
 
 .precoUnitario-campo, .precoUnitario{
@@ -65,18 +67,6 @@
 @keyframes animatetop {
     from {top:-300px; opacity:0}
     to {top:0; opacity:1}
-}
-  
-.close {
-    color: var(--cor3);
-    height: 60px;
-}
-  
-.close:hover,
-.close:focus {
-    color: var(--cor2);
-    text-decoration: none;
-    cursor: pointer;
 }
   
 .modal-header-usuario {

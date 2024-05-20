@@ -1,6 +1,5 @@
 var maquinaModel = require("../models/maquinaModel");
 
-
 function cadastrar(req, res) {
     // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
     var hostname = req.body.hostNameServer;
@@ -97,25 +96,21 @@ function buscarMaquinas(req, res) {
         });
 }
 
-function numMaquinas(req, res) {
-    var fkEmpresa = req.body.fkEmpresaServer
+function buscarManutencoes(req, res) {
+    var fkMaquina = req.body.fkMaquinaServer;
 
-    maquinaModel.numMaquinas(fkEmpresa)
+    maquinaModel.buscarManutencoes(fkMaquina)
         .then((resultado) => {
 
             console.log(`\nResultados encontrados: ${resultado.length}`);
             console.log(`Resultados: ${JSON.stringify(resultado)}`); // transforma JSON em String
 
-            if (resultado.length == 1) {
-                // res.status(200).json(resultado);
+            if (resultado.length > 0) {
+                res.status(200).json(resultado);
                 console.log(resultado);
 
-                res.json({
-                    numMaquinas: resultado[0].numMaquinas
-                });
-
             } else {
-                res.status(204).json([]);
+                res.status(204).send("Nenhum resultado encontrado!")
             }
         }).catch(function (erro) {
             console.log(erro);
@@ -124,9 +119,116 @@ function numMaquinas(req, res) {
         });
 }
 
+function excluirMaquina(req, res){
+    let idMaquina = req.body.idMaquinaServer;
+
+    // Faça as validações dos valores
+    if (idMaquina == undefined) {
+        res.status(400).send("Sua idMaquina está undefined!");
+    }
+    else {
+        maquinaModel.excluirMaquina(idMaquina)
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao realizar o delete! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
+
+function atualizarMaquina(req, res) {
+    // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
+    let hostname = req.body.hostnameServer;
+    let ipv4 = req.body.ipv4Server;
+    let dtImagem = req.body.imagemServer;
+    let idMaquina = req.body.idMaquinaServer;
+
+
+    // Faça as validações dos valores
+    if (hostname == undefined) {
+        res.status(400).send("Seu hostname está undefined!");
+    } else if (ipv4 == undefined) {
+        res.status(400).send("Sua ip está undefined!");
+    } else if (dtImagem == undefined) {
+        res.status(400).send("Sua imagem está undefined!");
+    } else if (idMaquina == undefined) {
+        res.status(400).send("Sua idMaquina está undefined!");
+    }
+    else {
+        maquinaModel.atualizarMaquina(hostname, ipv4, dtImagem, idMaquina)
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao realizar o update! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
+
+function cadastrarManutencao(req, res) {
+    var descricao = req.body.descricaoServer;
+    var data = req.body.dataServer;
+    var tipo = req.body.tipoServer;
+    let responsavel = req.body.responsavelServer;
+    let fkSala = req.body.fkSalaServer;
+    let fkMaquina = req.body.fkMaquinaServer;
+
+    if (descricao == undefined) {
+        res.status(400).send("Seu descricao está undefined!");
+    } else if (data == undefined) {
+        res.status(400).send("Seu data está undefined!");
+    } else if (tipo == undefined) {
+        res.status(400).send("Sua tipo está undefined!");
+    } else if (responsavel == undefined) {
+        res.status(400).send("Sua responsavel está undefined!");
+    }else if (fkSala == undefined) {
+        res.status(400).send("Sua fkSala está undefined!");
+    } else if (fkMaquina == undefined) {
+        res.status(400).send("Sua fkMaquina está undefined!");
+    }
+    else {
+        maquinaModel.cadastrarManutencao(data, descricao, tipo, fkMaquina, fkSala, responsavel)
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao realizar o cadastro! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
+
+
 module.exports = {
     cadastrar,
     verificarFkSala,
     buscarMaquinas,
-    numMaquinas
+    excluirMaquina,
+    atualizarMaquina,
+    cadastrarManutencao,
+    buscarManutencoes
 }

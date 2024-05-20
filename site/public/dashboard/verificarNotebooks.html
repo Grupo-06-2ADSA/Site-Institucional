@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="modal.css">
 </head>
 
-<body onload="validarSessao(), visualizarMaquinas(), ListaManutencao(), verificarFkSala(), numMaquinas()">
+<body onload="validarSessao(), visualizarMaquinas(), verificarFkSala()">
     <div class="left-sidebar">
         <img class="imgLogo" src="img/logo-MindCore.png" alt="logo">
 
@@ -159,13 +159,48 @@
                     </div>
 
                 </div>
+                <div id="modalHistorico" class="modalUsuario">
+                    <div class="modal-conteudo">
+                        <div class="modal-header">
+                            <span class="close4">&times;</span>
+                            <div id="header">
+                                <h2 id="header-title-historico"></h2>
+                            </div>
+                        </div>
+                        <div class="modal-body-usuario">
+                            <div class="formulario">
+                                <div class="campo">
+                                    <span>Descrição</span>
+                                    <input type="text" id="descricao">
+                                </div>
 
+                                <div class="campo">
+                                    <span>Tipo</span>
+                                    <input type="text" id="tipo">
+                                </div>
+                                <div class="campo">
+                                    <span>Data</span>
+                                    <input type="date" id="dtmanutencao">
+                                </div>
+                                <div class="alerta_erro">
+                                    <div class="card_erro" id="cardErro">
+                                        <span id="mensagem_erro_historico"></span>
+                                    </div>
+                                </div>
+                                <div class="botoes">
+                                    <button class="cancelar" onclick="cancelarHistorico()">Cancelar</button>
+                                    <button class="adicionar-botao" onclick="cadastrarHistorico()">Adicionar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div id="modalAdicionar" class="modalUsuario">
                 <div class="modal-conteudo">
                     <div class="modal-header-usuario">
-                        <span class="close">&times;</span>
+                        <span class="close2">&times;</span>
                         <div id="header">
                             <h2 id="header-title-usuario"></h2>
                         </div>
@@ -194,13 +229,50 @@
                                 <img src="../assets/img/login-cadastro/aguarde-orange.gif" id="loading-gif" />
                             </div>
                             <div class="botoes">
-                                <button class="cancelar">Cancelar</button>
+                                <button class="cancelar" onclick="cancelarAdicao()">Cancelar</button>
                                 <button class="adicionar-botao" onclick="cadastrarMaquina()">Adicionar</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <div id="modalEditar" class="modalUsuario">
+                <div class="modal-conteudo">
+                    <div class="modal-header">
+                        <span class="close3">&times;</span>
+                        <div id="header">
+                            <h2 id="header-title-maquina"></h2>
+                        </div>
+                    </div>
+                    <div class="modal-body-usuario">
+                        <div class="formulario">
+                            <div class="campo">
+                                <span>HostName</span>
+                                <input type="text" id="hostnameInput">
+                            </div>
+                            <div class="campo">
+                                <span>IPV4</span>
+                                <input type="text" id="ipv4Input" oninput="mascaraIP(this)" maxlength="15"
+                                    placeholder="000.000.000.000">
+                            </div>
+                            <div class="campo">
+                                <span>Última Imagem</span>
+                                <input type="date" id="dtImagemInput">
+                            </div>
+                            <div class="alerta_erro">
+                                <div class="card_erro" id="cardErro">
+                                    <span id="mensagem_erro_editar"></span>
+                                </div>
+                            </div>
+                            <div class="botoes">
+                                <button class="cancelar" onclick="cancelarAlteracao()">Cancelar</button>
+                                <button class="adicionar-botao" onclick="salvarAlteracoes()">Salvar Alterações</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
     </div>
@@ -211,37 +283,6 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
 
-    function numMaquinas() {
-        fetch("/maquinas/buscarNumeroMaquinas", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                fkEmpresaServer: sessionStorage.EMPRESA_USUARIO
-            }),
-        }).then(function (resposta) {
-            console.log("ESTOU NO THEN DO buscar()!")
-
-            if (resposta.ok) {
-                console.log(resposta);
-
-                resposta.json().then(json => {
-                    console.log(json);
-                    console.log(JSON.stringify(json));
-
-                    sessionStorage.NUM_MAQUINAS = json.numMaquinas
-
-                });
-
-            } else {
-                console.log("Houve um erro ao tentar realizar o select!");
-            }
-
-        }).catch(function (erro) {
-            console.log(erro);
-        })
-    }
 
     function visualizarMaquinas() {
 
@@ -263,30 +304,30 @@
                     console.log(json);
                     console.log(JSON.stringify(json));
 
-
-                    for (i = 0; i < sessionStorage.NUM_MAQUINAS; i++) {
+                    for (i = 0; i < json.length; i++) {
                         let dataString = json[i].imagem;
                         let data = new Date(dataString);
 
+
                         repeticao.innerHTML += `
-                        <div id="campo" onclick="graficos('${json[i].hostname}')">
-                            <p class="hostname">${json[i].hostname}</p>
+                        <div id="campo"">
+                            <p class="hostname" data-id="${json[i].idMaquina}" onclick="graficos('${json[i].hostname}', event)">${json[i].hostname}</p>
                             <div class="bolinha" id="bolinha${i}"></div>
                             <p class="ultimaModificacao">${data.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' })}</p>
-                            <p id="editar" onclick="EditarMaquina()">Editar</p>
-                            <img src="../assets/img/excluir.png" onclick="excluirComponente('${json[i].idMaquina}')">
+                            <p id="editar" data-id="${json[i].idMaquina}" data-hostname="${json[i].hostname}" data-ip="${json[i].ip}" data-dtImagem="${data.getFullYear()}-${String(data.getMonth() + 1).padStart(2, '0')}-${String(data.getDate()).padStart(2, '0')}" onclick="editarMaquina(event)">Editar</p>
+                            <img src="../assets/img/excluir.png" onclick="excluirMaquina(${json[i].idMaquina})">
                         </div>`;
 
 
                         const elemento = document.getElementById('bolinha' + i);
 
                         // if (json[i].status == 2) {
-                            // elemento.setAttribute("style", "background-color: red;");
+                        // elemento.setAttribute("style", "background-color: red;");
                         // } else if (json[i].status == 1) {
                         //     elemento.setAttribute("style", "background-color: yellow;")
                         // }
 
-                        if (i >= 4) {
+                        if (i >= 6) {
                             repeticao.style.overflowY = "scroll";
                             notebooks.style.overflow = "hidden";
                         }
@@ -317,25 +358,95 @@
 
     }
 
+    let idMaquina;
+
+    let modalEdicao = document.getElementById("modalEditar");
+    function editarMaquina(event) {
+        let tituloHeader = document.getElementById("header-title-maquina");
+        let elemento = event.target;
+
+        idMaquina = elemento.dataset.id;
+        let hostName = elemento.dataset.hostname;
+        let ip = elemento.dataset.ip;
+        let dtImagem = elemento.dataset.dtImagem;
+
+        console.log("ID Máquina:", idMaquina);
+        console.log("Hostname:", hostName);
+        console.log("IP:", ip);
+        console.log("Data da Imagem:", dtImagem);
+
+        modalEdicao.style.display = "block";
+        tituloHeader.innerHTML = `Editar Máquina`;
+
+        let hostNameInput = document.getElementById("hostnameInput");
+        let ipInput = document.getElementById("ipv4Input");
+        let imagemInput = document.getElementById("dtImagemInput");
+
+
+        hostNameInput.value = hostName;
+        ipInput.value = ip;
+        imagemInput.value = dtImagem;
+    }
+
+    function excluirMaquina(idMaquina) {
+        let confirmar = confirm("Você tem certeza que deseja excluir o computador?");
+        if (!confirmar) {
+            return;
+        }
+
+        fetch("/maquinas/excluirMaquina", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                idMaquinaServer: idMaquina
+            }),
+        })
+            .then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+                    alert("Computador excluído com sucesso!")
+
+                    location.reload();
+
+                } else {
+                    throw "Houve um erro ao tentar realizar o delete!";
+                }
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+
+        return false;
+    }
+
 
     let modal = document.getElementById("myModal");
+    let modalAdicionar = document.getElementById("modalAdicionar");
     let span = document.getElementsByClassName("close")[0];
+    let span2 = document.getElementsByClassName("close2")[0];
+    let span3 = document.getElementsByClassName("close3")[0];
 
-    function graficos(hostname) {
+
+    function graficos(hostname, event) {
         let tituloHeader = document.getElementById("header-title");
+        let elemento = event.target;
 
+        idMaquina = elemento.dataset.id;
         tituloHeader.innerHTML = "";
         modal.style.display = "block";
         tituloHeader.innerHTML += `HostName: ${hostname}`;
 
+        listarManutencao();
+        // for (let i = 0; i < obj.length; i++) {
+        //     if (hostname == obj[i].hostname) {
+        //         let statusComputador = obj[i].estado == 1 ? "red" : "green";
 
-        for (let i = 0; i < computadores.length; i++) {
-            if (hostname == computadores[i].hostName) {
-                let statusComputador = computadores[i].status == 1 ? "red" : "green";
-
-                tituloHeader.innerHTML += `<button class="alerta ${statusComputador}" id="alerta${i}"></button>`;
-            }
-        }
+        //         tituloHeader.innerHTML += `<button class="alerta ${statusComputador}" id="alerta${i}"></button>`;
+        //     }
+        // }
 
     }
 
@@ -343,13 +454,20 @@
         modal.style.display = "none";
     }
 
+    span2.onclick = function () {
+        modalAdicionar.style.display = "none";
+    }
+
+    span3.onclick = function () {
+        modalEdicao.style.display = "none";
+    }
+
+
     window.onclick = function (event) {
         if (event.target == modal) {
             modal.style.display = "none";
         }
     }
-
-
 
     function mascaraIP(input) {
         let value = input.value;
@@ -382,7 +500,6 @@
         img_ordenar.innerHTML = "img/ordenar-decrescente.png";
     }
 
-    let modalAdicionar = document.getElementById("modalAdicionar");
 
     function AdicionarMaquina() {
         let tituloHeader = document.getElementById("header-title-usuario");
@@ -459,12 +576,23 @@
                 console.log("resposta: ", resposta);
 
                 if (resposta.ok) {
-                    cardErro.style.display = "block";
+                    let cardErro = document.getElementById("cardErro");
+                    let mensagemErroEditar = document.getElementById("mensagem_erro_editar");
 
-                    mensagem_erro.innerHTML = "Cadastro realizado com sucesso!";
+                    if (cardErro && mensagemErroEditar) {
+                        cardErro.style.display = "block";
+                        mensagemErroEditar.innerHTML = "Alteração realizada com sucesso!";
 
-                    limparFormulario();
-                    finalizarAguardar();
+                        setTimeout(() => {
+                            mensagemErroEditar.innerHTML = "";
+                            cardErro.style.display = "none";
+                            location.reload();
+                        }, 2000);
+
+                        limparFormulario();
+                    } else {
+                        console.error("Elementos de mensagem de erro não encontrados.");
+                    }
                 } else {
                     throw "Houve um erro ao tentar realizar o cadastro!";
                 }
@@ -475,7 +603,71 @@
             });
     }
 
+    function salvarAlteracoes() {
+        let confirmar = confirm("Você tem certeza que deseja salvar as alterações?");
+        if (!confirmar) {
+            return;
+        }
 
+        let hostname = document.getElementById("hostnameInput").value;
+        let ip = document.getElementById("ipv4Input").value;
+        let dtImagem = document.getElementById("dtImagemInput").value;
+
+        fetch("/maquinas/atualizarMaquina", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/usuario.js
+                hostnameServer: hostname,
+                ipv4Server: ip,
+                imagemServer: dtImagem,
+                idMaquinaServer: idMaquina
+            }),
+        })
+            .then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+                    let cardErro = document.getElementById("cardErro");
+                    let mensagemErroEditar = document.getElementById("mensagem_erro_editar");
+
+                    if (cardErro && mensagemErroEditar) {
+                        cardErro.style.display = "block";
+                        mensagemErroEditar.innerHTML = "Alteração realizada com sucesso!";
+
+                        setTimeout(() => {
+                            mensagemErroEditar.innerHTML = "";
+                            cardErro.style.display = "none";
+                            location.reload();
+                        }, 2000);
+
+                        limparFormulario();
+                    } else {
+                        console.error("Elementos de mensagem de erro não encontrados.");
+                    }
+
+                    limparFormulario();
+                } else {
+                    throw "Houve um erro ao tentar realizar o update!";
+                }
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+
+        return false;
+    }
+
+    function cancelarAlteracao() {
+        modalEdicao.style.display = "none";
+    }
+
+    function cancelarAdicao() {
+        modalAdicionar.style.display = "none";
+    }
     window.onclick = function (event) {
         if (event.target == modalAdicionar) {
             modalAdicionar.style.display = "none";
@@ -578,85 +770,123 @@
         configDISCO
     );
 
-    const manutencoes = [
-        {
-            descricao: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-            responsavel: "Pedro",
-            tipo: "Limpeza",
-            data: "12/10/2023"
-        },
-        {
-            descricao: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-            responsavel: "Pedro",
-            tipo: "Limpeza",
-            data: "12/10/2023"
-        },
-        {
-            descricao: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-            responsavel: "Pedro",
-            tipo: "Limpeza",
-            data: "12/10/2023"
-        },
-        {
-            descricao: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-            responsavel: "Pedro",
-            tipo: "Limpeza",
-            data: "12/10/2023"
-        },
-        {
-            descricao: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-            responsavel: "Pedro",
-            tipo: "Limpeza",
-            data: "12/10/2023"
-        },
-        {
-            descricao: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-            responsavel: "Pedro",
-            tipo: "Limpeza",
-            data: "12/10/2023"
-        },
-        {
-            descricao: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-            responsavel: "Pedro",
-            tipo: "Limpeza",
-            data: "12/10/2023"
-        },
-        {
-            descricao: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-            responsavel: "Pedro",
-            tipo: "Limpeza",
-            data: "12/10/2023"
-        },
-        {
-            descricao: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-            responsavel: "Pedro",
-            tipo: "Limpeza",
-            data: "12/10/2023"
-        },
-        {
-            descricao: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-            responsavel: "Pedro",
-            tipo: "Limpeza",
-            data: "12/10/2023"
-        }
-    ];
-
-
-    function ListaManutencao() {
+    function listarManutencao() {
         let manutencao = document.getElementById("manutencoes");
 
-        for (let i = 0; i < manutencoes.length; i++) {
-            manutencao.innerHTML += `
-            <div class="informacoes">
-                <p class="campo-descricao">${manutencoes[i].descricao}</p>
-                <p class="campo-responsavel">${manutencoes[i].responsavel}</p>
-                <p class="campo-tipo">${manutencoes[i].tipo}</p>
-                <p class="campo-data">${manutencoes[i].data}</p>
-            </div>`;
+        fetch("/maquinas/buscarManutencoes", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                fkMaquinaServer: idMaquina
+            }),
+        }).then(function (resposta) {
+            console.log("ESTOU NO THEN DO buscar()!")
 
-            if (i >= 7) {
-                manutencao.style.overflowY = "scroll";
+            if (resposta.ok) {
+                console.log(resposta);
+
+                resposta.json().then(json => {
+                    console.log(json);
+                    console.log(JSON.stringify(json));
+                    manutencao.innerHTML = "";
+                    
+                    for (let i = 0; i < json.length; i++) {
+                        let dataString = json[i].Dia;
+                        let data = new Date(dataString);
+
+                        manutencao.innerHTML += `
+                        <div class="informacoes">
+                            <p class="campo-descricao">${json[i].descricao}</p>
+                            <p class="campo-responsavel">${json[i].nomeResponsavel}</p>
+                            <p class="campo-tipo">${json[i].tipo}</p>
+                            <p class="campo-data">${data.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' })}</p>
+                        </div>`;
+
+                        if (i >= 7) {
+                            manutencao.style.overflowY = "scroll";
+                        }
+                    }
+
+                });
+
+            } else {
+                console.log("Houve um erro ao tentar realizar o select!");
             }
-        }
+
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+
+        return false;
+
+
+    }
+
+    let modalManutencao = document.getElementById("modalHistorico");
+    let tituloHistorico = document.getElementById("header-title-historico");
+    let span4 = document.getElementsByClassName("close4")[0];
+
+    function adicionarHistorico() {
+        modalManutencao.style.display = "block"
+        tituloHistorico.innerHTML = "Adicionar manutenção"
+    }
+
+    function cancelarHistorico() {
+        modalManutencao.style.display = "none"
+    }
+
+    function cadastrarHistorico() {
+        let descricaoInput = descricao.value;
+        let tipoInput = tipo.value;
+        let dataManutencao = dtmanutencao.value;
+
+        fetch("/maquinas/cadastrarManutencao", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                descricaoServer: descricaoInput,
+                tipoServer: tipoInput,
+                dataServer: dataManutencao,
+                fkMaquinaServer: idMaquina,
+                fkSalaServer: fkSala,
+                responsavelServer: sessionStorage.ID_USUARIO
+            }),
+        })
+            .then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+                    let cardErro = document.getElementById("cardErro");
+                    let mensagemErroEditar = document.getElementById("mensagem_erro_historico");
+
+                    if (cardErro && mensagemErroEditar) {
+                        cardErro.style.display = "block";
+                        mensagemErroEditar.innerHTML = "Cadastro realizado com sucesso!";
+
+                        setTimeout(() => {
+                            mensagemErroEditar.innerHTML = "";
+                            cardErro.style.display = "none";
+                            location.reload();
+                        }, 2000);
+
+                    } else {
+                        console.error("Elementos de mensagem de erro não encontrados.");
+                    }
+
+                } else {
+                    resposta.text().then(texto => {
+                        console.error("Erro no servidor:", texto);
+                        alert(`Erro ao cadastrar: ${texto}`);
+                    });
+                    throw "Houve um erro ao tentar realizar o cadastro!";
+                }
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
     }
 </script>
