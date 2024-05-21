@@ -3,7 +3,7 @@ var sql = require('mssql');
 
 // CONEXÃO DO SQL SERVER - AZURE (NUVEM)
 var sqlServerConfig = {
-    server: 'EC2AMAZ-6280P8B\SQLEXPRESS',
+    server: 'EC2AMAZ-6280P8B',
     database: "MindCore",
     user: "sa",
     password: "mindcore123",
@@ -13,7 +13,9 @@ var sqlServerConfig = {
         idleTimeoutMillis: 30000
     },
     options: {
-        encrypt: true, // for azure
+        instanceName: 'SQLEXPRESS', // Nome da instância
+        encrypt: true, // Use true se estiver usando Azure, caso contrário false
+        trustServerCertificate: true // Use true se não estiver usando certificados assinados por uma CA
     }
 }
 
