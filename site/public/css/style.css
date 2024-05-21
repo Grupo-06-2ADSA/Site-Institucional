@@ -377,6 +377,7 @@ body::-webkit-scrollbar {
 .container {
     display: flex;
     flex-direction: column;
+    justify-content: space-around;
     height: 100%;
     width: 100%;
 }
@@ -484,7 +485,7 @@ body::-webkit-scrollbar {
 }
 
 .icon img {
-    height: 90%;
+    height: 50%;
     width: 48%;
 }
 
@@ -502,7 +503,7 @@ body::-webkit-scrollbar {
 
 
 .imagemTime .icon:hover img {
-    height: 93%;
+    height: 60%;
     width: 49%;
     border-bottom: 2px solid #9340FF;
     cursor: pointer;
@@ -678,7 +679,7 @@ body::-webkit-scrollbar {
     width: 100%;
     height: auto;
     background-image: url(../assets/img/rodape/img/MindCore-removebg.png);
-    background-position: center ;
+    background-position: bottom;  
     background-repeat: no-repeat;
     background-position: cover;
     background-size: 100%;
@@ -811,7 +812,7 @@ body::-webkit-scrollbar {
     }
 
     .valores .textMVV {
-      font-size: 11px;
+      font-size: 13px;
     }
 
     .visao .textMVV {
@@ -819,7 +820,7 @@ body::-webkit-scrollbar {
     }
 
     .missao .textMVV {
-      font-size: 12px;
+      font-size: 13px;
     }
 
     .imagemTime01 h1 {
@@ -1200,6 +1201,7 @@ body::-webkit-scrollbar {
 
     .boxes {
       margin-top: -100px;
+      margin-bottom: 0;
     }
 
     .box {
@@ -1246,5 +1248,288 @@ body::-webkit-scrollbar {
     }
   
   }
+
+  @media only screen and (max-width: 430px) {
+    body {
+      flex-direction: column;
+    }
+    .navbar{
+    gap: 	40px;
+    }
+    .home{
+      height: 50vh;
+    }
+    .text{
+      margin-left: 30px;
+    }
+
+    .text h1 {
+      font-size: 30px;
+      width: 300px;
+    }
+
+    .btn {
+      margin-top: 0;
+      height: auto;
+    }
+    .text .btn button {     
+      margin-top: 0px;
+      margin-bottom: 30px;
+  }
+    .sobreNos{
+      flex-direction: column;
+      gap: 30px;
+    }
+    .containerSobreNos{
+      width: 100%;
+      height: auto;
+    }
+
+    .textSobreNos {
+      height: auto;
+      margin-left: 0;
+      padding-left: 0;
+      font-size: 15px;
+      margin-top: -25px;
+    }
+    .tituloSobreNos{
+      margin-top: 30px;
+    }
+
+    .tituloSobreNos h1 {
+      margin-top: -10px;
+    }
+    .containerImgSobreNos{
+      width: 100%;
+      height: 40%;
+    }
+
+    .imgSobreNos img {
+      width: 180px;
+      height: 350px;
+      transition: 0.4s all ease;
+    }
+
+    .imgSobreNos img:hover {
+      height: 380px;
+      width: 200px;
+    }
+
+    .tituloMVV h1 {
+      margin-bottom: -20px;
+    }
+    
+    .tituloMVV img {
+      height: 60px;
+      width: 70px;
+    }
+
+    .mvv {
+      margin-top: -80px;
+    }
+
+    .mvv h1 {
+      margin-top: -7px;
+    }
+
+
+    .containerMVV {
+      margin-top: 30px;
+      height: auto;
+      width: 100%;
+      flex-direction: column;
+      align-items: baseline;
+      padding: 30px
+    }
+
+    .valores {
+      margin-left: 30px;
+      width: 100%;
+      height: 420px;
+      transition: none;
+      margin-bottom: 50px;
+      font-size: 11px;
+    }
+
+    .visao {
+      margin-left: 30px;
+      width: 100%;
+      height: 300px;
+      transition: none;
+      margin-bottom: 50px;
+      font-size: 11px;
+    }
+
+    .missao {
+      margin-left: 30px;
+      width: 100%;
+      height: 350px;
+      transition: none;
+      margin-bottom: 50px;
+      font-size: 11px;
+    }
+
+    .valores:hover {
+      width: 100%;
+      height: 450px;
+    }
+
+    .missao:hover {
+      width: 100%;
+      height: 380px;
+    }
+
+    .visao:hover {
+      width: 100%;
+      height: 330px;
+    }
+
+    .valores img {
+      width: 50px;
+      height: 50px;
+      margin-left: 220px;
+      margin-top: 10px;
+    }
+
+    .visao img {
+      width: 100px;
+      margin-left: 220px;
+      margin-top: 10px;
+    }
+
+    .missao img {
+      height: 50px;
+      margin-top: 20px;
+      margin-left: 220px;
+    }
+
+    .time {
+      margin-top: 350px;
+      height: 100vh;
+    }
+
+    .TituloProjeto  {
+      margin-top: -200px;
+    }
+
+    .TituloProjeto h1 {
+      margin-top: 50px;
+    }
+
+    .TituloProjeto img {
+      margin-top: 60px;
+    }
+
+    .imagemTime {
+      margin-top: 0px;
+      width: 25%;
+      height: 250px;
+      justify-content: space-around;
+    }
+
+    .imagemTime .foto {
+      height: 80px;
+      width: 80px;
+    }
+    .imagemTime01{
+      width: 30%;
+      margin-top: 50px;
+    }
+
+    .imagemTime01 .foto {
+      height: 97px;
+      width: 100px;
+    }
+
+    .imagemTime h1 {
+      font-size: 15px;
+      margin-top: 10px;
+    }
+
+    .caixaTime {
+      margin-top: 0px;
+      gap: 20px;
+    }
+    .caixaTime01{
+      justify-content: space-around;
+    }
+
+    .imagemTime01 h1 {
+      font-size: 15px;
+      margin-top: 10px;
+      margin-left: 130px;
+    }
+
+    .imagemTime .icone {
+      height: 30px;
+      width: 100%;
+    }
+    .imagemTime .icone .icon{
+      width: 20%;
+      height: 25px;
+    }
+
+    .imagemTime01 .icone{
+      width: 100%;
+    }
+
+    .imagemTime01 .icone .icon {
+      width: 30%;
+      height: 30px;
+    }
+    .imagemTime .icone .icon img{
+      height: 15px;
+      width: 100%;
+    }
+    .rodape{
+      background-size: auto;
+    }
+
+    .boxes {
+      margin-top: 100px;
+      height: 400px;
+      margin-bottom: 0;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .box {
+      margin: 0px 0px 0px 0px;
+      font-size: 12px;
+    }
+
+    .box img {
+      height: 20px;
+      width: 30px;
+    }
+
+    .box .texto-nome {
+      margin-top: 20px;
+    }
+
+    .box .input-contato{
+      margin-top: 0px;
+      height: 125px;
+    }
+
+    .box .hContato {
+      display: block;
+      margin-top: 20px;
+    }
+
+    .box .texto-endereco {
+      margin-top: 20px;
+    }
+
+    .input {
+      width: 90%;
+    }
+
+    .botaoContato {
+      width: 90%;
+      height: 30px;
+    }
+  }
+  
 
   /*  ------------------------------------------------------------------------------------------------------------*/
