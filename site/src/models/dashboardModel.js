@@ -41,10 +41,12 @@ function computadoresInoperantes(fkEmpresa){
 
 function computadoresSemLimpeza(fkEmpresa){
     instrucaoSql = `
-    SELECT COUNT(DISTINCT h.fkMaquina) 
-FROM historicomanutencao h join Empresa
+    SELECT DISTINCT h.fkMaquina as hostname, s.nome, h.Dia
+FROM historicomanutencao h 
+JOIN Maquina m on h.fkMaquina = m.hostname
+JOIN Sala s on m.fkSala = s.idSala
 WHERE h.tipo = 'Limpeza' 
-  AND h.Dia <= DATE_SUB(CURDATE(), INTERVAL 6 MONTH) and Empresa.cnpj = ${fkEmpresa};`;
+  AND h.Dia <= DATE_SUB(CURDATE(), INTERVAL 6 MONTH) AND m.fkEmpresa = ${fkEmpresa};`;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -61,18 +63,22 @@ function totalManutencao(fkEmpresa){
 function totalMes(fkEmpresa){
     instrucaoSql = `
     SELECT 
-    MONTH(h.Dia) AS mes,
-    SUM(c.preco) AS valorTotalGasto
+    meses.mes,
+    COALESCE(SUM(c.preco), 0) AS valorTotalGasto
 FROM 
-    HistoricoManutencao h
-JOIN 
-    Componentes c ON h.tipo = c.nomeComponente
-WHERE 
-    MONTH(h.Dia) BETWEEN 1 AND 7 and c.fkEmpresa = ${fkEmpresa}
+    (
+        SELECT 1 AS mes
+        UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5 UNION ALL SELECT 6 
+        UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9 UNION ALL SELECT 10 UNION ALL SELECT 11 UNION ALL SELECT 12
+    ) meses
+LEFT JOIN 
+    HistoricoManutencao h ON meses.mes = MONTH(h.Dia)
+LEFT JOIN 
+    Componentes c ON h.tipo = c.nomeComponente and c.fkEmpresa = ${fkEmpresa}
 GROUP BY 
-    MONTH(h.Dia)
+    meses.mes
 ORDER BY 
-    MONTH(h.Dia);`;
+    meses.mes;`;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -80,19 +86,33 @@ ORDER BY
 
 function qtdManutencoes(fkEmpresa){
     instrucaoSql = `
+    WITH TiposManutencao AS (
+        SELECT 'Bateria' AS tipo
+        UNION ALL
+        SELECT 'CPU'
+        UNION ALL
+        SELECT 'Disco'
+        UNION ALL
+        SELECT 'Limpeza'
+        UNION ALL
+        SELECT 'Memória'
+        UNION ALL
+        SELECT 'Rede'
+        UNION ALL
+        SELECT 'Temperatura'
+    )
     SELECT 
-    h.tipo AS tipoManutencao,
-    COUNT(*) AS quantidadeManutencoes
-FROM 
-    HistoricoManutencao h
-JOIN
-    Empresa
-WHERE
-    idEmpresa = ${fkEmpresa}
-GROUP BY 
-    h.tipo
-ORDER BY 
-    h.tipo;`;
+        t.tipo AS tipoManutencao,
+        COUNT(h.tipo) AS quantidadeManutencoes
+    FROM 
+        TiposManutencao t
+    LEFT JOIN 
+        HistoricoManutencao h ON t.tipo = h.tipo
+    JOIN Empresa on cnpj = ${fkEmpresa}
+    GROUP BY 
+        t.tipo
+    ORDER BY 
+        t.tipo;`;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);

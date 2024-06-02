@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="modal.css">
 </head>
 
-<body onload="validarSessao(),componente()">
+<body onload="validarSessao(),componente(), reservas(),inoperante(),semLimpeza(),problemas()">
 <div class="left-sidebar">
     <img class="imgLogo" src="img/logo-MindCore.png" alt="logo">
 
@@ -77,15 +77,15 @@
         <div class="kpis">
             <div class="kpi 1">
                 <h3>Máquinas inoperantes</h3>
-                <span>30</span>
+                <span id="spanInoperantes">30</span>
             </div>
             <div class="kpi 2" onclick="maquinaSemLimpeza()">
                 <h3>Máquinas sem limpeza a mais de 6 meses</h3>
-                <span>07</span>
+                <span id="spanLimpeza">07</span>
             </div>
             <div class="kpi 3">
                 <h3>Máquinas reservas</h3>
-                <span>15</span>
+                <span id="spanReservas">15</span>
         </div>
         <div class="kpi 4">
             <h3>Manutenções pendentes</h3>
@@ -143,6 +143,101 @@
 
 </html>
 <script>
+    let listaSemLimpeza = {};
+    function semLimpeza(){
+        fetch("/dashboard/computadoresSemLimpeza", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/usuario.js
+                fkEmpresaServer: sessionStorage.EMPRESA_USUARIO
+            }),
+        })
+            .then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+
+                    resposta.json().then(json => {
+                        console.log(json);
+                        console.log(JSON.stringify(json));
+                        spanLimpeza.innerHTML = `${json.length}`
+                        listaSemLimpeza = json;
+
+                    });
+                } else {
+                    throw "Houve um erro ao tentar realizar a verificacão!";
+                }
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+    }
+    function inoperante(){
+        fetch("/dashboard/computadoresInoperantes", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/usuario.js
+                fkEmpresaServer: sessionStorage.EMPRESA_USUARIO
+            }),
+        })
+            .then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+
+                    resposta.json().then(json => {
+                        console.log(json);
+                        console.log(JSON.stringify(json));
+                        spanInoperantes.innerHTML = `${json[0].inoperantes}`
+
+                    });
+                } else {
+                    throw "Houve um erro ao tentar realizar a verificacão!";
+                }
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+    }
+    function reservas(){
+        fetch("/dashboard/computadoresReservas", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/usuario.js
+                fkEmpresaServer: sessionStorage.EMPRESA_USUARIO
+            }),
+        })
+            .then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+
+                    resposta.json().then(json => {
+                        console.log(json);
+                        console.log(JSON.stringify(json));
+                        spanReservas.innerHTML = `${json[0].reservas}`
+
+                    });
+                } else {
+                    throw "Houve um erro ao tentar realizar a verificacão!";
+                }
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+    }
     function componente() {
         fetch("/dashboard/componentesEmFalta", {
             method: "POST",
@@ -191,63 +286,35 @@
      let modal = document.getElementById("myModal");
      let span = document.getElementsByClassName("close")[0];
 
-     const noteSemLimpeza = [
-         {
-            hostName: "adsA1",
-            sala: "1 ADS A",
-            ultimaLimpeza: "10/03/2023"
-         },
-         {
-            hostName: "adsA1",
-            sala: "1 ADS B",
-            ultimaLimpeza: "04/07/2023"
-         },
-         {
-            hostName: "adsA55",
-            sala: "1 ADS A",
-            ultimaLimpeza: "25/08/2023"
-         },
-         {
-            hostName: "adsA3",
-            sala: "1 ADS A",
-            ultimaLimpeza: "07/09/2023"
-         },
-         {
-            hostName: "adsA21",
-            sala: "1 ADS C",
-            ultimaLimpeza: "13/05/2023"
-         },
-         {
-            hostName: "adsA13",
-            sala: "1 ADS C",
-            ultimaLimpeza: "14/08/2023"
-         },
-         {
-            hostName: "adsA9",
-            sala: "1 ADS A",
-            ultimaLimpeza: "10/03/2024"
-         },
-     ];
-
      function maquinaSemLimpeza(){
         let tituloHeader = document.getElementById("header-title");
-
-        tituloHeader.innerHTML = "Máquinas sem limpeza"
+        let maquinas = document.getElementById("maquinas"); // Certifique-se de que existe um elemento com esse id
+    
+        tituloHeader.innerHTML = "Máquinas sem limpeza";
         modal.style.display = "block";
-
-        for (let i = 0; i < noteSemLimpeza.length; i++){
+        maquinas.innerHTML = ''; // Limpar o conteúdo existente antes de adicionar novos elementos
+    
+        for (let i = 0; i < listaSemLimpeza.length; i++){
+            // Parse the date and format it as dd/mm/yyyy
+            let data = new Date(listaSemLimpeza[i].Dia);
+            let dia = String(data.getDate()).padStart(2, '0');
+            let mes = String(data.getMonth() + 1).padStart(2, '0'); // Months are 0-based in JavaScript
+            let ano = data.getFullYear();
+            let dataFormatada = `${dia}/${mes}/${ano}`;
+    
             maquinas.innerHTML += 
-            `<div id="campo" onclick="graficos('${computadores[i].hostName}')">
-                <p>${noteSemLimpeza[i].hostName}</p>
-                <p>${noteSemLimpeza[i].sala}</p>
-                <p>${noteSemLimpeza[i].ultimaLimpeza}</p>
+            `<div id="campo" onclick="graficos('${listaSemLimpeza[i].hostname}')">
+                <p>${listaSemLimpeza[i].hostname}</p>
+                <p>${listaSemLimpeza[i].nome}</p>
+                <p>${dataFormatada}</p>
             </div>`;
-
+    
             if (i >= 3){
                 maquinas.style.overflowY = "scroll";
             }
         }
-     }
+    }
+    
 
      span.onclick = function () {
         modal.style.display = "none";
@@ -263,21 +330,61 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-    const labels = [
-        'Memória',
-        'Rede',
-        'Disco',
-        'Temperatura',
-        'Limpeza',
-        'CPU',
-        'Bateria',
+    var listaQtdProblemas = [];
+    function problemas(){
+        fetch("/dashboard/qtdManutencoes", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/usuario.js
+                fkEmpresaServer: sessionStorage.EMPRESA_USUARIO
+            }),
+        })
+            .then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+
+                    resposta.json().then(json => {
+                        console.log(json);
+                        console.log(JSON.stringify(json));
+                        for (let i = 0; i < json.length; i++){
+                            listaQtdProblemas.push(json[i].quantidadeManutencoes);
+                        }
+
+                    });
+                } else {
+                    throw "Houve um erro ao tentar realizar a verificacão!";
+                }
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+
+    }
+    setTimeout(() => {
+        plotarGrafico();
+    }, 500);
+
+    function plotarGrafico(){
+        const labels = [
+    'Bateria',
+    'CPU',
+    'Disco',
+    'Limpeza',
+    'Memória',
+    'Rede',
+    'Temperatura'
     ];
 
     const data = {
         labels: labels,
         datasets: [{
             label: 'Problema',
-            data: [3, 10, 5, 2, 7, 2, 4],
+            data: listaQtdProblemas,
             backgroundColor: '#281549',
             borderColor: '#a5efd3',
 
@@ -299,10 +406,13 @@
             }
         }
     };
-</script>
-<script>
+
     const myChart = new Chart(
         document.getElementById('myChart'),
         config
     );
+
+    }
+
+    
 </script>

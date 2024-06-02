@@ -13,7 +13,7 @@
 </head>
 
 
-<body onload="validarSessao(),total(),inoperante(),reservas(),componente()">
+<body onload="validarSessao(),total(),inoperante(),reservas(),componente(),dashValorMes()">
 
     <div class="left-sidebar">
         <img class="imgLogo" src="img/logo-MindCore.png" alt="logo">
@@ -142,6 +142,66 @@
 
 </html>
 <script>
+    let listaValorMes = [];
+    let listaMeses = [];
+    const mesAtual = new Date().getMonth();
+    function dashValorMes() {
+        fetch("/dashboard/totalMes", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/usuario.js
+                fkEmpresaServer: sessionStorage.EMPRESA_USUARIO
+            }),
+        })
+            .then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+
+                    resposta.json().then(json => {
+                        console.log(json);
+                        console.log(JSON.stringify(json));
+
+                        if (mesAtual < 7) {
+                            listaMeses = [
+                                'Janeiro',
+                                'Fevereiro',
+                                'Março',
+                                'Abril',
+                                'Maio',
+                                'Junho']
+                            for (let i = 0; i < 6; i++) {                
+                                listaValorMes.push(json[i].valorTotalGasto)
+                            }
+                         }else{
+                            listaMeses = [
+                                'Julho',
+                                'Agosto',
+                                'Setembro',
+                                'Outubro',
+                                'Novembro',
+                                'Dezembro',]
+                            for (let i = 7; i < 13; i++) {                
+                                listaValorMes.push(json[i].valorTotalGasto)
+                            }
+                         }
+
+                        
+
+                    });
+                } else {
+                    throw "Houve um erro ao tentar realizar a verificacão!";
+                }
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+    }
+
     function componente() {
         fetch("/dashboard/componentesEmFalta", {
             method: "POST",
@@ -298,46 +358,41 @@
 </script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-    const labels = [
-        'Janeiro',
-        'Fevereiro',
-        'Março',
-        'Abril',
-        'Maio',
-        'Junho',
-        'Julho',
-    ];
-
-    const data = {
-        labels: labels,
-        datasets: [{
-            label: 'Valor (R$)',
-            data: [30, 50, 55, 22, 72, 20, 14],
-            backgroundColor: '#281549',
-            borderColor: '#a5efd3',
-
-        }]
-    };
-    const config = {
-        type: 'bar',
-        data: data,
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    position: 'top',
-                },
-                title: {
-                    display: false,
-                    text: 'Problemas recorrentes'
+    setTimeout(() => {
+        plotarGrafico();
+    }, 500);
+    function plotarGrafico(){
+        const data = {
+            labels: listaMeses,
+            datasets: [{
+                label: 'Valor (R$)',
+                data: listaValorMes,
+                backgroundColor: '#281549',
+                borderColor: '#a5efd3',
+    
+            }]
+        };
+        const config = {
+            type: 'bar',
+            data: data,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: false,
+                        text: 'Problemas recorrentes'
+                    }
                 }
             }
-        }
-    };
-</script>
-<script>
-    const myChart = new Chart(
+        };
+
+        const myChart = new Chart(
         document.getElementById('myChart'),
         config
     );
+
+    }   
 </script>
