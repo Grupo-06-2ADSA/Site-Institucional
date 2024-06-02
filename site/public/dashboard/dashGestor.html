@@ -13,7 +13,7 @@
 </head>
 
 
-<body onload="validarSessao(),componente()">
+<body onload="validarSessao(),total(),inoperante(),reservas(),componente()">
 
     <div class="left-sidebar">
         <img class="imgLogo" src="img/logo-MindCore.png" alt="logo">
@@ -77,18 +77,17 @@
             <div class="kpi">
                 <div class="caixa">
                     <h2>Máquinas inoperantes</h2>
-                    <span>30</span>
-    
+                    <span id="spanInoperantes">30</span>
                 </div>
                 <div class="caixa">
                     <h2>Máquinas reservas</h2>
-                    <span>07</span>
+                    <span id="spanReservas">07</span>
     
     
                 </div>
                 <div class="caixa">
                     <h2>Valor total gasto com manutenções</h2>
-                    <span>R$1.503,77</span>
+                    <span id="spanTotal">R$1.503,77</span>
     
     
                 </div>
@@ -143,76 +142,145 @@
 
 </html>
 <script>
-   const computadores = [
-        {
-           Nome: "Memória",
-           Preço: "R$100",
-        },
-        {
-           Nome: "Memória",
-           Preço: "R$100",
-        },
-        {
-           Nome: "Memória",
-           Preço: "R$100",
-        },
-        {
-           Nome: "Memória",
-           Preço: "R$100",
-        },
-        {
-           Nome: "Memória",
-           Preço: "R$100",
-        },
-        {
-           Nome: "Memória",
-           Preço: "R$100",
-        },
-        {
-           Nome: "Memória",
-           Preço: "R$100",
-        },
-        {
-           Nome: "Memória",
-           Preço: "R$100",
-        },
-        {
-           Nome: "Memória",
-           Preço: "R$100",
-        },
-        {
-           Nome: "Memória",
-           Preço: "R$100",
-        },
-        {
-           Nome: "Memória",
-           Preço: "R$100",
-        },
-        {
-           Nome: "Memória",
-           Preço: "R$100",
-        },
-        {
-           Nome: "Memória",
-           Preço: "R$100",
-        }
-    ];
-
-
-
     function componente() {
+        fetch("/dashboard/componentesEmFalta", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/usuario.js
+                fkEmpresaServer: sessionStorage.EMPRESA_USUARIO
+            }),
+        })
+            .then(function (resposta) {
+                console.log("resposta: ", resposta);
 
-        for (let i = 0; i < computadores.length; i++) {
-            repeticao.innerHTML += `
-            <div id="campo" onclick="graficos('${computadores[i].Nome}')">
-                <p>${computadores[i].Nome}</p>
-                <p>${computadores[i].Preço}</p>
-            </div>`;
+                if (resposta.ok) {
 
-            if (i >= 7) {
-                repeticao.style.overflowY = "scroll";
-            }
-        }
+                    resposta.json().then(json => {
+                        console.log(json);
+                        console.log(JSON.stringify(json));
+
+                        for (let i = 0; i < json.length; i++) {
+                            repeticao.innerHTML += `
+                            <div id="campo" onclick="graficos('${json[i].nomeComponente}')">
+                                <p>${json[i].nomeComponente}</p>
+                                <p>R$${json[i].preco}</p>
+                            </div>`;
+                
+                            if (i >= 7) {
+                                repeticao.style.overflowY = "scroll";
+                            }
+                        }
+
+                    });
+                } else {
+                    throw "Houve um erro ao tentar realizar a verificacão!";
+                }
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+
+        
+    }
+
+    function inoperante(){
+        fetch("/dashboard/computadoresInoperantes", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/usuario.js
+                fkEmpresaServer: sessionStorage.EMPRESA_USUARIO
+            }),
+        })
+            .then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+
+                    resposta.json().then(json => {
+                        console.log(json);
+                        console.log(JSON.stringify(json));
+                        spanInoperantes.innerHTML = `${json[0].inoperantes}`
+
+                    });
+                } else {
+                    throw "Houve um erro ao tentar realizar a verificacão!";
+                }
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+    }
+
+    function reservas(){
+        fetch("/dashboard/computadoresReservas", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/usuario.js
+                fkEmpresaServer: sessionStorage.EMPRESA_USUARIO
+            }),
+        })
+            .then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+
+                    resposta.json().then(json => {
+                        console.log(json);
+                        console.log(JSON.stringify(json));
+                        spanReservas.innerHTML = `${json[0].reservas}`
+
+                    });
+                } else {
+                    throw "Houve um erro ao tentar realizar a verificacão!";
+                }
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+    }
+
+    function total(){
+        fetch("/dashboard/totalManutencao", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/usuario.js
+                fkEmpresaServer: sessionStorage.EMPRESA_USUARIO
+            }),
+        })
+            .then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+
+                    resposta.json().then(json => {
+                        console.log(json);
+                        console.log(JSON.stringify(json));
+                        spanTotal.innerHTML = `R$${json[0].total}`
+
+                    });
+                } else {
+                    throw "Houve um erro ao tentar realizar a verificacão!";
+                }
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
     }
 
     let modal = document.getElementById("myModal");

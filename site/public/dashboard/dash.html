@@ -143,77 +143,50 @@
 
 </html>
 <script>
-    const computadores = [
-         {
-            Nome: "Memória",
-            Preço: "R$100",
-         },
-         {
-            Nome: "Memória",
-            Preço: "R$100",
-         },
-         {
-            Nome: "Memória",
-            Preço: "R$100",
-         },
-         {
-            Nome: "Memória",
-            Preço: "R$100",
-         },
-         {
-            Nome: "Memória",
-            Preço: "R$100",
-         },
-         {
-            Nome: "Memória",
-            Preço: "R$100",
-         },
-         {
-            Nome: "Memória",
-            Preço: "R$100",
-         },
-         {
-            Nome: "Memória",
-            Preço: "R$100",
-         },
-         {
-            Nome: "Memória",
-            Preço: "R$100",
-         },
-         {
-            Nome: "Memória",
-            Preço: "R$100",
-         },
-         {
-            Nome: "Memória",
-            Preço: "R$100",
-         },
-         {
-            Nome: "Memória",
-            Preço: "R$100",
-         },
-         {
-            Nome: "Memória",
-            Preço: "R$100",
-         }
-     ];
- 
- 
- 
-     function componente() {
- 
-         for (let i = 0; i < computadores.length; i++) {
-             repeticao.innerHTML += `
-             <div id="campo" onclick="graficos('${computadores[i].Nome}')">
-                 <p>${computadores[i].Nome}</p>
-                 <p>${computadores[i].Preço}</p>
-             </div>`;
- 
-             if (i >= 7) {
-                 repeticao.style.overflowY = "scroll";
-             }
-         }
-     }
+    function componente() {
+        fetch("/dashboard/componentesEmFalta", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/usuario.js
+                fkEmpresaServer: sessionStorage.EMPRESA_USUARIO
+            }),
+        })
+            .then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+
+                    resposta.json().then(json => {
+                        console.log(json);
+                        console.log(JSON.stringify(json));
+
+                        for (let i = 0; i < json.length; i++) {
+                            repeticao.innerHTML += `
+                            <div id="campo" onclick="graficos('${json[i].nomeComponente}')">
+                                <p>${json[i].nomeComponente}</p>
+                                <p>R$${json[i].preco}</p>
+                            </div>`;
+                
+                            if (i >= 7) {
+                                repeticao.style.overflowY = "scroll";
+                            }
+                        }
+
+                    });
+                } else {
+                    throw "Houve um erro ao tentar realizar a verificacão!";
+                }
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+
+        
+    }
 
      let modal = document.getElementById("myModal");
      let span = document.getElementsByClassName("close")[0];

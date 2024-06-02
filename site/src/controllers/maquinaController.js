@@ -97,7 +97,7 @@ function buscarMaquinas(req, res) {
 }
 
 function buscarManutencoes(req, res) {
-    var fkMaquina = req.body.fkMaquinaServer;
+    var fkMaquina = req.body.hostnameServer;
 
     maquinaModel.buscarManutencoes(fkMaquina)
         .then((resultado) => {
@@ -120,14 +120,14 @@ function buscarManutencoes(req, res) {
 }
 
 function excluirMaquina(req, res){
-    let idMaquina = req.body.idMaquinaServer;
+    let hostname = req.body.hostnameServer;
 
     // Faça as validações dos valores
-    if (idMaquina == undefined) {
-        res.status(400).send("Sua idMaquina está undefined!");
+    if (hostname == undefined) {
+        res.status(400).send("Seu hostname está undefined!");
     }
     else {
-        maquinaModel.excluirMaquina(idMaquina)
+        maquinaModel.excluirMaquina(hostname)
             .then(
                 function (resultado) {
                     res.json(resultado);
@@ -150,7 +150,6 @@ function atualizarMaquina(req, res) {
     let hostname = req.body.hostnameServer;
     let ipv4 = req.body.ipv4Server;
     let dtImagem = req.body.imagemServer;
-    let idMaquina = req.body.idMaquinaServer;
 
 
     // Faça as validações dos valores
@@ -160,11 +159,11 @@ function atualizarMaquina(req, res) {
         res.status(400).send("Sua ip está undefined!");
     } else if (dtImagem == undefined) {
         res.status(400).send("Sua imagem está undefined!");
-    } else if (idMaquina == undefined) {
-        res.status(400).send("Sua idMaquina está undefined!");
+    } else if (hostname == undefined) {
+        res.status(400).send("Seu hostname está undefined!");
     }
     else {
-        maquinaModel.atualizarMaquina(hostname, ipv4, dtImagem, idMaquina)
+        maquinaModel.atualizarMaquina(hostname, ipv4, dtImagem)
             .then(
                 function (resultado) {
                     res.json(resultado);
@@ -188,7 +187,7 @@ function cadastrarManutencao(req, res) {
     var tipo = req.body.tipoServer;
     let responsavel = req.body.responsavelServer;
     let fkSala = req.body.fkSalaServer;
-    let fkMaquina = req.body.fkMaquinaServer;
+    let hostname = req.body.hostnameServer;
 
     if (descricao == undefined) {
         res.status(400).send("Seu descricao está undefined!");
@@ -200,11 +199,11 @@ function cadastrarManutencao(req, res) {
         res.status(400).send("Sua responsavel está undefined!");
     }else if (fkSala == undefined) {
         res.status(400).send("Sua fkSala está undefined!");
-    } else if (fkMaquina == undefined) {
-        res.status(400).send("Sua fkMaquina está undefined!");
+    } else if (hostname == undefined) {
+        res.status(400).send("Seu hostname está undefined!");
     }
     else {
-        maquinaModel.cadastrarManutencao(data, descricao, tipo, fkMaquina, fkSala, responsavel)
+        maquinaModel.cadastrarManutencao(data, descricao, tipo, hostname, fkSala, responsavel)
             .then(
                 function (resultado) {
                     res.json(resultado);

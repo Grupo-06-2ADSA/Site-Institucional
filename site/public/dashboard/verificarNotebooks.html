@@ -60,6 +60,7 @@
                     <option value="ADS C">ADS C</option>
                     <option value="SIS">SIS</option>
                     <option value="CCO">CCO</option>
+                    <option value="">Reserva</option>
                 </select>
             </div>
 
@@ -216,7 +217,7 @@
                         <div class="formulario">
                             <div class="campo">
                                 <span>HostName</span>
-                                <input type="text" id="hostname">
+                                <input type="text" id="hostnameCadastro">
                             </div>
                             <div class="campo">
                                 <span>IPV4</span>
@@ -318,11 +319,11 @@
 
                         repeticao.innerHTML += `
                         <div id="campo"">
-                            <p class="hostname" data-id="${json[i].idMaquina}" onclick="graficos('${json[i].hostname}', event)">${json[i].hostname}</p>
+                            <p class="hostname" onclick="graficos('${json[i].hostname}', event)">${json[i].hostname}</p>
                             <div class="bolinha" id="bolinha${i}"></div>
                             <p class="ultimaModificacao">${data.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' })}</p>
-                            <p id="editar" data-id="${json[i].idMaquina}" data-hostname="${json[i].hostname}" data-ip="${json[i].ip}" data-dtImagem="${data.getFullYear()}-${String(data.getMonth() + 1).padStart(2, '0')}-${String(data.getDate()).padStart(2, '0')}" onclick="editarMaquina(event)">Editar</p>
-                            <img src="../assets/img/excluir.png" onclick="excluirMaquina(${json[i].idMaquina})">
+                            <p id="editar" data-hostname="${json[i].hostname}" data-ip="${json[i].ip}" data-dtImagem="${data.getFullYear()}-${String(data.getMonth() + 1).padStart(2, '0')}-${String(data.getDate()).padStart(2, '0')}" onclick="editarMaquina(event)">Editar</p>
+                            <img src="../assets/img/excluir.png" onclick="excluirMaquina('${json[i].hostname}')">
                         </div>`;
 
 
@@ -354,7 +355,7 @@
                 });
 
             } else {
-                console.log("Houve um erro ao tentar realizar o select!");
+                console.log("Houve um erro ao tentar realizar o select da busca!");
             }
 
         }).catch(function (erro) {
@@ -365,20 +366,18 @@
 
     }
 
-    let idMaquina;
+    let hostnameVar;
 
     let modalEdicao = document.getElementById("modalEditar");
     function editarMaquina(event) {
         let tituloHeader = document.getElementById("header-title-maquina");
         let elemento = event.target;
 
-        idMaquina = elemento.dataset.id;
-        let hostName = elemento.dataset.hostname;
+        hostname = elemento.dataset.hostname;
         let ip = elemento.dataset.ip;
         let dtImagem = elemento.dataset.dtImagem;
 
-        console.log("ID Máquina:", idMaquina);
-        console.log("Hostname:", hostName);
+        console.log("Hostname:", hostname);
         console.log("IP:", ip);
         console.log("Data da Imagem:", dtImagem);
 
@@ -390,12 +389,12 @@
         let imagemInput = document.getElementById("dtImagemInput");
 
 
-        hostNameInput.value = hostName;
+        hostNameInput.value = hostname;
         ipInput.value = ip;
         imagemInput.value = dtImagem;
     }
 
-    function excluirMaquina(idMaquina) {
+    function excluirMaquina(hostname) {
         let confirmar = confirm("Você tem certeza que deseja excluir o computador?");
         if (!confirmar) {
             return;
@@ -407,7 +406,7 @@
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                idMaquinaServer: idMaquina
+                hostnameServer: hostname
             }),
         })
             .then(function (resposta) {
@@ -440,13 +439,14 @@
     function graficos(hostname, event) {
         let tituloHeader = document.getElementById("header-title");
         let elemento = event.target;
+        hostnameVar = hostname;
 
-        idMaquina = elemento.dataset.id;
+        //hostname = elemento.dataset.hostname;
         tituloHeader.innerHTML = "";
         modal.style.display = "block";
         tituloHeader.innerHTML += `HostName: ${hostname}`;
 
-        listarManutencao();
+        listarManutencao(hostname);
         // for (let i = 0; i < obj.length; i++) {
         //     if (hostname == obj[i].hostname) {
         //         let statusComputador = obj[i].estado == 1 ? "red" : "green";
@@ -455,6 +455,129 @@
         //     }
         // }
 
+    }
+
+    function listarManutencao(hostname) { 
+        let manutencao = document.getElementById("manutencoes");
+        manutencao.innerHTML = "";
+
+        fetch("/maquinas/buscarManutencoes", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                hostnameServer: hostname
+            }),
+        }).then(function (resposta) {
+            console.log("ESTOU NO THEN DO buscar()!")
+
+            if (resposta.ok) {
+                console.log(resposta);
+
+                resposta.json().then(json => {
+                    console.log(json);
+                    console.log(JSON.stringify(json));
+                    
+                    
+                    for (let i = 0; i < json.length; i++) {
+                        let dataString = json[i].Dia;
+                        let data = new Date(dataString);
+
+                        manutencao.innerHTML += `
+                        <div class="informacoes">
+                            <p class="campo-descricao">${json[i].descricao}</p>
+                            <p class="campo-responsavel">${json[i].nomeResponsavel}</p>
+                            <p class="campo-tipo">${json[i].tipo}</p>
+                            <p class="campo-data">${data.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' })}</p>
+                        </div>`;
+
+                        if (i >= 7) {
+                            manutencao.style.overflowY = "scroll";
+                        }
+                    }
+
+                });
+
+            } else {
+                console.log("Houve um erro ao tentar realizar o select!");
+            }
+
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+
+        return false;
+
+
+    }
+
+    let modalManutencao = document.getElementById("modalHistorico");
+    let tituloHistorico = document.getElementById("header-title-historico");
+    let span4 = document.getElementsByClassName("close4")[0];
+
+    function adicionarHistorico() {
+        modalManutencao.style.display = "block"
+        tituloHistorico.innerHTML = "Adicionar manutenção"
+    }
+
+    function cancelarHistorico() {
+        modalManutencao.style.display = "none"
+    }
+
+    function cadastrarHistorico() {
+        let descricaoInput = descricao.value;
+        let tipoInput = tipo.value;
+        let dataManutencao = dtmanutencao.value;
+        console.log("HOSTNAMEVAR:"+hostnameVar);
+
+        fetch("/maquinas/cadastrarManutencao", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                descricaoServer: descricaoInput,
+                tipoServer: tipoInput,
+                dataServer: dataManutencao,
+                hostnameServer: hostnameVar,
+                fkSalaServer: fkSala,
+                responsavelServer: sessionStorage.ID_USUARIO
+            }),
+        })
+            .then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+                    let cardErro = document.getElementById("cardErro");
+                    let mensagemErroEditar = document.getElementById("mensagem_erro_historico");
+
+                    if (cardErro && mensagemErroEditar) {
+                        cardErro.style.display = "block";
+                        mensagemErroEditar.innerHTML = "Cadastro realizado com sucesso!";
+                        hostnameVar = undefined;
+
+                        setTimeout(() => {
+                            mensagemErroEditar.innerHTML = "";
+                            cardErro.style.display = "none";
+                            location.reload();
+                        }, 2000);
+
+                    } else {
+                        console.error("Elementos de mensagem de erro não encontrados.");
+                    }
+
+                } else {
+                    resposta.text().then(texto => {
+                        console.error("Erro no servidor:", texto);
+                        alert(`Erro ao cadastrar: ${texto}`);
+                    });
+                    throw "Houve um erro ao tentar realizar o cadastro!";
+                }
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
     }
 
     span.onclick = function () {
@@ -546,20 +669,17 @@
 
                     });
 
-                    limparFormulario();
-                    finalizarAguardar();
                 } else {
                     throw "Houve um erro ao tentar realizar a verificacão!";
                 }
             })
             .catch(function (resposta) {
                 console.log(`#ERRO: ${resposta}`);
-                finalizarAguardar();
             });
     }
 
     function cadastrarMaquina() {
-        let hostName = hostname.value;
+        let hostName = hostnameCadastro.value;
         let ip = ipv4.value;
         let dataImagem = dtImagem.value;
 
@@ -596,7 +716,6 @@
                             location.reload();
                         }, 2000);
 
-                        limparFormulario();
                     } else {
                         console.error("Elementos de mensagem de erro não encontrados.");
                     }
@@ -606,7 +725,6 @@
             })
             .catch(function (resposta) {
                 console.log(`#ERRO: ${resposta}`);
-                finalizarAguardar();
             });
     }
 
@@ -631,7 +749,6 @@
                 hostnameServer: hostname,
                 ipv4Server: ip,
                 imagemServer: dtImagem,
-                idMaquinaServer: idMaquina
             }),
         })
             .then(function (resposta) {
@@ -776,124 +893,4 @@
         document.getElementById('myChartDISCO'),
         configDISCO
     );
-
-    function listarManutencao() {
-        let manutencao = document.getElementById("manutencoes");
-
-        fetch("/maquinas/buscarManutencoes", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                fkMaquinaServer: idMaquina
-            }),
-        }).then(function (resposta) {
-            console.log("ESTOU NO THEN DO buscar()!")
-
-            if (resposta.ok) {
-                console.log(resposta);
-
-                resposta.json().then(json => {
-                    console.log(json);
-                    console.log(JSON.stringify(json));
-                    manutencao.innerHTML = "";
-                    
-                    for (let i = 0; i < json.length; i++) {
-                        let dataString = json[i].Dia;
-                        let data = new Date(dataString);
-
-                        manutencao.innerHTML += `
-                        <div class="informacoes">
-                            <p class="campo-descricao">${json[i].descricao}</p>
-                            <p class="campo-responsavel">${json[i].nomeResponsavel}</p>
-                            <p class="campo-tipo">${json[i].tipo}</p>
-                            <p class="campo-data">${data.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' })}</p>
-                        </div>`;
-
-                        if (i >= 7) {
-                            manutencao.style.overflowY = "scroll";
-                        }
-                    }
-
-                });
-
-            } else {
-                console.log("Houve um erro ao tentar realizar o select!");
-            }
-
-        }).catch(function (erro) {
-            console.log(erro);
-        })
-
-        return false;
-
-
-    }
-
-    let modalManutencao = document.getElementById("modalHistorico");
-    let tituloHistorico = document.getElementById("header-title-historico");
-    let span4 = document.getElementsByClassName("close4")[0];
-
-    function adicionarHistorico() {
-        modalManutencao.style.display = "block"
-        tituloHistorico.innerHTML = "Adicionar manutenção"
-    }
-
-    function cancelarHistorico() {
-        modalManutencao.style.display = "none"
-    }
-
-    function cadastrarHistorico() {
-        let descricaoInput = descricao.value;
-        let tipoInput = tipo.value;
-        let dataManutencao = dtmanutencao.value;
-
-        fetch("/maquinas/cadastrarManutencao", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                descricaoServer: descricaoInput,
-                tipoServer: tipoInput,
-                dataServer: dataManutencao,
-                fkMaquinaServer: idMaquina,
-                fkSalaServer: fkSala,
-                responsavelServer: sessionStorage.ID_USUARIO
-            }),
-        })
-            .then(function (resposta) {
-                console.log("resposta: ", resposta);
-
-                if (resposta.ok) {
-                    let cardErro = document.getElementById("cardErro");
-                    let mensagemErroEditar = document.getElementById("mensagem_erro_historico");
-
-                    if (cardErro && mensagemErroEditar) {
-                        cardErro.style.display = "block";
-                        mensagemErroEditar.innerHTML = "Cadastro realizado com sucesso!";
-
-                        setTimeout(() => {
-                            mensagemErroEditar.innerHTML = "";
-                            cardErro.style.display = "none";
-                            location.reload();
-                        }, 2000);
-
-                    } else {
-                        console.error("Elementos de mensagem de erro não encontrados.");
-                    }
-
-                } else {
-                    resposta.text().then(texto => {
-                        console.error("Erro no servidor:", texto);
-                        alert(`Erro ao cadastrar: ${texto}`);
-                    });
-                    throw "Houve um erro ao tentar realizar o cadastro!";
-                }
-            })
-            .catch(function (resposta) {
-                console.log(`#ERRO: ${resposta}`);
-            });
-    }
 </script>

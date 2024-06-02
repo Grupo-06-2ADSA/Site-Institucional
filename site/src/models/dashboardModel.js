@@ -23,7 +23,7 @@ function manutencoesRecorrentes(fkEmpresa){
 
 function computadoresReservas(fkEmpresa){
     instrucaoSql = `
-    select count(hostname) from Maquina where fkSala = null and fkEmpresa = ${fkEmpresa};
+    select count(hostname) reservas from Maquina where fkSala is null and fkEmpresa = ${fkEmpresa};
     `;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
@@ -32,7 +32,7 @@ function computadoresReservas(fkEmpresa){
 
 function computadoresInoperantes(fkEmpresa){
     instrucaoSql = `
-    select count(m.hostname) from Maquina m join leituracpu l where l.fkMaquina = m.idMaquina and l.dataLeitura < day(now()) and m.fkEmpresa = ${fkEmpresa};
+    select count(m.hostname) inoperantes from Maquina m join leituracpu l where l.fkMaquina = m.hostname and l.dataLeitura < day(now()) and m.fkEmpresa = ${fkEmpresa};
     `;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
@@ -50,6 +50,54 @@ WHERE h.tipo = 'Limpeza'
     return database.executar(instrucaoSql);
 }
 
+function totalManutencao(fkEmpresa){
+    instrucaoSql = `
+    select sum(preco) as total from Componentes c join HistoricoManutencao h where h.tipo = c.nomeComponente and c.fkEmpresa = ${fkEmpresa};`;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function totalMes(fkEmpresa){
+    instrucaoSql = `
+    SELECT 
+    MONTH(h.Dia) AS mes,
+    SUM(c.preco) AS valorTotalGasto
+FROM 
+    HistoricoManutencao h
+JOIN 
+    Componentes c ON h.tipo = c.nomeComponente
+WHERE 
+    MONTH(h.Dia) BETWEEN 1 AND 7 and c.fkEmpresa = ${fkEmpresa}
+GROUP BY 
+    MONTH(h.Dia)
+ORDER BY 
+    MONTH(h.Dia);`;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function qtdManutencoes(fkEmpresa){
+    instrucaoSql = `
+    SELECT 
+    h.tipo AS tipoManutencao,
+    COUNT(*) AS quantidadeManutencoes
+FROM 
+    HistoricoManutencao h
+JOIN
+    Empresa
+WHERE
+    idEmpresa = ${fkEmpresa}
+GROUP BY 
+    h.tipo
+ORDER BY 
+    h.tipo;`;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 
 
 module.exports = {
@@ -57,5 +105,8 @@ module.exports = {
     manutencoesRecorrentes,
     computadoresReservas,
     computadoresInoperantes,
-    computadoresSemLimpeza
+    computadoresSemLimpeza,
+    totalManutencao,
+    totalMes,
+    qtdManutencoes
 };
