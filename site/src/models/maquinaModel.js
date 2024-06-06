@@ -12,28 +12,19 @@ function cadastrar(hostname, ip, dtImagem, fkSala, fkEmpresa) {
     return database.executar(instrucao);
 }
 
-function cadastrarManutencao(data, descricao, tipo, fkMaquina, fkSala, responsavel) {    
+function cadastrarManutencao(data, descricao, tipo, fkMaquina, responsavel) {    
     var instrucao = `
-    insert into HistoricoManutencao (Dia, descricao, tipo, fkMaquina, fkSala, responsavel) values (
-        '${data}', '${descricao}', '${tipo}', '${fkMaquina}', ${fkSala}, ${responsavel});
+    insert into HistoricoManutencao (Dia, descricao, tipo, fkMaquina, responsavel) values (
+        '${data}', '${descricao}', '${tipo}', '${fkMaquina}', ${responsavel});
     `;
     
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
 }
 
-function verificarFkSala(nomeSala, fkEmpresa){
-    var instrucao = `
-    select idSala from sala where nome = '${nomeSala}' and fkEmpresa = '${fkEmpresa}';
-    `;
-    
-    console.log("Executando a instrução SQL: \n" + instrucao);
-    return database.executar(instrucao);
-}
-
-function buscarMaquinas(fkEmpresa) {
+function buscarMaquinas(fkEmpresa, fkSala) {
     instrucaoSql = `
-    select hostname, ip, imagem from Maquina where fkEmpresa = ${fkEmpresa};
+    select hostname, ip, imagem from Maquina m where m.fkEmpresa = ${fkEmpresa} and m.fkSala = '${fkSala}';
     `;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
@@ -58,6 +49,15 @@ function excluirMaquina(hostname){
     return database.executar(instrucaoSql);
 }
 
+function excluirHistorico(hostname){
+    instrucaoSql = `
+    DELETE FROM HistoricoManutencao WHERE fkMaquina = '${hostname}';
+    `;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 function atualizarMaquina(hostname, ipv4, dtImagem){
     instrucaoSql = `
     update Maquina set hostname = '${hostname}', ip = '${ipv4}', imagem = '${dtImagem}' where hostname = '${hostname}';
@@ -70,9 +70,9 @@ function atualizarMaquina(hostname, ipv4, dtImagem){
 
 module.exports = {
     cadastrar,
-    verificarFkSala,
     buscarMaquinas,
     excluirMaquina,
+    excluirHistorico,
     atualizarMaquina,
     cadastrarManutencao,
     buscarManutencoes

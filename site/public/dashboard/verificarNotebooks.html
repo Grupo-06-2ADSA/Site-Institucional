@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="modal.css">
 </head>
 
-<body onload="validarSessao(), visualizarMaquinas(), verificarFkSala()">
+<body onload="validarSessao(), visualizarMaquinas()">
     <div class="left-sidebar">
         <img class="imgLogo" src="img/logo-MindCore.png" alt="logo">
 
@@ -54,13 +54,13 @@
         <div class="perfil">
             <div class="turmas">
                 <p>Turmas</p>
-                <select name="turmas" id="turma">
-                    <option value="ADS A">ADS A</option>
-                    <option value="ADS B">ADS B</option>
-                    <option value="ADS C">ADS C</option>
-                    <option value="SIS">SIS</option>
-                    <option value="CCO">CCO</option>
-                    <option value="">Reserva</option>
+                <select name="turmas" id="turma" onchange="visualizarMaquinas()">
+                    <option value=1>ADS A</option>
+                    <option value=2>ADS B</option>
+                    <option value=3>ADS C</option>
+                    <option value=4>SIS</option>
+                    <option value=5>CCO</option>
+                    <option value=6>Reserva</option>
                 </select>
             </div>
 
@@ -225,6 +225,17 @@
                                     placeholder="000.000.000.000">
                             </div>
                             <div class="campo">
+                                <span>Sala</span>
+                                <select name="salas" id="salaCadastro">
+                                    <option value=1>ADS A</option>
+                                    <option value=2>ADS B</option>
+                                    <option value=3>ADS C</option>
+                                    <option value=4>SIS</option>
+                                    <option value=5>CCO</option>
+                                    <option value=6>Reserva</option>
+                                </select>
+                            </div>
+                            <div class="campo">
                                 <span>Última Imagem</span>
                                 <input type="date" id="dtImagem">
                             </div>
@@ -293,6 +304,7 @@
 
 
     function visualizarMaquinas() {
+        repeticao.innerHTML = '';
 
         fetch("/maquinas/buscarMaquinas", {
             method: "POST",
@@ -300,7 +312,8 @@
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                fkEmpresaServer: sessionStorage.EMPRESA_USUARIO
+                fkEmpresaServer: sessionStorage.EMPRESA_USUARIO,
+                fkSalaServer: turma.value
             }),
         }).then(function (resposta) {
             console.log("ESTOU NO THEN DO buscar()!")
@@ -395,6 +408,7 @@
     }
 
     function excluirMaquina(hostname) {
+        excluirHistorico(hostname);
         let confirmar = confirm("Você tem certeza que deseja excluir o computador?");
         if (!confirmar) {
             return;
@@ -416,6 +430,33 @@
                     alert("Computador excluído com sucesso!")
 
                     location.reload();
+
+                } else {
+                    throw "Houve um erro ao tentar realizar o delete!";
+                }
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+
+        return false;
+    }
+
+    function excluirHistorico(hostname) {
+        fetch("/maquinas/excluirHistorico", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                hostnameServer: hostname
+            }),
+        })
+            .then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+                    console.log("Historico excluido com sucesso")
 
                 } else {
                     throw "Houve um erro ao tentar realizar o delete!";
@@ -550,7 +591,6 @@
                 tipoServer: tipoInput,
                 dataServer: dataManutencao,
                 hostnameServer: hostnameVar,
-                fkSalaServer: fkSala,
                 responsavelServer: sessionStorage.ID_USUARIO
             }),
         })
@@ -650,47 +690,11 @@
 
     let fkSala;
 
-    function verificarFkSala() {
-        let nomeSala = turma.value;
-
-        fetch("/maquinas/verificarFkSala", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                // crie um atributo que recebe o valor recuperado aqui
-                // Agora vá para o arquivo routes/usuario.js
-                nomeSalaServer: nomeSala,
-                fkEmpresaServer: sessionStorage.EMPRESA_USUARIO
-            }),
-        })
-            .then(function (resposta) {
-                console.log("resposta: ", resposta);
-
-                if (resposta.ok) {
-
-                    resposta.json().then(json => {
-                        console.log(json);
-                        console.log(JSON.stringify(json));
-
-                        fkSala = json[0].idSala;
-
-                    });
-
-                } else {
-                    throw "Houve um erro ao tentar realizar a verificacão!";
-                }
-            })
-            .catch(function (resposta) {
-                console.log(`#ERRO: ${resposta}`);
-            });
-    }
-
     function cadastrarMaquina() {
         let hostName = hostnameCadastro.value;
         let ip = ipv4.value;
         let dataImagem = dtImagem.value;
+        let sala = salaCadastro.value;
 
 
         fetch("/maquinas/cadastrarMaquina", {
@@ -704,7 +708,7 @@
                 hostNameServer: hostName,
                 ipv4Server: ip,
                 imagemServer: dataImagem,
-                fkSalaServer: fkSala,
+                fkSalaServer: sala,
                 fkEmpresaServer: sessionStorage.EMPRESA_USUARIO
             }),
         })

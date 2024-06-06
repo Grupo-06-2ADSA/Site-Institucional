@@ -23,7 +23,7 @@ function manutencoesRecorrentes(fkEmpresa){
 
 function computadoresReservas(fkEmpresa){
     instrucaoSql = `
-    select count(hostname) reservas from Maquina where fkSala is null and fkEmpresa = ${fkEmpresa};
+    select count(hostname) reservas from Maquina where fkSala = 6 and fkEmpresa = ${fkEmpresa};
     `;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);

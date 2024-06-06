@@ -42,41 +42,11 @@ function cadastrar(req, res) {
     }
 }
 
-function verificarFkSala(req, res) {
-    let nomeSala = req.body.nomeSalaServer;
-    let fkEmpresa = req.body.fkEmpresaServer;
-
-
-    // Faça as validações dos valores
-    if (nomeSala == undefined) {
-        res.status(400).send("Seu fkSala está undefined!");
-    } else if (fkEmpresa == undefined) {
-        res.status(400).send("Seu fkEmpresa está undefined!");
-    } else {
-
-        // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
-        maquinaModel.verificarFkSala(nomeSala, fkEmpresa)
-            .then(
-                function (resultado) {
-                    res.json(resultado);
-                }
-            ).catch(
-                function (erro) {
-                    console.log(erro);
-                    console.log(
-                        "\nHouve um erro ao realizar o cadastro! Erro: ",
-                        erro.sqlMessage
-                    );
-                    res.status(500).json(erro.sqlMessage);
-                }
-            );
-    }
-}
-
 function buscarMaquinas(req, res) {
     var fkEmpresa = req.body.fkEmpresaServer;
+    var fkSala = req.body.fkSalaServer;
 
-    maquinaModel.buscarMaquinas(fkEmpresa)
+    maquinaModel.buscarMaquinas(fkEmpresa, fkSala)
         .then((resultado) => {
 
             console.log(`\nResultados encontrados: ${resultado.length}`);
@@ -128,6 +98,32 @@ function excluirMaquina(req, res){
     }
     else {
         maquinaModel.excluirMaquina(hostname)
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao realizar o delete! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
+
+function excluirHistorico(req, res){
+    let hostname = req.body.hostnameServer;
+
+    // Faça as validações dos valores
+    if (hostname == undefined) {
+        res.status(400).send("Seu hostname está undefined!");
+    }
+    else {
+        maquinaModel.excluirHistorico(hostname)
             .then(
                 function (resultado) {
                     res.json(resultado);
@@ -197,13 +193,11 @@ function cadastrarManutencao(req, res) {
         res.status(400).send("Sua tipo está undefined!");
     } else if (responsavel == undefined) {
         res.status(400).send("Sua responsavel está undefined!");
-    }else if (fkSala == undefined) {
-        res.status(400).send("Sua fkSala está undefined!");
     } else if (hostname == undefined) {
         res.status(400).send("Seu hostname está undefined!");
     }
     else {
-        maquinaModel.cadastrarManutencao(data, descricao, tipo, hostname, fkSala, responsavel)
+        maquinaModel.cadastrarManutencao(data, descricao, tipo, hostname, responsavel)
             .then(
                 function (resultado) {
                     res.json(resultado);
@@ -224,9 +218,9 @@ function cadastrarManutencao(req, res) {
 
 module.exports = {
     cadastrar,
-    verificarFkSala,
     buscarMaquinas,
     excluirMaquina,
+    excluirHistorico,
     atualizarMaquina,
     cadastrarManutencao,
     buscarManutencoes
