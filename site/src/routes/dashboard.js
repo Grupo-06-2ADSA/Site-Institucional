@@ -26,6 +26,12 @@ router.post("/totalMes", function (req, res) {
 router.post("/qtdManutencoes", function (req, res) {
     dashboardController.qtdManutencoes(req, res);
 });
+router.post("/leituraCPU", function (req, res) {
+    dashboardController.leituraCPU(req, res);
+});
+router.post("/leituraRAM", function (req, res) {
+    dashboardController.leituraRAM(req, res);
+});
 
 module.exports = router;
 

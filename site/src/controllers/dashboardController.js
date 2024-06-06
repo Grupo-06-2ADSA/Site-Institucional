@@ -184,6 +184,52 @@ function qtdManutencoes(req, res) {
         });
 }
 
+function leituraCPU(req, res) {
+    var fkMaquina = req.body.fkMaquinaServer;
+
+    dashboardModel.leituraCPU(fkMaquina)
+        .then((resultado) => {
+
+            console.log(`\nResultados encontrados: ${resultado.length}`);
+            console.log(`Resultados: ${JSON.stringify(resultado)}`); // transforma JSON em String
+
+            if (resultado.length > 0) {
+                res.status(200).json(resultado);
+                console.log(resultado);
+
+            } else {
+                res.status(204).send("Nenhum resultado encontrado!")
+            }
+        }).catch(function (erro) {
+            console.log(erro);
+            console.log("Houve um erro ao buscar as informações: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        });
+}
+
+function leituraRAM(req, res) {
+    var fkMaquina = req.body.fkMaquinaServer;
+
+    dashboardModel.leituraRAM(fkMaquina)
+        .then((resultado) => {
+
+            console.log(`\nResultados encontrados: ${resultado.length}`);
+            console.log(`Resultados: ${JSON.stringify(resultado)}`); // transforma JSON em String
+
+            if (resultado.length > 0) {
+                res.status(200).json(resultado);
+                console.log(resultado);
+
+            } else {
+                res.status(204).send("Nenhum resultado encontrado!")
+            }
+        }).catch(function (erro) {
+            console.log(erro);
+            console.log("Houve um erro ao buscar as informações: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        });
+}
+
 module.exports = {
     componentesEmFalta,
     manutencoesRecorrentes,
@@ -192,5 +238,7 @@ module.exports = {
     computadoresSemLimpeza,
     totalManutencao,
     totalMes,
-    qtdManutencoes
+    qtdManutencoes,
+    leituraCPU,
+    leituraRAM
 };

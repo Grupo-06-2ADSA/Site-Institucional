@@ -102,18 +102,18 @@
                     <div class="modal-body">
                         <div class="dashs">
                             <div class="cpu">
-                                <h3>CPU: I3 11500U</h3>
+                                <h3 id="nomeCPU">CPU:</h3>
                                 <!-- Gráfico -->
                                 <canvas id="myChartCPU"
                                     style="display: block; box-sizing: border-box; height: 100px; width: 200px;"></canvas>
                                 <div class="infos">
                                     <div class="info">
                                         <h5>Tempo de Atividade</h5>
-                                        <span>0:01:35:54</span>
+                                        <span id="tempoAtividade"></span>
                                     </div>
                                     <div class="info">
                                         <h5>Uso CPU%</h5>
-                                        <span>60%</span>
+                                        <span id="usoCPU"></span>
                                     </div>
                                     <div class="info">
                                         <h5>Temperatura</h5>
@@ -123,7 +123,7 @@
                             </div>
 
                             <div class="ram">
-                                <h3>Memória Ram: 8GB</h3>
+                                <h3 id="tamanhoRAM">Memória Ram:</h3>
                                 <div class="chart">
                                     <canvas id="myChartRAM"
                                         style="display: block; box-sizing: border-box; height: 100px; width: 150px;"></canvas>
@@ -435,7 +435,7 @@
     let span2 = document.getElementsByClassName("close2")[0];
     let span3 = document.getElementsByClassName("close3")[0];
 
-
+    let hostnameGrafico;
     function graficos(hostname, event) {
         let tituloHeader = document.getElementById("header-title");
         let elemento = event.target;
@@ -445,7 +445,8 @@
         tituloHeader.innerHTML = "";
         modal.style.display = "block";
         tituloHeader.innerHTML += `HostName: ${hostname}`;
-
+        hostnameGrafico = '';
+        hostnameGrafico = hostname
         listarManutencao(hostname);
         // for (let i = 0; i < obj.length; i++) {
         //     if (hostname == obj[i].hostname) {
@@ -454,9 +455,17 @@
         //         tituloHeader.innerHTML += `<button class="alerta ${statusComputador}" id="alerta${i}"></button>`;
         //     }
         // }
+        
+        //location.reload();
+        limparGrafico();
+        plotarGraficoMaq()
+        setInterval(() => {
+            plotarGraficoMaq();
+        }, 10000);
+
 
     }
-
+    
     function listarManutencao(hostname) { 
         let manutencao = document.getElementById("manutencoes");
         manutencao.innerHTML = "";
@@ -798,14 +807,139 @@
         }
     }
 </script>
+
 <script>
+    let listaLeituraCPU = [];
+    function leituraCPU() { 
+        fetch("/dashboard/leituraCPU", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                fkMaquinaServer: hostnameGrafico
+            }),
+        }).then(function (resposta) {
+            console.log("ESTOU NO THEN DO buscar()!")
+
+            if (resposta.ok) {
+                console.log(resposta);
+
+                resposta.json().then(json => {
+                    console.log(json);
+                    console.log(JSON.stringify(json));
+                    
+                    usoCPU.innerHTML = json[0].emUso + '%';
+                    nomeCPU.innerHTML = `CPU: ${json[0].nome}`;
+                    if(json[0].tempoAtividade ==  1){
+                        tempoAtividade.innerHTML = `${json[0].tempoAtividade} dia`
+                    }
+                    else if(json[0].tempoAtividade >  1){
+                        tempoAtividade.innerHTML = `${json[0].tempoAtividade} dias`
+                    }
+                    else{
+                        tempoAtividade.innerHTML = `Menos de 1 dia`
+                    }
+
+                        listaLeituraCPU.push(json[0].emUso)
+                        listaLeituraCPU.shift();
+
+                        myChartCPU.data.datasets[0].data = listaLeituraCPU;
+                        myChartCPU.update();
+                    
+                    
+
+                    
+
+                });
+
+            } else {
+                console.log("Houve um erro ao tentar realizar o select!");
+            }
+
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+
+        return false;
+
+
+    }
+    let listaLeituraRAM = [];
+    function leituraRAM() { 
+        fetch("/dashboard/leituraRAM", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                fkMaquinaServer: hostnameGrafico
+            }),
+        }).then(function (resposta) {
+            console.log("ESTOU NO THEN DO buscar()!")
+
+            if (resposta.ok) {
+                console.log(resposta);
+
+                resposta.json().then(json => {
+                    console.log(json);
+                    console.log(JSON.stringify(json));
+                    
+                    tamanhoRAM.innerHTML = `Memória RAM: ${json[0].total}MB`
+                    
+                    listaLeituraRAM.push((json[0].emUso / json[0].total) * 100)
+                        listaLeituraRAM.shift();
+
+                        myChartRAM.data.datasets[0].data = listaLeituraRAM;
+                        myChartRAM.update();
+
+                        myChartRAM2.data.datasets[0].data = [json[0].emUso, (json[0].total - json[0].emUso)];
+                        myChartRAM2.update();
+
+                });
+
+            } else {
+                console.log("Houve um erro ao tentar realizar o select!");
+            }
+
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+
+        return false;
+
+
+    }
+
+
+    function plotarGraficoMaq(){
+        leituraCPU();
+        leituraRAM();
+          
+    }
+
+    function limparGrafico(){
+        listaLeituraCPU = [0,0,0,0,0,0,0];
+        myChartCPU.data.datasets[0].data = listaLeituraCPU;
+        myChartCPU.update();
+        nomeCPU.innerHTML = 'CPU:';
+        usoCPU.innerHTML = '';
+        tempoAtividade.innerHTML = '';
+
+        
+        listaLeituraRAM = [0,0,0,0,0,0,0];
+        myChartRAM.data.datasets[0].data = listaLeituraRAM;
+        myChartRAM.update();
+        tamanhoRAM.innerHTML = 'Memória Ram:';
+    }
+
     //CHART CPU------------------------------------------------------
     const labelsCPU = ['60s', '50s', '40s', '30s', '20s', '10s', '0s'];
     const dataCPU = {
         labels: labelsCPU,
         datasets: [{
             label: 'Uso CPU %',
-            data: [59, 80, 81, 56, 55, 40, 60, 0, 100],
+            data: listaLeituraCPU,
             fill: false,
             borderColor: '#9340FF',
             tension: 0.1
@@ -814,6 +948,14 @@
     const configCPU = {
         type: 'line',
         data: dataCPU,
+        options: {
+            scales: {
+                y: {
+                    min: 0,
+                    max: 100
+                }
+            }
+        }
     };
 
     const myChartCPU = new Chart(
@@ -828,7 +970,7 @@
         labels: labelsRAM,
         datasets: [{
             label: 'Uso RAM %',
-            data: [59, 80, 81, 56, 55, 40, 60, 0, 100],
+            data: listaLeituraRAM,
             fill: false,
             borderColor: '#9340FF',
             tension: 0.1
@@ -837,6 +979,14 @@
     const configRAM = {
         type: 'line',
         data: dataRAM,
+        options: {
+            scales: {
+                y: {
+                    min: 0,
+                    max: 100
+                }
+            }
+        }
     };
 
     const myChartRAM = new Chart(
@@ -893,4 +1043,5 @@
         document.getElementById('myChartDISCO'),
         configDISCO
     );
+ 
 </script>

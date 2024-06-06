@@ -118,6 +118,22 @@ function qtdManutencoes(fkEmpresa){
     return database.executar(instrucaoSql);
 }
 
+function leituraCPU(fkMaquina){
+    instrucaoSql = `
+    select s.tempoAtividade, c.nome, c.emUso, c.temp from leituracpu c join leituraso s where c.fkMaquina = s.fkMaquina and c.fkMaquina = '${fkMaquina}' order by c.dataLeitura desc limit 1;`;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function leituraRAM(fkMaquina){
+    instrucaoSql = `
+    select r.emUso, r.total from leituramemoriaram r join Maquina m where r.fkMaquina = m.hostname and m.hostname = '${fkMaquina}' order by r.dataLeitura desc limit 1;`;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 
 
 module.exports = {
@@ -128,5 +144,7 @@ module.exports = {
     computadoresSemLimpeza,
     totalManutencao,
     totalMes,
-    qtdManutencoes
+    qtdManutencoes,
+    leituraCPU,
+    leituraRAM
 };
