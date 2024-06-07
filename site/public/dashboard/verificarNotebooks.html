@@ -275,6 +275,17 @@
                                     placeholder="000.000.000.000">
                             </div>
                             <div class="campo">
+                                <span>Sala</span>
+                                <select name="turmas" id="turmaAlteracao">
+                                    <option value=1>ADS A</option>
+                                    <option value=2>ADS B</option>
+                                    <option value=3>ADS C</option>
+                                    <option value=4>SIS</option>
+                                    <option value=5>CCO</option>
+                                    <option value=6 selected>Reserva</option>
+                                </select>
+                            </div>
+                            <div class="campo">
                                 <span>Última Imagem</span>
                                 <input type="date" id="dtImagemInput">
                             </div>
@@ -741,6 +752,7 @@
         let hostname = document.getElementById("hostnameInput").value;
         let ip = document.getElementById("ipv4Input").value;
         let dtImagem = document.getElementById("dtImagemInput").value;
+        let sala = document.getElementById("turmaAlteracao").value;
 
         fetch("/maquinas/atualizarMaquina", {
             method: "POST",
@@ -753,6 +765,7 @@
                 hostnameServer: hostname,
                 ipv4Server: ip,
                 imagemServer: dtImagem,
+                salaServer: sala,
             }),
         })
             .then(function (resposta) {

@@ -59,9 +59,9 @@ function excluirHistorico(hostname){
     return database.executar(instrucaoSql);
 }
 
-function atualizarMaquina(hostname, ipv4, dtImagem){
+function atualizarMaquina(hostname, ipv4, sala, dtImagem){
     instrucaoSql = `
-    UPDATE Maquina SET ip = '${ipv4}', imagem = '${dtImagem}' WHERE hostname = '${hostname}';
+    UPDATE Maquina SET ip = '${ipv4}', imagem = '${dtImagem}' fkSala=${sala} WHERE hostname = '${hostname}';
     `;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);

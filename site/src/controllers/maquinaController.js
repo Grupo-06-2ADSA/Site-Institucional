@@ -146,6 +146,7 @@ function atualizarMaquina(req, res) {
     let hostname = req.body.hostnameServer;
     let ipv4 = req.body.ipv4Server;
     let dtImagem = req.body.imagemServer;
+    let sala = req.body.salaServer
 
 
     // Faça as validações dos valores
@@ -155,11 +156,11 @@ function atualizarMaquina(req, res) {
         res.status(400).send("Sua ip está undefined!");
     } else if (dtImagem == undefined) {
         res.status(400).send("Sua imagem está undefined!");
-    } else if (hostname == undefined) {
-        res.status(400).send("Seu hostname está undefined!");
+    } else if (sala == undefined) {
+        res.status(400).send("Sua sala está undefined!");
     }
     else {
-        maquinaModel.atualizarMaquina(hostname, ipv4, dtImagem)
+        maquinaModel.atualizarMaquina(hostname, ipv4, sala, dtImagem)
             .then(
                 function (resultado) {
                     res.json(resultado);
@@ -182,7 +183,6 @@ function cadastrarManutencao(req, res) {
     var data = req.body.dataServer;
     var tipo = req.body.tipoServer;
     let responsavel = req.body.responsavelServer;
-    let fkSala = req.body.fkSalaServer;
     let hostname = req.body.hostnameServer;
 
     if (descricao == undefined) {
