@@ -837,7 +837,7 @@
                     console.log(json);
                     console.log(JSON.stringify(json));
                     
-                    usoCPU.innerHTML = json[0].emUso + '%';
+                    usoCPU.innerHTML = (json[0].emUso).toFixed(2) + '%';
                     nomeCPU.innerHTML = `CPU: ${json[0].nome}`;
                     if(json[0].tempoAtividade ==  1){
                         tempoAtividade.innerHTML = `${json[0].tempoAtividade} dia`
@@ -893,7 +893,7 @@
                     console.log(json);
                     console.log(JSON.stringify(json));
                     
-                    tamanhoRAM.innerHTML = `Memória RAM: ${json[0].total}MB`
+                    tamanhoRAM.innerHTML = `Memória RAM: ${json[0].total}GB`
                     
                     listaLeituraRAM.push((json[0].emUso / json[0].total) * 100)
                         listaLeituraRAM.shift();
@@ -1056,7 +1056,7 @@
             'Disponível'
         ],
         datasets: [{
-            label: 'MB',
+            label: 'GB',
             data: [3466, 4534],
             backgroundColor: [
                 '#9340FF',
