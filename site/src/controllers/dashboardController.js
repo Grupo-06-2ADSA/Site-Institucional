@@ -230,6 +230,29 @@ function leituraRAM(req, res) {
         });
 }
 
+function leituraDisco(req, res) {
+    var fkMaquina = req.body.fkMaquinaServer;
+
+    dashboardModel.leituraDisco(fkMaquina)
+        .then((resultado) => {
+
+            console.log(`\nResultados encontrados: ${resultado.length}`);
+            console.log(`Resultados: ${JSON.stringify(resultado)}`); // transforma JSON em String
+
+            if (resultado.length > 0) {
+                res.status(200).json(resultado);
+                console.log(resultado);
+
+            } else {
+                res.status(204).send("Nenhum resultado encontrado!")
+            }
+        }).catch(function (erro) {
+            console.log(erro);
+            console.log("Houve um erro ao buscar as informações: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        });
+}
+
 module.exports = {
     componentesEmFalta,
     manutencoesRecorrentes,
@@ -240,5 +263,6 @@ module.exports = {
     totalMes,
     qtdManutencoes,
     leituraCPU,
-    leituraRAM
+    leituraRAM,
+    leituraDisco
 };

@@ -32,6 +32,9 @@ router.post("/leituraCPU", function (req, res) {
 router.post("/leituraRAM", function (req, res) {
     dashboardController.leituraRAM(req, res);
 });
+router.post("/leituraDisco", function (req, res) {
+    dashboardController.leituraDisco(req, res);
+});
 
 module.exports = router;
 

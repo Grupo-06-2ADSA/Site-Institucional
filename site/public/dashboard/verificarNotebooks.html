@@ -150,7 +150,7 @@
                             </div>
 
                             <div class="disco">
-                                <h3>Disco: 500GB</h3>
+                                <h3 id="tamanhoDisco">Disco:</h3>
                                 <canvas id="myChartDISCO"
                                     style="display: block; box-sizing: border-box; height: 8%; width: 10%;"></canvas>
 
@@ -354,16 +354,7 @@
                         }
                     }
 
-                    function pesquisarNote() {
-                        let hostNamePesquisa = Pesquisar.value;
-
-                        for (let i = 0; i <= json.length; i++) {
-                            if (hostNamePesquisa == json[i].hostname) {
-                                graficos(hostNamePesquisa);
-                            }
-                        }
-
-                    }
+                    
 
                 });
 
@@ -915,10 +906,49 @@
 
     }
 
+    function leituraDisco() { 
+        fetch("/dashboard/leituraDisco", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                fkMaquinaServer: hostnameGrafico
+            }),
+        }).then(function (resposta) {
+            console.log("ESTOU NO THEN DO buscar()!")
+
+            if (resposta.ok) {
+                console.log(resposta);
+
+                resposta.json().then(json => {
+                    console.log(json);
+                    console.log(JSON.stringify(json));
+                    
+                    tamanhoDisco.innerHTML = `Disco: ${json[0].total}GB`
+                    
+                        myChartDISCO.data.datasets[0].data = [json[0].emUso, json[0].disponivel];
+                        myChartDISCO.update();
+                });
+
+            } else {
+                console.log("Houve um erro ao tentar realizar o select!");
+            }
+
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+
+        return false;
+
+
+    }
+
 
     function plotarGraficoMaq(){
         leituraCPU();
         leituraRAM();
+        leituraDisco();
           
     }
 
@@ -935,6 +965,15 @@
         myChartRAM.data.datasets[0].data = listaLeituraRAM;
         myChartRAM.update();
         tamanhoRAM.innerHTML = 'Memória Ram:';
+
+        myChartRAM2.data.datasets[0].data = [];
+        myChartRAM2.update();
+
+        myChartDISCO.data.datasets[0].data = [];
+        myChartDISCO.update();
+        tamanhoDisco.innerHTML = 'Disco:'
+
+        
     }
 
     //CHART CPU------------------------------------------------------

@@ -1,11 +1,9 @@
 var database = require("../database/config")
 
 function cadastrar(hostname, ip, dtImagem, fkSala, fkEmpresa) {    
-    // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
-    //  e na ordem de inserção dos dados.
     var instrucao = `
-    insert into maquina (hostname, ip, imagem, fkSala, fkEmpresa) values (
-        '${hostname}', '${ip}', '${dtImagem}', ${fkSala},'${fkEmpresa}');
+    INSERT INTO Maquina (hostname, ip, imagem, fkSala, fkEmpresa) VALUES (
+        '${hostname}', '${ip}', '${dtImagem}', ${fkSala}, '${fkEmpresa}');
     `;
     
     console.log("Executando a instrução SQL: \n" + instrucao);
@@ -14,7 +12,7 @@ function cadastrar(hostname, ip, dtImagem, fkSala, fkEmpresa) {
 
 function cadastrarManutencao(data, descricao, tipo, fkMaquina, responsavel) {    
     var instrucao = `
-    insert into HistoricoManutencao (Dia, descricao, tipo, fkMaquina, responsavel) values (
+    INSERT INTO HistoricoManutencao (Dia, descricao, tipo, fkMaquina, responsavel) VALUES (
         '${data}', '${descricao}', '${tipo}', '${fkMaquina}', ${responsavel});
     `;
     
@@ -24,7 +22,7 @@ function cadastrarManutencao(data, descricao, tipo, fkMaquina, responsavel) {
 
 function buscarMaquinas(fkEmpresa, fkSala) {
     instrucaoSql = `
-    select hostname, ip, imagem from Maquina m where m.fkEmpresa = ${fkEmpresa} and m.fkSala = '${fkSala}';
+    SELECT hostname, ip, imagem FROM Maquina WHERE fkEmpresa = ${fkEmpresa} AND fkSala = ${fkSala};
     `;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
@@ -33,7 +31,10 @@ function buscarMaquinas(fkEmpresa, fkSala) {
 
 function buscarManutencoes(fkMaquina) {
     instrucaoSql = `
-    select Dia, descricao, hm.tipo, f.nome nomeResponsavel from HistoricoManutencao hm inner join Funcionario f on hm.responsavel = f.idFunc where fkMaquina = '${fkMaquina}';
+    SELECT Dia, descricao, hm.tipo, f.nome AS nomeResponsavel 
+    FROM HistoricoManutencao hm 
+    INNER JOIN Funcionario f ON hm.responsavel = f.idFunc 
+    WHERE fkMaquina = '${fkMaquina}';
     `;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
@@ -42,7 +43,7 @@ function buscarManutencoes(fkMaquina) {
 
 function excluirMaquina(hostname){
     instrucaoSql = `
-    delete from Maquina where hostname = '${hostname}';
+    DELETE FROM Maquina WHERE hostname = '${hostname}';
     `;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
@@ -60,13 +61,12 @@ function excluirHistorico(hostname){
 
 function atualizarMaquina(hostname, ipv4, dtImagem){
     instrucaoSql = `
-    update Maquina set hostname = '${hostname}', ip = '${ipv4}', imagem = '${dtImagem}' where hostname = '${hostname}';
+    UPDATE Maquina SET ip = '${ipv4}', imagem = '${dtImagem}' WHERE hostname = '${hostname}';
     `;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
-
 
 module.exports = {
     cadastrar,

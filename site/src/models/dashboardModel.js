@@ -1,10 +1,8 @@
 var database = require("../database/config")
 
 function componentesEmFalta(fkEmpresa) {    
-    // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
-    //  e na ordem de inserção dos dados.
     var instrucao = `
-    select nomeComponente, preco from Componentes where quantidade = 0 and fkEmpresa = ${fkEmpresa};
+    SELECT nomeComponente, preco FROM Componentes WHERE quantidade = 0 AND fkEmpresa = ${fkEmpresa};
     `;
     
     console.log("Executando a instrução SQL: \n" + instrucao);
@@ -13,8 +11,7 @@ function componentesEmFalta(fkEmpresa) {
 
 function manutencoesRecorrentes(fkEmpresa){
     instrucaoSql = `
-    select tipo, count(tipo) qtd from HistoricoManutencao join Empresa where cnpj = ${fkEmpresa} group by tipo;
-
+    SELECT tipo, COUNT(tipo) AS qtd FROM HistoricoManutencao JOIN Empresa ON cnpj = ${fkEmpresa} GROUP BY tipo;
     `;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
@@ -23,7 +20,7 @@ function manutencoesRecorrentes(fkEmpresa){
 
 function computadoresReservas(fkEmpresa){
     instrucaoSql = `
-    select count(hostname) reservas from Maquina where fkSala = 6 and fkEmpresa = ${fkEmpresa};
+    SELECT COUNT(hostname) AS reservas FROM Maquina WHERE fkSala = 6 AND fkEmpresa = ${fkEmpresa};
     `;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
@@ -32,7 +29,10 @@ function computadoresReservas(fkEmpresa){
 
 function computadoresInoperantes(fkEmpresa){
     instrucaoSql = `
-    select count(m.hostname) inoperantes from Maquina m join leituracpu l where l.fkMaquina = m.hostname and l.dataLeitura < day(now()) and m.fkEmpresa = ${fkEmpresa};
+    SELECT COUNT(m.hostname) AS inoperantes 
+    FROM Maquina m 
+    JOIN leituracpu l ON l.fkMaquina = m.hostname 
+    WHERE l.dataLeitura < DATEADD(DAY, -1, GETDATE()) AND m.fkEmpresa = ${fkEmpresa};
     `;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
@@ -41,12 +41,13 @@ function computadoresInoperantes(fkEmpresa){
 
 function computadoresSemLimpeza(fkEmpresa){
     instrucaoSql = `
-    SELECT DISTINCT h.fkMaquina as hostname, s.nome, h.Dia
-FROM historicomanutencao h 
-JOIN Maquina m on h.fkMaquina = m.hostname
-JOIN Sala s on m.fkSala = s.idSala
-WHERE h.tipo = 'Limpeza' 
-  AND h.Dia <= DATE_SUB(CURDATE(), INTERVAL 6 MONTH) AND m.fkEmpresa = ${fkEmpresa};`;
+    SELECT DISTINCT h.fkMaquina AS hostname, s.nome, h.Dia
+    FROM historicomanutencao h 
+    JOIN Maquina m ON h.fkMaquina = m.hostname
+    JOIN Sala s ON m.fkSala = s.idSala
+    WHERE h.tipo = 'Limpeza' 
+      AND h.Dia <= DATEADD(MONTH, -6, GETDATE()) AND m.fkEmpresa = ${fkEmpresa};
+    `;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -54,7 +55,11 @@ WHERE h.tipo = 'Limpeza'
 
 function totalManutencao(fkEmpresa){
     instrucaoSql = `
-    select sum(preco) as total from Componentes c join HistoricoManutencao h where h.tipo = c.nomeComponente and c.fkEmpresa = ${fkEmpresa};`;
+    SELECT SUM(preco) AS total 
+    FROM Componentes c 
+    JOIN HistoricoManutencao h ON h.tipo = c.nomeComponente 
+    WHERE c.fkEmpresa = ${fkEmpresa};
+    `;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -63,22 +68,21 @@ function totalManutencao(fkEmpresa){
 function totalMes(fkEmpresa){
     instrucaoSql = `
     SELECT 
-    meses.mes,
-    COALESCE(SUM(c.preco), 0) AS valorTotalGasto
-FROM 
-    (
-        SELECT 1 AS mes
-        UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5 UNION ALL SELECT 6 
-        UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9 UNION ALL SELECT 10 UNION ALL SELECT 11 UNION ALL SELECT 12
-    ) meses
-LEFT JOIN 
-    HistoricoManutencao h ON meses.mes = MONTH(h.Dia)
-LEFT JOIN 
-    Componentes c ON h.tipo = c.nomeComponente and c.fkEmpresa = ${fkEmpresa}
-GROUP BY 
-    meses.mes
-ORDER BY 
-    meses.mes;`;
+        meses.mes,
+        COALESCE(SUM(c.preco), 0) AS valorTotalGasto
+    FROM 
+        (VALUES 
+            (1), (2), (3), (4), (5), (6), (7), (8), (9), (10), (11), (12)
+        ) AS meses(mes)
+    LEFT JOIN 
+        HistoricoManutencao h ON meses.mes = MONTH(h.Dia)
+    LEFT JOIN 
+        Componentes c ON h.tipo = c.nomeComponente AND c.fkEmpresa = ${fkEmpresa}
+    GROUP BY 
+        meses.mes
+    ORDER BY 
+        meses.mes;
+    `;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -108,11 +112,12 @@ function qtdManutencoes(fkEmpresa){
         TiposManutencao t
     LEFT JOIN 
         HistoricoManutencao h ON t.tipo = h.tipo
-    JOIN Empresa on cnpj = ${fkEmpresa}
+    JOIN Empresa ON cnpj = ${fkEmpresa}
     GROUP BY 
         t.tipo
     ORDER BY 
-        t.tipo;`;
+        t.tipo;
+    `;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -120,7 +125,12 @@ function qtdManutencoes(fkEmpresa){
 
 function leituraCPU(fkMaquina){
     instrucaoSql = `
-    select s.tempoAtividade, c.nome, c.emUso, c.temp from leituracpu c join leituraso s where c.fkMaquina = s.fkMaquina and c.fkMaquina = '${fkMaquina}' order by c.dataLeitura desc limit 1;`;
+    SELECT TOP 1 s.tempoAtividade, c.nome, c.emUso, c.temp 
+    FROM leituracpu c 
+    JOIN leituraso s ON c.fkMaquina = s.fkMaquina 
+    WHERE c.fkMaquina = '${fkMaquina}' 
+    ORDER BY c.dataLeitura DESC;
+    `;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -128,13 +138,27 @@ function leituraCPU(fkMaquina){
 
 function leituraRAM(fkMaquina){
     instrucaoSql = `
-    select r.emUso, r.total from leituramemoriaram r join Maquina m where r.fkMaquina = m.hostname and m.hostname = '${fkMaquina}' order by r.dataLeitura desc limit 1;`;
+    SELECT TOP 1 r.emUso, r.total 
+    FROM leituramemoriaram r 
+    JOIN Maquina m ON r.fkMaquina = m.hostname 
+    WHERE m.hostname = '${fkMaquina}' 
+    ORDER BY r.dataLeitura DESC;
+    `;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
 
+function leituraDisco(fkMaquina){
+    instrucaoSql = `
+    SELECT total, emUso, disponivel 
+    FROM LeituraDisco 
+    WHERE fkMaquina = '${fkMaquina}';
+    `;
 
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
 
 module.exports = {
     componentesEmFalta,
@@ -146,5 +170,6 @@ module.exports = {
     totalMes,
     qtdManutencoes,
     leituraCPU,
-    leituraRAM
+    leituraRAM,
+    leituraDisco
 };
