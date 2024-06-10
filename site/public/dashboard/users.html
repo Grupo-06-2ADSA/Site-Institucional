@@ -198,7 +198,7 @@
                 <span>Turno</span>
                 <select name="" id="turnoFuncEdit">
                   <option selected disabled value="">Selecionar</option>
-                  <option value="manha">Manhã</option>
+                  <option value="manhã">Manhã</option>
                   <option value="tarde">Tarde</option>
                   <option value="noite">Noite</option>
                 </select>
@@ -248,7 +248,7 @@
           console.log(JSON.stringify(json));
 
           for (var i = 0; i < json.length; i++) {
-            let stringTurno = json[i].turno == 'manha' ? "Manhã" : json[i].turno == 'tarde' ? "Tarde" : "Noite";
+            let stringTurno = json[i].turno == 'manhã' ? "Manhã" : json[i].turno == 'tarde' ? "Tarde" : "Noite";
 
             listaUsers.innerHTML += `
             <div class="user" id="0${i}">
