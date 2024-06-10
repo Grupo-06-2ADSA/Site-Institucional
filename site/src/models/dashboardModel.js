@@ -29,7 +29,7 @@ function computadoresReservas(fkEmpresa){
 
 function computadoresInoperantes(fkEmpresa){
     instrucaoSql = `
-    SELECT COUNT(m.hostname) AS inoperantes 
+    SELECT COUNT(DISTINCT m.hostname) AS inoperantes 
     FROM Maquina m 
     JOIN leituracpu l ON l.fkMaquina = m.hostname 
     WHERE l.dataLeitura < DATEADD(DAY, -1, GETDATE()) AND m.fkEmpresa = ${fkEmpresa};
