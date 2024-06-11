@@ -854,6 +854,8 @@
 
                     if(json[0].tempoAtividade >= 7 || json[0].emUso == 100){
                         document.getElementsByClassName("bolinhaCPU")[0].style.backgroundColor = 'red';
+                    }else{
+                        document.getElementsByClassName("bolinhaCPU")[0].style.backgroundColor = 'green';
                     }
 
                         listaLeituraCPU.push(json[0].emUso)
@@ -902,6 +904,8 @@
 
                     if((json[0].emUso / json[0].total) * 100 > 90){
                         document.getElementsByClassName("bolinhaRAM")[0].style.backgroundColor = 'red';
+                    }else{
+                        document.getElementsByClassName("bolinhaRAM")[0].style.backgroundColor = 'green';
                     }
                     
                     tamanhoRAM.innerHTML = `Memória RAM: ${json[0].total}GB`
@@ -951,7 +955,10 @@
 
                     if((json[0].emUso / json[0].total) * 100 > 90){
                         document.getElementsByClassName("bolinhaDisco")[0].style.backgroundColor = 'red';
+                    }else{
+                        document.getElementsByClassName("bolinhaDisco")[0].style.backgroundColor = 'green';
                     }
+                
                     
                     tamanhoDisco.innerHTML = `Disco: ${json[0].total}GB`
                     
