@@ -854,7 +854,10 @@
 
                     if(json[0].tempoAtividade >= 7 || json[0].emUso == 100){
                         document.getElementsByClassName("bolinhaCPU")[0].style.backgroundColor = 'red';
-                    }else{
+                    }else if(json[0].tempoAtividade >= 7 || json[0].emUso >= 80){
+                        document.getElementsByClassName("bolinhaCPU")[0].style.backgroundColor = 'yellow';
+                    }
+                    else{
                         document.getElementsByClassName("bolinhaCPU")[0].style.backgroundColor = 'green';
                     }
 
@@ -904,7 +907,10 @@
 
                     if((json[0].emUso / json[0].total) * 100 > 90){
                         document.getElementsByClassName("bolinhaRAM")[0].style.backgroundColor = 'red';
-                    }else{
+                    }else if((json[0].emUso / json[0].total) * 100 >= 80){
+                        document.getElementsByClassName("bolinhaRAM")[0].style.backgroundColor = 'yellow';
+                    }
+                    else{
                         document.getElementsByClassName("bolinhaRAM")[0].style.backgroundColor = 'green';
                     }
                     
@@ -955,7 +961,10 @@
 
                     if((json[0].emUso / json[0].total) * 100 > 90){
                         document.getElementsByClassName("bolinhaDisco")[0].style.backgroundColor = 'red';
-                    }else{
+                    }else if((json[0].emUso / json[0].total) * 100 >= 80){
+                        document.getElementsByClassName("bolinhaDisco")[0].style.backgroundColor = 'yellow';
+                    }
+                    else{
                         document.getElementsByClassName("bolinhaDisco")[0].style.backgroundColor = 'green';
                     }
                 
