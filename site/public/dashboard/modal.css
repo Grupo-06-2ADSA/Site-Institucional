@@ -490,6 +490,7 @@
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
     overflow: hidden;
+    overflow-y: hidden;
 }
 
 .informacoes{
