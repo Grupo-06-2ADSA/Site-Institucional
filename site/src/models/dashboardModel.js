@@ -99,7 +99,7 @@ function qtdManutencoes(fkEmpresa){
         UNION ALL
         SELECT 'Limpeza'
         UNION ALL
-        SELECT 'Memória'
+        SELECT 'Memoria'
         UNION ALL
         SELECT 'Rede'
         UNION ALL
